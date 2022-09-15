@@ -41,6 +41,9 @@ $ yarn start or npm run start
  샘플 에디터 [https://stackedit.io/app#](https://stackedit.io/app#)
  
 ## 팀 정보 (Team Information)
+- chan heo(bun73@naver.com), Github Id: chnh506
+- lee jeong in (leeji7682@gmail.com), Github Id: leeji7682
+- YoungJune Kang(cerealmaster@naver.com), Github Id: cerealmaster0621
 - Oh Hyeong Geun (kandy1002@naver.com), Github Id: Geun-Oh
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
