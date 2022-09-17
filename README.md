@@ -1,6 +1,6 @@
 # Team WILIM
 
-## 프로잭트 소개
+## 프로젝트 소개
 - 군 장병들이 자기계발을 하는 과정에서 관련 정보를 수집하고 공부를 준비하는 등의 과정을 최소한으로 줄여서 장병들이 공부에만 집중할 수 있도록 돕는 서비스입니다.
 
 
@@ -13,40 +13,24 @@
 * 권장: Google Chrome 버젼 77 이상
 
 ## 기술 스택 (Technique Used) 
-### Server(back-end)
- - node.js 16.17.0 LTS version
- - express.js 를 이용한 서버 구축
- - MongoDB를 이용한 데이터베이스 구축
+
+### Back-end
+ - <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> 16.17.0 LTS version
+ - <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white"> 를 이용한 서버 구축
+ - <img src="https://img.shields.io/badge/mongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"> 를 이용한 데이터베이스 구축
  
 ### Front-end
- - react.js를 이용한 반응형 웹 구축
- - UI framework
- - styled-components를 이용한 CSS-In-JS스타일링, recoil을 이용한 state management
+ - <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 를 이용한 반응형 웹 구축
+ - <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> 를 이용한 Global state management
+ - <img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"> 를 이용한 CSS-In-JS스타일링
 
-## 설치 안내 (Installation Process)
-```bash
-$ git clone git주소
-$ yarn or npm install
-$ yarn start or npm run start
-```
-
-## 프로젝트 사용법 (Getting Started)
-**마크다운 문법을 이용하여 자유롭게 기재**
-
-잘 모를 경우
-구글 검색 - 마크다운 문법
-[https://post.naver.com/viewer/postView.nhn?volumeNo=24627214&memberNo=42458017](https://post.naver.com/viewer/postView.nhn?volumeNo=24627214&memberNo=42458017)
-
- 편한 마크다운 에디터를 찾아서 사용
- 샘플 에디터 [https://stackedit.io/app#](https://stackedit.io/app#)
- 
-## 팀 정보 (Team Information)
+## Team Info
 - chan heo(bun73@naver.com), Github Id: chnh506
 - lee jeong in (leeji7682@gmail.com), Github Id: leeji7682
 - YoungJune Kang(cerealmaster@naver.com), Github Id: cerealmaster0621
 - Oh Hyeong Geun (kandy1002@naver.com), Github Id: Geun-Oh
 
-## 저작권 및 사용권 정보 (Copyleft / End User License)
+## Copyleft / End User License
  * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
 
 This project is licensed under the terms of the MIT license.
