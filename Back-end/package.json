@@ -4,12 +4,16 @@
   "description": "WILIM BACKEND",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec babel-node src/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.19.1",
+    "@babel/node": "^7.19.1",
+    "@babel/preset-env": "^7.19.1",
     "dotenv": "^16.0.2",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
@@ -18,6 +22,7 @@
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "mongoose": "^6.6.1",
+    "nodemon": "^2.0.20",
     "passport": "^0.6.0",
     "prettier": "^2.7.1"
   }

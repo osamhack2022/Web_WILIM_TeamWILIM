@@ -1,4 +1,7 @@
-const express = require('express');
+// const express = require('express');
+
+// es6 way
+import express from "express";
 
 const app = express();
 
