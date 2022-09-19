@@ -8,7 +8,7 @@ export const Text = ({ color, fontSize, fontFamily, textAlign }) => {
     );
 };
 
-const TextDiv = styled.text`
+const TextDiv = styled.p`
     color: ${({color}) => color || 'black'};
     font-size: ${({fontSize}) => fontSize || '10px'};
     font-weight: ${({fontWeight}) => fontWeight || '1.2'};
