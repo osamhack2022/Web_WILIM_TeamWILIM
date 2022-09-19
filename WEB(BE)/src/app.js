@@ -3,9 +3,12 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 //env setting
-import "./env.js";
-import { db_cstring } from "./db.js";
-console.log(db_cstring);
+// import './env';
+// import {db_cstring} from './db';
+// console.log(process.env.DB_CSTRING);
+require('dotenv').config()
+
+console.log(result.parsed)
 
 const localPort = 5000;
 
@@ -17,7 +20,7 @@ app.use(bodyParser.json());
 
 //mongoose connection
 mongoose
-    .connect("mongodb+srv://WILIM:wilimadmin@wilim-database.erisix0.mongodb.net/?retryWrites=true&w=majority")
+    .connect(process.env.DB_CSTRING)
     .then(()=>{
         app.listen(localPort,()=>{
             console.log(`listening on ${localPort}`);
