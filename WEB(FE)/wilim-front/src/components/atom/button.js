@@ -22,7 +22,7 @@ const ButtonDiv = styled.button`
     width: ${({ width }) => width || '100px'};
     height: ${({ height }) => height || '40px'};
     font-size: ${BaseStyles.Text.Heading4};
-    font-family: ${BaseStyles.Font.FiraCode};
+    font-family: ${BaseStyles.Font.Inter};
     font-weight: ${BaseStyles.Text.Border0};
     padding: 0.5rem 1rem;
     border-radius: 1rem;

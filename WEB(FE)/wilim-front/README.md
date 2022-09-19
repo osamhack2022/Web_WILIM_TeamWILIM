@@ -41,7 +41,3 @@ eslint 와 prettier 설정을 마쳤습니다.
 -> 해당 링크 참고하였습니다.
 
 + 추가적으로 reset css 적용해주었습니다.
-
-### 22.09.19
-
-Atom 중 button과 input에 대한 컴포넌트 제작.

@@ -36,11 +36,7 @@ export const BaseStyles = {
         Border4: 300,
     },
     Font: {
-        FiraCode: "Fira Code",
-        IBMPlexMono: "IBM Plex Mono",
-        NotoSans: "Noto Sans",
-        NotoSansKR: "Noto Sans KR",
-        BlackHanSans: "Black Han Sans",
+        Inter: 'Inter'
     },
     Shadow: {
         BottomDefault: "0px 1px 5px rgba(0, 0, 0, 0.1), 0px 3.6px 13px rgba(0, 0, 0, 0.07), 0px 8.4px 23px rgba(0, 0, 0, 0.06), 0px 23px 35px rgba(0, 0, 0, 0.05)",
