@@ -2,9 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { BaseStyles } from '../theme';
 
-export const Text = ({ color, fontSize, fontFamily, textAlign }) => {
+export const Text = ({ color, fontSize, fontFamily, textAlign, innerText }) => {
     return (
-        <TextDiv color={color} font-size={fontSize} font-family={fontFamily} text-align={textAlign} />
+        <TextDiv color={color} font-size={fontSize} font-family={fontFamily} text-align={textAlign}>
+            {innerText || '내용을 입력해주세요'}
+        </TextDiv>
     );
 };
 
