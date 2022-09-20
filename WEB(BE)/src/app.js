@@ -7,7 +7,7 @@ const app = express();
 
 //api test
 app.get('/hello',(req,res,next)=>{
-    res.send("hello world!");
+    res.send({"msg" : "hello world!"});
 })
 
 app.listen(5000,()=>{
