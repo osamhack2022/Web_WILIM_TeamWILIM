@@ -3,12 +3,10 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 //env setting
-// import './env';
-// import {db_cstring} from './db';
-// console.log(process.env.DB_CSTRING);
-require('dotenv').config()
 
-console.log(result.parsed)
+import "./env.js";
+import { db_cstring } from "./db.js";
+// console.log(db_cstring);
 
 const localPort = 5000;
 
@@ -20,7 +18,7 @@ app.use(bodyParser.json());
 
 //mongoose connection
 mongoose
-    .connect(process.env.DB_CSTRING)
+    .connect(db_cstring)
     .then(()=>{
         app.listen(localPort,()=>{
             console.log(`listening on ${localPort}`);
