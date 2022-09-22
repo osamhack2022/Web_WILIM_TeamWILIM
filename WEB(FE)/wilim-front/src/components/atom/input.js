@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { BaseStyles } from '../theme';
 
-export const Input = ({ type, innerText, width, height, focusColor, style }) => {
+export const Input = ({ type, placeholder, width, height, focusColor, style }) => {
     return (
-        <InputDiv type={type} width={width} height={height} focusColor={focusColor} placeholder={innerText || 'InnerText'}  style={style}/>
+        <InputDiv type={type} width={width} height={height} focusColor={focusColor} placeholder={placeholder || 'InnerText'}  style={style}/>
     )
 };
 
