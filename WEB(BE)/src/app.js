@@ -2,8 +2,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-//env setting
 
+//env setting
 import "./env.js";
 import { db_cstring } from "./db.js";
 // console.log(db_cstring);
@@ -15,6 +15,10 @@ const app = express();
 //middlewares
 app.use(bodyParser.json());
 
+
+//routes
+app.use('/newUserSchemaAPI',placesRoutes);
+app.use('/newUserInfoFetchingAPI',usersRoutes);
 
 //mongoose connection
 mongoose
