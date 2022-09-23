@@ -10,12 +10,14 @@
 
 import User from "./../models/user";
 import express from 'express';
-import router from express.Router();
-import {} from "../controller/newUserSchemaAPI";
+import {getNewUser} from "../controller/newUserSchemaAPI";
+
+const router = express.Router();
 
 router.route("/createUserSchema")
 
 router.route('/readUserSchema')
+    .get(getNewUser);
 
 router.route('/updateUserSchema')
 
