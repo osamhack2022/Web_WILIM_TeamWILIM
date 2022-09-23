@@ -8,20 +8,3 @@
 /fetchWithOpcl
 */
 
-import User from "./../models/user";
-import express from "express";
-import router from express.Router();
-import {} from "../controller/newUserInfoFetchingAPI";
-
-router.route("/fetchWithQnet")
-
-router.route('/fetchWithQnetPreviousQuestion')
-
-router.route('/fetchWithCbt')
-
-router.route('/fetchWithKisa')
-
-router.route('/fetchWithOpcl')
-
-module.exports = router;
-
