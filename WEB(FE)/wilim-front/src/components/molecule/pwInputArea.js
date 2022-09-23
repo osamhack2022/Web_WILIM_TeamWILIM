@@ -5,13 +5,13 @@ import { Input } from "../atom/input";
 import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
 
-export const IdInputArea = () => {
+export const PasswordInputArea = () => {
   return (
     <div style={{ width: "100%" }}>
       <Flex flexDirection="column" alignItems="left">
         <div style={{ marginBottom: "0.5rem" }}>
           <Text
-            innerText="ID"
+            innerText="Password"
             fontSize="24px"
             fontWeight={BaseStyles.Text.Border1}
             color="white"
@@ -24,11 +24,9 @@ export const IdInputArea = () => {
         </div>
         <Flex justifyContent="center" alignItems="center">
           <Input
-            type="text"
-            placeholder="ID..."
-            style={{ marginRight: "0.5rem" }}
+            type="password"
+            placeholder="password..."
           />
-          <Button innerText="Check" />
         </Flex>
       </Flex>
     </div>

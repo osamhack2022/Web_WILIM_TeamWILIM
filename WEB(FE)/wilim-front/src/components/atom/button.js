@@ -20,11 +20,11 @@ const ButtonDiv = styled.button`
     background: ${({ backgroundColor }) => backgroundColor || BaseStyles.Color.Beige3};
     color: ${({ color }) => color || BaseStyles.Color.Black4};
     width: ${({ width }) => width || '100px'};
-    height: ${({ height }) => height || '40px'};
+    height: ${({ height }) => height || '100%'};
     font-size: ${BaseStyles.Text.Heading4};
     font-family: ${BaseStyles.Font.Inter};
     font-weight: ${BaseStyles.Text.Border0};
-    padding: 0.5rem 1rem;
+    padding: 1rem;
     border-radius: 1rem;
     line-height: auto;
     display: flex;
