@@ -1,26 +1,37 @@
-import { Button } from "../src/components/atom/button";
-import { Input } from "../src/components/atom/input";
-import { Text } from "../src/components/atom/text";
+import { BaseStyles } from "./components/theme";
+import styled from "styled-components";
+import { LoginPage } from "./components/template/loginPage";
 
 function App() {
   return (
-    <div style={style}>
-      <Button onClick={() => console.log("hello!")} innerText="Submit" style={{ marginBottom: '20px' }} />
-      <Input type="password" innerText="password..." />
-      <Text color='red' innerText="hello" />
-    </div>
+    <MediaDiv>
+      <InnerMediaDiv>
+        <LoginPage />
+      </InnerMediaDiv>
+    </MediaDiv>
   );
 }
 
-const style = {
-  width: '40vw',
-  height: '100vh',
-  margin: 0,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  background: 'lightgray',
-}
+const MediaDiv = styled.div`
+  position: fixed;
+  left: 35vw;
+  width: 30vw;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #616161;
+  fontfamily: ${BaseStyles.Font.Inter};
+  @media (max-width: 1280px) {
+    left: 0;
+    width: 100vw;
+  }
+`;
+
+const InnerMediaDiv = styled.div`
+  width: 80%;
+`;
 
 export default App;
