@@ -8,16 +8,18 @@
 /deleteUserSchema
 */
 
-import User from "./../models/user";
+import User from "../models/user.js";
 import express from 'express';
-import {getNewUser} from "../controller/newUserSchemaAPI";
+import {getUsers, getUserInfo} from "../controller/userSchemaAPI.js";
 
 const router = express.Router();
 
 router.route("/createUserSchema")
 
-router.route('/readUserSchema')
-    .get(getNewUser);
+router.get('/readUserSchema',getUsers); //전체 유저정보 가지고 오는 request
+
+router.route('/readUserSchema/:uid')
+    .get(getUserInfo) //user id로 해당 유저 정보 가지고 오는 request
 
 router.route('/updateUserSchema')
 
