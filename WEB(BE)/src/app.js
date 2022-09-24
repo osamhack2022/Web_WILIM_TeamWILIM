@@ -10,7 +10,6 @@ import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
 //env setting
 import "./env.js";
 import { db_cstring } from "./db.js";
-// console.log(db_cstring);
 
 const localPort = 5000;
 
