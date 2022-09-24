@@ -36,7 +36,7 @@ const InputDiv = styled.input`
     justify-content: flex-start;
     align-items: center;
     padding: 1rem;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     &:hover {
         border: 1px solid ${({ focusColor }) =>
           focusColor || BaseStyles.Color.Beige2};

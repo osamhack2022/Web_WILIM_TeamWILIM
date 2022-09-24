@@ -1,37 +1,13 @@
-import { BaseStyles } from "./components/theme";
-import styled from "styled-components";
-import { LoginPage } from "./components/template/loginPage";
+import { Layout } from "./layout/Layout";
 
+/**
+ * App.js는 Redux Store Provider나 ThemeProvider 등의 Provider를 전달하는 데 사용되고, 최종적인 컴포넌트의 완성점이 됩니다.
+ * @returns 최종적인 컴포넌트를 return합니다.
+ */
 function App() {
   return (
-    <MediaDiv>
-      <InnerMediaDiv>
-        <LoginPage />
-      </InnerMediaDiv>
-    </MediaDiv>
+    <Layout />
   );
 }
-
-const MediaDiv = styled.div`
-  position: fixed;
-  left: 35vw;
-  width: 30vw;
-  height: 100vh;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #616161;
-  fontfamily: ${BaseStyles.Font.Inter};
-  @media (max-width: 1280px) {
-    left: 0;
-    width: 100vw;
-  }
-`;
-
-const InnerMediaDiv = styled.div`
-  width: 80%;
-`;
 
 export default App;

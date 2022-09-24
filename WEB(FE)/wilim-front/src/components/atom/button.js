@@ -13,6 +13,7 @@ export const Button = ({ onClick, width, height, color, hoverColor, backgroundCo
 const ButtonDiv = styled.button`
     box-shadow: ${BaseStyles.Shadow.BottomDefault};
     transition-duration: 0.5s;
+    cursor: pointer;
     outline: none;
     border: none;
     box-sizing: border-box;
@@ -25,13 +26,14 @@ const ButtonDiv = styled.button`
     font-family: ${BaseStyles.Font.Inter};
     font-weight: ${BaseStyles.Text.Border0};
     padding: 1rem;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     line-height: auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     &:hover {
-    background: ${({ hoverColor }) => hoverColor || BaseStyles.Color.Beige1};
+        background: ${({ hoverColor }) => hoverColor || BaseStyles.Color.Beige1};
+        border-radius: 1rem;
     }
 `
