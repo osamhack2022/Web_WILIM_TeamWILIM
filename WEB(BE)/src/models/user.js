@@ -1,5 +1,6 @@
 //id, displayName, password, email, goal, plan
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     id: {
@@ -23,4 +24,5 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-module.exports = { User };
+// module.exports = { User };
+export default User;

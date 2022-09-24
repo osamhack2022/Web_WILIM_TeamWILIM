@@ -20,3 +20,43 @@
     - /updateMonthlyPlan
     - /deleteMonthlyPlan
 */
+
+import express from "express";
+import mongoose from "mongoose";
+import { 
+    getDailyPlan, 
+    postDailyPlan, 
+    updateDailyPlan, 
+    deleteDailyPlan, 
+    getWeeklyPlan, 
+    postWeeklyPlan, 
+    updateWeeklyPlan, 
+    deleteWeeklyPlan,
+    getMonthlyPlan,
+    postMonthlyPlan,
+    updateMonthlyPlan,
+    deleteMonthlyPlan
+} from "../controller/userPersonalPlanAPI";
+
+
+const router = express.Router();
+
+router.route('/daily')
+    .get(getDailyPlan)
+    .post(postDailyPlan)
+    .put(updateDailyPlan)
+    .delete(deleteDailyPlan);
+
+router.route('/weekly')
+    .get(getWeeklyPlan)
+    .post(postWeeklyPlan)
+    .put(updateWeeklyPlan)
+    .delete(deleteWeeklyPlan);
+
+router.route('/monthly')
+    .get(getMonthlyPlan)
+    .post(postMonthlyPlan)
+    .put(updateMonthlyPlan)
+    .delete(deleteMonthlyPlan);
+
+export default router;
