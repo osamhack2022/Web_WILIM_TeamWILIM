@@ -14,28 +14,28 @@ async function main() {
 
 const data = [
     {
-        id : "HyeongGeun",
         displayName : "Geun-Oh",
-        password : "123456",
-        email : "bun73@naver.com"
+        password : "00000000",
+        email : "bun73@naver.com",
+        serviceType : 'ARMY'
     },
     {
-        id : "leeji7682",
         displayName : "JeongIn",
-        password : "123456",
+        password : "00000000",
         email : "leeji7682@gmail.com",
+        serviceType : 'ARMY'
     },
     {
-        id : "Cerealmaster0621",
         displayName : "cerealmaster",
-        password : "123456",
-        email : "cerealmaster@naver.com"
+        password : "00000000",
+        email : "cerealmaster@naver.com",
+        serviceType : 'ARMY',
     },
     {
-        id : "chnh506",
         displayName : "Chan",
-        password : "123456",
-        email : "kandy1002@naver.com"
+        password : "00000000",
+        email : "kandy1002@naver.com",
+        serviceType : 'AIR_FORCE',
     }
 ];
 
