@@ -5,7 +5,7 @@ import { Input } from "../atom/input";
 import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
 
-export const IdInputArea = () => {
+export const IdInputArea = ({ buttonText }) => {
   return (
     <div style={{ width: "100%" }}>
       <Flex flexDirection="column" alignItems="left">
@@ -26,9 +26,8 @@ export const IdInputArea = () => {
           <Input
             type="text"
             placeholder="ID..."
-            style={{ marginRight: "0.5rem" }}
           />
-          <Button innerText="Check" />
+          {buttonText && <Button innerText={buttonText} style={{ marginLeft: "0.5rem" }} />}
         </Flex>
       </Flex>
     </div>
