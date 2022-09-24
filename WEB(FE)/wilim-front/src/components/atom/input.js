@@ -8,6 +8,9 @@ export const Input = ({
   width,
   height,
   focusColor,
+  onChange,
+  value,
+  name,
   style,
 }) => {
   return (
@@ -16,6 +19,9 @@ export const Input = ({
       width={width}
       height={height}
       focusColor={focusColor}
+      onChange={onChange}
+      value={value}
+      name={name}
       placeholder={placeholder || "InnerText"}
       style={style}
     />

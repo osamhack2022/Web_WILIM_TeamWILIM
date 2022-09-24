@@ -5,9 +5,7 @@ import { Layout } from "./layout/Layout";
  * @returns 최종적인 컴포넌트를 return합니다.
  */
 function App() {
-  return (
-    <Layout />
-  );
+  return <Layout />;
 }
 
 export default App;
