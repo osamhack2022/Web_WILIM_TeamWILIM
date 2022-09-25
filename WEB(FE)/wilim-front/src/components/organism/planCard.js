@@ -6,24 +6,17 @@ import { MarginBox } from "../atom/marginBox";
 import { Text } from "../atom/text";
 import { Plan } from "../molecule/plan";
 import { BaseStyles } from "../theme";
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleCompleted } from '../../store/slices/userPlanSlice';
 
 export const PlanCard = () => {
-  const plans = [
-    {
-      detail: "레시피 4개 암기하기",
-      completed: true,
-    },
-    {
-      detail: "조주 영상 3개 찾아보기",
-      completed: true,
-    },
-    {
-      detail: "시뮬레이션 돌려보기",
-      completed: false,
-    },
-  ];
-  const [planList, setPlanList] = useState(plans);
-
+  const planList = useSelector(state => state.userPlan.list);
+  console.log(planList);
+  // const [planList, setPlanList] = useState(plans);
+  const dispatch = useDispatch();
+  const handleToggle = (e) => {
+    dispatch(toggleCompleted(e.target.id));
+  }
   return (
     <Box
       width="80%"
@@ -51,7 +44,7 @@ export const PlanCard = () => {
           planList.map(({ completed, detail }, index) => 
             <div key={index}>
               <MarginBox marginBottom="1rem" />
-              <Plan completed={completed} detail={detail} />
+              <Plan completed={completed} detail={detail} onClick={(e) => handleToggle(e)} id={detail} />
             </div>
           )}
       </Flex>

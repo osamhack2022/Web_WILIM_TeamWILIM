@@ -13,7 +13,7 @@ export const CreateAccountTemplate = () => {
   const initialForm = {
     email: "",
     password: "",
-    displayName: "",
+    username: "",
     serviceType: "",
   };
   const [userInfoForm, setUserInfoForm] = useState(initialForm);
@@ -48,14 +48,14 @@ export const CreateAccountTemplate = () => {
         />
         <MarginBox marginBottom="2rem" />
         <InputArea
-          title="Display Name"
-          name="displayName"
+          title="User Name"
+          name="username"
           essential={true}
           inputType="text"
           placeholder="Name..."
           buttonText="Check"
           onChange={(e) => handleChange(e)}
-          value={userInfoForm.displayName}
+          value={userInfoForm.username}
         />
         <MarginBox marginBottom="2rem" />
         <InputArea
