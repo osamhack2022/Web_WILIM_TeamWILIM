@@ -1,5 +1,7 @@
-//id, displayName, password, email, goal, plan
+//id, username, password, email, goal, plan
 import mongoose from "mongoose";
+const passportLocalMongoose = require('passport-local-mongoose');
+
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -9,15 +11,11 @@ const userSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    password: {
-        type: String,
-        required: true,
-        minlength: 8,
-    },
-    displayName: { //displayName 없으면 email 이 대신함
+    username: {
         type: String,
         maxLength: 50,
         unique: true,
+        required : true
     },
     serviceType: {
         type: String,
@@ -27,7 +25,8 @@ const userSchema = new mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId,
 });
 
-const User = mongoose.model("User", userSchema);
+//유저스키마에 passport-local-mongoose 플러그인 함으로써 유저가 회원가입할때 받아온 비밀번호를 자동으로 hashing 해서 스키마에 추가해줌.
+userSchema.plugin(passportLocalMongoose);
 
-// module.exports = { User };
+const User = mongoose.model("User", userSchema);
 export default User;
