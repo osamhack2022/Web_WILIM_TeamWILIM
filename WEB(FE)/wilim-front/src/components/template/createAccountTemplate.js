@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Button } from "../atom/button";
 import { Flex } from "../atom/flex";
+import { Input } from "../atom/input";
 import { Line } from "../atom/line";
 import { MarginBox } from "../atom/marginBox";
 import { Text } from "../atom/text";
 import { InputArea } from "../molecule/inputArea";
+import { RadioInput } from "../molecule/radioInput";
 import { BaseStyles } from "../theme";
 
 export const CreateAccountTemplate = () => {
@@ -66,30 +68,25 @@ export const CreateAccountTemplate = () => {
           value={userInfoForm.password}
         />
         <MarginBox marginBottom="2rem" />
-        {/* <Flex>
-          <input
-            type="radio"
+        <Flex alignItems="center" justifyContent="center">
+          <RadioInput
             name="serviceType"
             value="육군"
             onChange={(e) => handleChange(e)}
-            checked
-          >육군
-          </input>
-          <input
-            type="radio"
+          />
+          <MarginBox marginLeft="1rem" />
+          <RadioInput
             name="serviceType"
             value="해군"
             onChange={(e) => handleChange(e)}
-          >해군
-          </input>
-          <input
-            type="radio"
+          />
+          <MarginBox marginLeft="1rem" />
+          <RadioInput
             name="serviceType"
             value="공군"
             onChange={(e) => handleChange(e)}
-          >공군
-          </input>
-        </Flex> */}
+          />
+        </Flex>
         <MarginBox marginBottom="3rem" />
         <Flex flexDirection="column" alignItems="center">
           <Button

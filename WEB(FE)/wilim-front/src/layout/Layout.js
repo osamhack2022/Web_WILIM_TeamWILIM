@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { LoginTemplate } from "../components/template/loginTemplate";
 import { CreateAccountTemplate } from "../components/template/createAccountTemplate";
 import { useState } from "react";
+import { Calender } from "../components/atom/calender";
+import { GoalCard } from "../components/organism/goalCard";
+import { PlanCard } from "../components/organism/planCard";
 
 /**
  * Layout은 App.js로 가기 전에 최종적인 라우팅 밑 GNB 등의 컴포넌트가 합쳐지는 장소입니다.
@@ -24,10 +27,14 @@ export const Layout = () => {
         <InnerMediaDiv>
           {(() => {
             switch(pageNumber) {
-              case "1":
+              case "0":
                 return <LoginTemplate />
+              case "1":
+                return <><GoalCard /><PlanCard /></>
               case "2":
                 return <CreateAccountTemplate />
+              case "3":
+                return <Calender />
               default:
                 return <LoginTemplate />
             }
