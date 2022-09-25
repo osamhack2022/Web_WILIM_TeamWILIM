@@ -85,6 +85,9 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+}
+
+body {
   background-color: #616161;
 }
 
@@ -128,4 +131,16 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./font/Inter/Inter-Regular.ttf");
 }

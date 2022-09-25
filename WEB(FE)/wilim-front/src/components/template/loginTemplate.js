@@ -1,10 +1,9 @@
 import { Text } from "../atom/text";
 import { Flex } from "../atom/flex";
 import { MarginBox } from "../atom/marginBox";
-import { IdInputArea } from "../molecule/idInputArea";
-import { PasswordInputArea } from "../molecule/pwInputArea";
 import { BaseStyles } from "../theme";
 import { Button } from "../atom/button";
+import { InputArea } from "../molecule/inputArea";
 
 export const LoginTemplate = () => {
   return (
@@ -20,9 +19,9 @@ export const LoginTemplate = () => {
       </Flex>
       <MarginBox marginBottom="6rem" />
       <Flex flexDirection="column" alignItems="left">
-        <IdInputArea buttonText='Check' />
+        <InputArea title="E-mail" inputType="text" placeholder='E-mail...' />
         <MarginBox marginBottom="2rem" />
-        <PasswordInputArea />
+        <InputArea title="Password" inputType="password" placeholder='password...' />
       </Flex>
       <MarginBox marginBottom="1rem" />
       <Text
@@ -38,7 +37,10 @@ export const LoginTemplate = () => {
       <Flex flexDirection="column" alignItems="center">
         <Button
           innerText="Login"
-          onClick={() => console.log("Login...")}
+          onClick={(e) => {
+            e.preventDefault();
+            console.log("Login...");
+          }}
           color="white"
           backgroundColor={BaseStyles.Color.Orange2}
           hoverColor={BaseStyles.Color.Orange3}
