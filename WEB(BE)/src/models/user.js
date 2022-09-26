@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
 });
 
 //유저스키마에 passport-local-mongoose 플러그인 함으로써 유저가 회원가입할때 받아온 비밀번호를 자동으로 hashing 해서 스키마에 추가해줌.
-userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(passportLocalMongoose,{ usernameField: "email" });
 
 const User = mongoose.model("User", userSchema);
 export default User;

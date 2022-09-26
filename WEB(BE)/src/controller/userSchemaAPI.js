@@ -52,3 +52,10 @@ module.exports.deleteUser = async(req,res,next)=>{
         }
     });
 }
+
+//POST login  res.status(200).json({email, username, serviceType, goal})
+module.exports.login = async(req,res,next)=>{
+    const {email} = req.body;
+    const user = await User.findOne({email : email});
+    res.status(200).json({"email" : user.email, "username" : user.username, "servictType" : user.serviceType});
+}

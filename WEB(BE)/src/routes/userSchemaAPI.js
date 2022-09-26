@@ -6,7 +6,8 @@
 
 import User from "../models/user.js";
 import express from 'express';
-import {getUsers, getUserInfo,createNewUser,updateUser, deleteUser} from "../controller/userSchemaAPI.js";
+const passport = require("passport");
+import {getUsers, getUserInfo,createNewUser,updateUser, deleteUser, login} from "../controller/userSchemaAPI.js";
 
 const router = express.Router();
 
@@ -17,5 +18,13 @@ router.route('/:username')
     .get(getUserInfo)  // username 일치하는 유저 가져옴
     .put(updateUser)  //기존 유저 update 
     .delete(deleteUser)  //기존 유저 delete
+router.route('/login')
+    .post(passport.authenticate('local',{
+        failureRedirect : '/userSchemaAPI/loginerror'
+    }), login)
+
+router.get('/loginerror',(req,res)=>{
+    res.status(404).json({ message: "User Not Found" });
+})
 
 module.exports = router;
