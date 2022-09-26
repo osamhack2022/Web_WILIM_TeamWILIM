@@ -13,16 +13,16 @@ module.exports.getUserInfo = async (req,res,next) =>{
     if (!user) {
         return res.status(404).json({ message: "user not found" });
     }
-    res.send(user);
+    res.status(201).json({email : user.email , username : user.username, serviceType : user.serviceType});
 }
 
-//POST create new user 회원가입은 이쪽에서!
+//POST create new user 회원가입은 이쪽에서! res.status(201).json({email, username, serviceType})
 module.exports.createNewUser = async (req,res,next) => {
     try{
         const {email, username, password, serviceType} = req.body;
         const user = new User({email : email, username : username, serviceType : serviceType});
         const newUser = await User.register(user,password);
-        res.send(newUser);
+        res.status(201).json({newUser});
     } catch(e){
         return res.status(404).json({message : e.message})
     }
@@ -53,9 +53,14 @@ module.exports.deleteUser = async(req,res,next)=>{
     });
 }
 
-//POST login  res.status(200).json({email, username, serviceType, goal})
+//POST login
 module.exports.login = async(req,res,next)=>{
     const {email} = req.body;
     const user = await User.findOne({email : email});
     res.status(200).json({"email" : user.email, "username" : user.username, "servictType" : user.serviceType});
+}
+
+//POST loginerror
+module.exports.loginerror = (req,res,next) =>{
+    res.status(404).json({message : "User not found"});
 }
