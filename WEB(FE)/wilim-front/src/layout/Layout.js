@@ -31,8 +31,6 @@ export const Layout = () => {
                 return <GoalPlanTemplate />
               case "2":
                 return <CreateAccountTemplate />
-              case "3":
-                return <Calender />
               default:
                 return <LoginTemplate />
             }

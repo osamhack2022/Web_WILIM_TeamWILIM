@@ -5,19 +5,27 @@ import { Text } from "../atom/text";
 import { GoalCard } from "../organism/goalCard";
 import { PlanCard } from "../organism/planCard";
 import { BaseStyles } from "../theme";
+import { useSelector } from "react-redux";
 
 export const GoalPlanTemplate = () => {
+  const username = useSelector(state => state.userInfo.username);
   return (
     <Flex flexDirection="column" alignItems="center">
-      <Flex flexDirection="column" alignItems="flex-start" width="100%">
-        <Text
-          innerText="오형근 님"
-          color="white"
-          fontSize={BaseStyles.Text.Heading2}
-          fontWeight={BaseStyles.Text.Border0}
-        />
+      <Flex flexDirection="column" alignItems="center" width="80%">
+        <Flex width="calc(100% + 2rem)">
+          <Text
+            innerText={`${username} 님`}
+            color="white"
+            fontSize={BaseStyles.Text.Heading2}
+            fontWeight={BaseStyles.Text.Border0}
+          />
+        </Flex>
         <MarginBox marginBottom="0.5rem" />
-        <Line width="80%" height="1px" color={BaseStyles.Color.Black0} />
+        <Line
+          width="calc(100% + 2rem)"
+          height="1px"
+          color={BaseStyles.Color.Black0}
+        />
       </Flex>
       <MarginBox marginBottom="2rem" />
       <GoalCard />
