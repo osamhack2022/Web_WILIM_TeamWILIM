@@ -4,6 +4,8 @@
   "description": "WILIM BACKEND",
   "main": "index.js",
   "scripts": {
+    "start": "npx --package @babel/cli babel src --out-dir dist --copy-files dist/app.js",
+    "build": "babel src --out-dir dist --copy-files",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --exec babel-node src/app.js"
   },
