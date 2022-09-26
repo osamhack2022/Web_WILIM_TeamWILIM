@@ -6,7 +6,7 @@ import { BaseStyles } from "../theme";
 
 export const GoalCard = () => {
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" width="100%" alignItems="center">
       <Box
         width="80%"
         borderRadius="0.5rem 0.5rem 0 0"

@@ -1,13 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import user from "../../schema/user";
 
 export const userInfoSlice = createSlice({
   name: "user",
-  initialState: {
-    email: "",
-    password: "",
-    username: "",
-    serviceType: "",
-  },
+  initialState: user,
   reducers: {
     callUserInfo: (state, action) => [ ...state, action.payload ],
   }
