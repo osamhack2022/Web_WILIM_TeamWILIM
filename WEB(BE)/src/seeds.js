@@ -1,5 +1,5 @@
 //개발용 dummy data 심는 파일
-//id, displayName, password, email, goal, plan
+//id, username, password, email, goal, plan
 import mongoose from 'mongoose';
 import User from './models/user.js';
 import "./env.js";
@@ -14,25 +14,25 @@ async function main() {
 
 const data = [
     {
-        displayName : "Geun-Oh",
+        username : "Geun-Oh",
         password : "00000000",
         email : "bun73@naver.com",
         serviceType : 'ARMY'
     },
     {
-        displayName : "JeongIn",
+        username : "JeongIn",
         password : "00000000",
         email : "leeji7682@gmail.com",
         serviceType : 'ARMY'
     },
     {
-        displayName : "cerealmaster",
+        username : "cerealmaster",
         password : "00000000",
         email : "cerealmaster@naver.com",
         serviceType : 'ARMY',
     },
     {
-        displayName : "Chan",
+        username : "Chan",
         password : "00000000",
         email : "kandy1002@naver.com",
         serviceType : 'AIR_FORCE',

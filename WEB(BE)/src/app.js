@@ -1,23 +1,41 @@
 // es6 way
+import User from './models/user';
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
+import session from 'express-session';
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
 //순서대로 개발 끝나면 코맨트 풀기!
 // import newUserInfoFetchingAPIRoutes from './routes/newUserSchemaAPI';
 // import userPersonalPlanAPIRoutes from './routes/userPersonalPlanAPI';
 // import communityAPIRoutes from './routes/communityAPI';
 //env setting
 import "./env.js";
-import { db_cstring } from "./db.js";
+import { db_cstring , session_secret } from "./db.js";
 
 const localPort = 5000;
 
 const app = express();
 
+const sessionConfig = {
+    secret: session_secret,
+    resave: false,
+    saveUninitialized: true,
+};
+
 //middlewares
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
+app.use(session(sessionConfig));
+
+//passport config
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //mongoose connection
 main().catch(err => console.log(err));
