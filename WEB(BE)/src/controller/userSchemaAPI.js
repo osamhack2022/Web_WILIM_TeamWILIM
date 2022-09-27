@@ -16,19 +16,6 @@ module.exports.getUserInfo = async (req,res,next) =>{
     res.status(201).json({email : user.email , username : user.username, serviceType : user.serviceType});
 }
 
-//POST create new user 회원가입은 이쪽에서! res.status(201).json({email, username, serviceType})
-module.exports.createNewUser = async (req,res,next) => {
-    try{
-        const {email, username, password, serviceType} = req.body;
-        const user = new User({email : email, username : username, serviceType : serviceType});
-        const newUser = await User.register(user,password);
-        res.status(201).json({newUser});
-    } catch(e){
-        return res.status(404).json({message : e.message})
-    }
-    
-}
-
 //PUT update userInfo
 module.exports.updateUser = async (req,res,next) =>{
     try{
@@ -51,6 +38,29 @@ module.exports.deleteUser = async(req,res,next)=>{
             res.send(deletedUser);
         }
     });
+}
+
+//GET render Register
+module.exports.renderRegister = (req,res,next)=>{
+    res.render('userSchemaAPI/register');
+}
+
+//POST create new user 회원가입은 이쪽에서! res.status(201).json({email, username, serviceType})
+module.exports.createNewUser = async (req,res,next) => {
+    try{
+        const {email, username, password, serviceType} = req.body;
+        const user = new User({email : email, username : username, serviceType : serviceType});
+        const newUser = await User.register(user,password);
+        res.status(201).json({newUser});
+    } catch(e){
+        return res.status(404).json({message : e.message})
+    }
+    
+}
+
+//GET render login
+module.exports.renderLogin = (req,res,next)=>{
+    res.render('userSchemaAPI/login');
 }
 
 //POST login

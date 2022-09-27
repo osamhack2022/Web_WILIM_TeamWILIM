@@ -5,20 +5,19 @@
 */
 import express from 'express';
 const passport = require("passport");
-import {getUsers, getUserInfo,createNewUser,updateUser, deleteUser, loginerror, login} from "../controller/userSchemaAPI.js";
+import {getUsers, getUserInfo,createNewUser,updateUser, deleteUser, loginerror, login, renderRegister, renderLogin} from "../controller/userSchemaAPI.js";
 
 const router = express.Router();
 
 router.route('/')
     .get(getUsers) // 모든 유저 가져옴
+
+router.route('/register')
+    .get(renderRegister)
     .post(createNewUser)  // 새로운 유저 생성 회원가입은 이쪽에서!
 
-router.route('/:username')
-    .get(getUserInfo)  // username 일치하는 유저 가져옴
-    .put(updateUser)  //기존 유저 update 
-    .delete(deleteUser)  //기존 유저 delete
-
 router.route('/login')//로그인 라우터
+    .get(renderLogin)
     .post(passport.authenticate('local',{
         failureRedirect: '/userSchemaAPI/loginerror'
     }), login)
@@ -30,5 +29,10 @@ router.get('/logout',(req,res,next)=>{
     req.logout();
     res.redirect('/');
 })
+
+router.route('/:username')
+    .get(getUserInfo)  // username 일치하는 유저 가져옴
+    .put(updateUser)  //기존 유저 update 
+    .delete(deleteUser)  //기존 유저 delete
 
 module.exports = router;
