@@ -26,4 +26,9 @@ router.route('/login')//로그인 라우터
 router.route('/loginerror')//로그인실패시
     .post(loginerror)    
 
+router.get('/logout',(req,res,next)=>{
+    req.logout();
+    res.redirect('/');
+})
+
 module.exports = router;
