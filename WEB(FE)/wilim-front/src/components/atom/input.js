@@ -22,7 +22,7 @@ export const Input = ({
       onChange={onChange}
       value={value}
       name={name}
-      placeholder={placeholder || "InnerText"}
+      placeholder={placeholder}
       style={style}
     />
   );
