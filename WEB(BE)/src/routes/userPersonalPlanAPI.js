@@ -4,49 +4,30 @@
 주간 계획에는 주간계획과 해당 주에 있는 일간 계획들을 모두 띄워준다.
 마찬가지로 월간 계획에는 해당 월에 있는 주간 계획과 일간 계획들을 모두 띄워준다.
 기본적으로 user를 인자로 받는다.
-- /daliyPlan
-    - /createDaliyPlan
-    - /readDaliyPlan
-    - /updateDaliyPlan
-    - /deleteDaliyPlan
-- /weeklyPlan
-    - /createWeeklyPlan
-    - /readWeeklyPlan
-    - /updateWeeklyPlan
-    - /deleteWeeklyPlan
-- /monthlyPlan
-    - /createMonthlyPlan
-    - /readMonthlyPlan
-    - /updateMonthlyPlan
-    - /deleteMonthlyPlan
+- /daliyPlan : get / post / update(put) / delete
+- /weeklyPlan : get / post / update(put) / delete
+- /monthlyPlan : get / post / update(put) / delete
 */
 
 import express from "express";
 import mongoose from "mongoose";
 import { 
-    getDailyPlan, 
-    postDailyPlan, 
-    updateDailyPlan, 
-    deleteDailyPlan, 
-    getWeeklyPlan, 
-    postWeeklyPlan, 
-    updateWeeklyPlan, 
-    deleteWeeklyPlan,
-    getMonthlyPlan,
-    postMonthlyPlan,
-    updateMonthlyPlan,
-    deleteMonthlyPlan
+    getPersonalPlans, 
+    setNewPersonalPlan, 
+    updatePersonalPlan, 
+    deletePersonalPlan, 
 } from "../controller/userPersonalPlanAPI";
 
 
 const router = express.Router();
 
-router.route('/daily')
-    .get(getDailyPlan)
-    .post(postDailyPlan)
-    .put(updateDailyPlan)
-    .delete(deleteDailyPlan);
+router.route('/:username/plans')
+    .get(getPersonalPlans)
+    .post(setNewPersonalPlan)
+    .put(updatePersonalPlan)
+    .delete(deletePersonalPlan);
 
+/*
 router.route('/weekly')
     .get(getWeeklyPlan)
     .post(postWeeklyPlan)
@@ -58,5 +39,6 @@ router.route('/monthly')
     .post(postMonthlyPlan)
     .put(updateMonthlyPlan)
     .delete(deleteMonthlyPlan);
+*/
 
 export default router;
