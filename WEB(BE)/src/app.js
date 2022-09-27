@@ -7,6 +7,7 @@ import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
 import session from 'express-session';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
+import ExpressError from './utils/error';
 //순서대로 개발 끝나면 코맨트 풀기!
 // import newUserInfoFetchingAPIRoutes from './routes/newUserSchemaAPI';
 // import userPersonalPlanAPIRoutes from './routes/userPersonalPlanAPI';
@@ -51,9 +52,16 @@ app.use('/userSchemaAPI',userSchemaAPIRoutes); //기본적인 유저 정보에 �
 // app.use('/communityAPI',communityAPIRoutes);//커뮤니티 게시글 정보에 대한 create, read, update, delete를 수행한다.
 
 //404 에러
-app.all("*",(req,res,next)=>{
-    return res.status(404).json({message : "can't find the page!"})
+app.all("*",(err, req,res,next)=>{
+    next(new ExpressError("page not found", 404));
 })
+//에러 핸들링
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = "unknown error";
+    res.status(statusCode).json({err});
+});
+
 
 app.listen(localPort,()=>{
     console.log(localPort);
