@@ -34,54 +34,32 @@ export const setNewPersonalPlan = async (req, res, next) => {
     // 1. 기존에 추가했던 플랜이 있는 경우
     // 2. 유저가 플랜을 처음으로 추가하는 경우 -> 맨 처음에 무조건 personalPlan을 만듦 -> 1번과 동일!
     const personalPlans = await PersonalPlan.findByIdAndUpdate(personalPlanId, { planList: planList.push(newPlanElement) });
+
     return res.redirect("/:username");
 };
 
-export const updatePersonalPlan = (req, res, next) => {
+export const updatePersonalPlan = async (req, res, next) => {
     // 기존에 있던 특정 플랜의 내용 혹은 완료 여부를 업데이트하는 경우.
     // PUT Method를 이용 / form에서 데이터를 submit할 때, Plan Element의 _id 값도 넘겨줘야 함!!!
-    res.end();
+    // PUT Method의 경우에도 req.body 객체에 정보를 넣어서 보내는지 확인 필요
+    
+    const { _id, detail, steady } = req.body;       // _id는 PlanElement의 아이디이다. 
+    // Question. 내가 바꾸려는 Plan Element의 아이디까지 POST method의 body에 넣어서 전달할 수 있는가?
+    // URL의 Parameter로 전달해야 하나 ...?
+    
+    const updatedPlanElement = await PlanElement.findByIdAndUpdate(_id, { 
+        detail: detail,
+        steady: steady
+    });
+
+    return res.redirect("/:username");
 };
 
-export const deletePersonalPlan = (req, res, next) => {
+export const deletePersonalPlan = async (req, res, next) => {
     // 특정 플랜을 삭제하는 경우
     // DELETE Method를 이용 / 버튼을 눌러서 요청을 전달할 때, Plan Element의 _id 값도 넘겨줘야 함!!!
-    res.end();
+    
+    // const { id } = req.???
+
+    await PlanElement.findByIdAndDelete(id);
 };
-
-
-
-
-/*
-export const getWeeklyPlan = (req, res) => {
-    res.end();
-};
-
-export const postWeeklyPlan = (req, res) => {
-    res.end();
-};
-
-export const updateWeeklyPlan = (req, res) => {
-    res.end();
-};
-
-export const deleteWeeklyPlan = (req, res) => {
-    res.end();
-};
-
-export const getMonthlyPlan = (req, res) => {
-    res.end();
-};
-
-export const postMonthlyPlan = (req, res) => {
-    res.end();
-};
-
-export const updateMonthlyPlan = (req, res) => {
-    res.end();
-};
-
-export const deleteMonthlyPlan = (req, res) => {
-    res.end();
-};
-*/

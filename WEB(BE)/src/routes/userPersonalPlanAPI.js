@@ -28,17 +28,14 @@ router.route('/:username/plans')
     .delete(deletePersonalPlan);
 
 /*
-router.route('/weekly')
-    .get(getWeeklyPlan)
-    .post(postWeeklyPlan)
-    .put(updateWeeklyPlan)
-    .delete(deleteWeeklyPlan);
+router.route("/:username/plans/:id")
+    .get(getPlanElement)
+    .post(setNewPlanElement)
+    .patch(updatePlanElement)
+    .delete(deletePlanElement)
+*/ 
+// 위 URL처럼 parameter로 Plan Element를 받는 방법밖에 없을까? JSON Body에 넣는 방법 같은 건 안될려나..
+// 위 Plan Element의 CRUD 중 뭘 구현하고 뭘 빼야 할까 ..
 
-router.route('/monthly')
-    .get(getMonthlyPlan)
-    .post(postMonthlyPlan)
-    .put(updateMonthlyPlan)
-    .delete(deleteMonthlyPlan);
-*/
 
 export default router;
