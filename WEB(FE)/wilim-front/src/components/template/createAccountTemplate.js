@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Button } from "../atom/button";
 import { Flex } from "../atom/flex";
-import { Input } from "../atom/input";
 import { Line } from "../atom/line";
 import { MarginBox } from "../atom/marginBox";
 import { Text } from "../atom/text";
 import { InputArea } from "../molecule/inputArea";
-import { RadioInput } from "../molecule/radioInput";
 import { BaseStyles } from "../theme";
+import { Input } from "../atom/input";
 
 export const CreateAccountTemplate = () => {
   const initialForm = {
@@ -17,7 +16,10 @@ export const CreateAccountTemplate = () => {
     serviceType: "",
   };
   const [userInfoForm, setUserInfoForm] = useState(initialForm);
-
+  const buttonColor = (type) =>
+    type === userInfoForm.serviceType
+      ? BaseStyles.Color.Purple2
+      : BaseStyles.Color.Purple1;
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserInfoForm({ ...userInfoForm, [name]: value });
@@ -69,22 +71,46 @@ export const CreateAccountTemplate = () => {
         />
         <MarginBox marginBottom="2rem" />
         <Flex alignItems="center" justifyContent="center">
-          <RadioInput
+          <Input
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              backgroundColor: buttonColor("육군"),
+              border: "none",
+              color: "white",
+            }}
+            type="button"
             name="serviceType"
             value="육군"
-            onChange={(e) => handleChange(e)}
+            onClick={(e) => handleChange(e)}
           />
           <MarginBox marginLeft="1rem" />
-          <RadioInput
+          <Input
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              backgroundColor: buttonColor("해군"),
+              border: "none",
+              color: "white",
+            }}
+            type="button"
             name="serviceType"
             value="해군"
-            onChange={(e) => handleChange(e)}
+            onClick={(e) => handleChange(e)}
           />
           <MarginBox marginLeft="1rem" />
-          <RadioInput
+          <Input
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              backgroundColor: buttonColor("공군"),
+              border: "none",
+              color: "white",
+            }}
+            type="button"
             name="serviceType"
             value="공군"
-            onChange={(e) => handleChange(e)}
+            onClick={(e) => handleChange(e)}
           />
         </Flex>
         <MarginBox marginBottom="3rem" />

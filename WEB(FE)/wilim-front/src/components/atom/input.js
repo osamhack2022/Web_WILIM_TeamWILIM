@@ -9,6 +9,7 @@ export const Input = ({
   height,
   focusColor,
   onChange,
+  onClick,
   value,
   name,
   style,
@@ -20,6 +21,7 @@ export const Input = ({
       height={height}
       focusColor={focusColor}
       onChange={onChange}
+      onClick={onClick}
       value={value}
       name={name}
       placeholder={placeholder}

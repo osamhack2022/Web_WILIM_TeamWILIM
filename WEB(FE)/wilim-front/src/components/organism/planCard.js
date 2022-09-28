@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Box } from "../atom/box";
 import { Flex } from "../atom/flex";
 import { Line } from "../atom/line";
@@ -11,7 +10,8 @@ import { toggleCompleted } from '../../store/slices/userPlanSlice';
 
 export const PlanCard = () => {
   const planList = useSelector(state => state.userPlan.list);
-  console.log(planList);
+  const checks = planList.filter((item) => item.completed === true).length;
+  const completeColor = checks === planList.length ? BaseStyles.Color.Lime1 : BaseStyles.Color.Black1;
   // const [planList, setPlanList] = useState(plans);
   const dispatch = useDispatch();
   const handleToggle = (e) => {
@@ -32,8 +32,8 @@ export const PlanCard = () => {
             fontWeight={BaseStyles.Text.Border1}
           />
           <Text
-            innerText="Got 2/3"
-            color={BaseStyles.Color.Black1}
+            innerText={`Got ${checks}/3`}
+            color={completeColor}
             fontWeight={BaseStyles.Text.Border2}
             fontSize={BaseStyles.Text.Heading3}
           />
