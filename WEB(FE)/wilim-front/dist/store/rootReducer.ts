@@ -7,4 +7,5 @@ const reducer = combineReducers({
     userPlan
 });
 
+export type ReducerType = ReturnType<typeof reducer>;
 export default reducer;

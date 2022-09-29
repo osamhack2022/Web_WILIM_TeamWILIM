@@ -1,8 +1,18 @@
-import React from 'react';
 import styled from 'styled-components';
 import { BaseStyles } from '../theme';
 
-export const Button = ({ onClick, width, height, color, hoverColor, backgroundColor, innerText, style }) => {
+interface ButtonProps {
+    onClick: () => {};
+    width: string;
+    height?: string;
+    color?: string;
+    hoverColor?: string;
+    backgroundColor?: string;
+    innerText: string;
+    style?: Object;
+}
+
+export const Button = ({ onClick, width, height, color, hoverColor, backgroundColor, innerText, style }: ButtonProps) => {
     return (
         <ButtonDiv onClick={onClick} width={width} height={height} color={color} hoverColor={hoverColor} backgroundColor={backgroundColor} style={style}>
             {innerText || 'InnerText'}
@@ -10,7 +20,7 @@ export const Button = ({ onClick, width, height, color, hoverColor, backgroundCo
     )
 }
 
-const ButtonDiv = styled.button`
+const ButtonDiv = styled.button<{ backgroundColor?: string, color?: string, width: string, height?: string, hoverColor?: string }>`
     box-shadow: ${BaseStyles.Shadow.BottomDefault};
     transition-duration: 0.5s;
     cursor: pointer;
