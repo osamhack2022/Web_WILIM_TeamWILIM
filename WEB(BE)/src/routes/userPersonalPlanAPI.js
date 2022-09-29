@@ -1,44 +1,33 @@
 /*
 유저가 자신의 계획을 수립하고 체크할 수 있도록하는 기능을 수행한다.
-계획은 일간, 주간, 월간으로 나뉘고, 개발은 일간부터 진행한다.
-주간 계획에는 주간계획과 해당 주에 있는 일간 계획들을 모두 띄워준다.
-마찬가지로 월간 계획에는 해당 월에 있는 주간 계획과 일간 계획들을 모두 띄워준다.
-기본적으로 user를 인자로 받는다.
-- /daliyPlan : get / post / update(put) / delete
-- /weeklyPlan : get / post / update(put) / delete
-- /monthlyPlan : get / post / update(put) / delete
+유저는 하루 단위로 계획을 세운다. 그러나, 매일 반복하고 싶은 계획이 있다면 표시를 했을 때 프로그램이 자동으로 매일매일 해당 계획을 추가해 준다.
+Plan은 기본적으로 User에 종속되어 있는 관계이다.
+또한 Plan은 PlanList와 PlanElement로 나뉜다. 각각의 Plan Element가 모여서 하나의 Plan List를 이룬다.
 */
 
 import express from "express";
 import mongoose from "mongoose";
 import { 
-    getPersonalPlans, 
-    setNewPersonalPlan, 
-    updatePersonalPlan, 
+    getPlanList, 
     deletePersonalPlan, 
+    getPlanElement,
+    addPlanElement,
+    updatePlanElement,
+    deletePlanElement
 } from "../controller/userPersonalPlanAPI";
 
 
 const router = express.Router();
 
 router.route('/:username/plans')
-    .get(getPersonalPlans)
-    .post(setNewPersonalPlan)
-    .put(updatePersonalPlan)
-    .delete(deletePersonalPlan);
+    .get(getPlanList)               // 유저의 전체 플랜 리스트 가져오기
+    .post(addPlanElement)       // 새로운 Plan Element 추가
+    // .delete(deletePersonalPlan);    // 유저의 전체 플랜 리스트 없애기 -> 필요한가?
 
-/*
-router.route('/weekly')
-    .get(getWeeklyPlan)
-    .post(postWeeklyPlan)
-    .put(updateWeeklyPlan)
-    .delete(deleteWeeklyPlan);
+router.route("/:username/plans/:id")
+    .get(getPlanElement)        // 전체 플랜 리스트 중 하나의 Element 가져오기
+    .patch(updatePlanElement)   // 기존에 존재하던 Plan Element 업데이트
+    .delete(deletePlanElement)  // 특정 Plan Element 삭제
 
-router.route('/monthly')
-    .get(getMonthlyPlan)
-    .post(postMonthlyPlan)
-    .put(updateMonthlyPlan)
-    .delete(deleteMonthlyPlan);
-*/
 
 export default router;
