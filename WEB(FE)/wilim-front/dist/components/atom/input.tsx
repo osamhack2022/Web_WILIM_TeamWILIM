@@ -1,6 +1,20 @@
-import React from "react";
 import styled from "styled-components";
 import { BaseStyles } from "../theme";
+
+export type InputType = "button" | "checkbox" | "color" | "date" | "datetime-local" | "email" | "file" | "hidden" | "image" | "month" | "number" | "password" | "radio" | "range" | "reset" | "search" | "submit" | "tel" | "text" | "time" | "url" | "week";
+
+interface InputProps {
+  type: InputType;
+  placeholder?: string;
+  width?: string;
+  height?: string;
+  focusColor?: string;
+  onChange?: () => {};
+  onClick?: () => {};
+  value?: string;
+  name?: string;
+  style?: Object;
+}
 
 export const Input = ({
   type,
@@ -13,7 +27,7 @@ export const Input = ({
   value,
   name,
   style,
-}) => {
+}: InputProps) => {
   return (
     <InputDiv
       type={type}
@@ -30,7 +44,7 @@ export const Input = ({
   );
 };
 
-const InputDiv = styled.input`
+const InputDiv = styled.input<{width: string, height: string, focusColor: string}>`
     width: ${({ width }) => width || "100%"};
     height: ${({ height }) => height || "100%"};
     background-color: 'white';
@@ -47,11 +61,11 @@ const InputDiv = styled.input`
     border-radius: 0.5rem;
     &:hover {
         border: 1px solid ${({ focusColor }) =>
-          focusColor || BaseStyles.Color.Beige2};
+    focusColor || BaseStyles.Color.Beige2};
     }
     &:focus {
         border: 1px solid ${({ focusColor }) =>
-          focusColor || BaseStyles.Color.Beige2};
+    focusColor || BaseStyles.Color.Beige2};
     }
     input::placeholder {
         color: 'lightgray';

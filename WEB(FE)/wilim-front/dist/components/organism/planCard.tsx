@@ -7,16 +7,32 @@ import { Plan } from "../molecule/plan";
 import { BaseStyles } from "../theme";
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCompleted } from '../../store/slices/userPlanSlice';
+import { ReducerType } from "../../store/rootReducer";
+import { List } from "../../schema/plan";
 
 export const PlanCard = () => {
-  const planList = useSelector(state => state.userPlan.list);
+  const planList = useSelector((state: ReducerType) => state.userPlan.list);
   const checks = planList.filter((item) => item.completed === true).length;
   const completeColor = checks === planList.length ? BaseStyles.Color.Lime1 : BaseStyles.Color.Black1;
-  // const [planList, setPlanList] = useState(plans);
   const dispatch = useDispatch();
-  const handleToggle = (e) => {
+  const handleToggle = (e: any) => {
     dispatch(toggleCompleted(e.target.id));
   }
+  // const PlanListArray = (planList: List[]) => {
+  //   return (
+  //     <>
+  //       {
+  //         planList.map((item, index) => {
+  //           <div key={index}>
+  //             <MarginBox marginBottom="1rem" />
+  //             <Plan completed={item.completed} detail={item.detail} onClick={(e) => handleToggle(e)} id={item.detail} />
+  //           </div>
+  //         })
+  //       }
+  //     </>
+  //   )
+  // }
+
   return (
     <Box
       width="80%"
@@ -40,13 +56,16 @@ export const PlanCard = () => {
         </Flex>
         <MarginBox marginBottom="0.5rem" />
         <Line width="100%" height="1px" color={BaseStyles.Color.Black0} />
-        {planList &&
-          planList.map(({ completed, detail }, index) => 
-            <div key={index}>
-              <MarginBox marginBottom="1rem" />
-              <Plan completed={completed} detail={detail} onClick={(e) => handleToggle(e)} id={detail} />
-            </div>
-          )}
+        {planList && <>
+          {
+            planList.map((item, index) => {
+              <div key={index}>
+                <MarginBox marginBottom="1rem" />
+                <Plan completed={item.completed} detail={item.detail} onClick={(e) => handleToggle(e)} id={item.detail} />
+              </div>
+            })
+          }
+        </>}
       </Flex>
     </Box>
   );

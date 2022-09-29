@@ -1,11 +1,22 @@
-import React from "react";
 import { Button } from "../atom/button";
 import { Flex } from "../atom/flex";
-import { Input } from "../atom/input";
+import { Input, InputType } from "../atom/input";
 import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
 
-export const InputArea = ({ name, title, essential, inputType, placeholder, onChange, value, buttonText, onClick }) => {
+interface InputAreaProps {
+  name?: string;
+  title?: string;
+  essential: boolean;
+  inputType: InputType;
+  placeholder?: string;
+  onChange?: () => {};
+  value?: string;
+  buttonText?: string;
+  onClick?: () => {};
+}
+
+export const InputArea = ({ name, title, essential, inputType, placeholder, onChange, value, buttonText, onClick }: InputAreaProps) => {
   return (
     <div style={{ width: "100%" }}>
       <Flex flexDirection="column" alignItems="left">

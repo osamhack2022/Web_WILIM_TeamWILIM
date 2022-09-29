@@ -5,7 +5,7 @@ interface BoxProps {
   width: string;
   borderRadius?: string;
   backgroundColor?: string;
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
 }
 
 export const Box = ({

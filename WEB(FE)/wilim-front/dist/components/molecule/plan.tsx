@@ -3,7 +3,14 @@ import { MarginBox } from "../atom/marginBox";
 import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
 
-export const Plan = ({ detail, completed, onClick, id }) => {
+interface PlanProps {
+  detail?: string;
+  completed: boolean;
+  onClick?: (e: any) => any;
+  id?: string;
+}
+
+export const Plan = ({ detail, completed, onClick, id }: PlanProps) => {
   return (
     <Flex width="100%">
       <svg

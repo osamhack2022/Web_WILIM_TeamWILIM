@@ -4,9 +4,10 @@ import { MarginBox } from "../atom/marginBox";
 import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
 import { useSelector } from "react-redux";
+import { ReducerType } from "../../store/rootReducer";
 
 export const UserTitle = () => {
-  const username = useSelector((state) => state.userInfo.username);
+  const username = useSelector((state: ReducerType) => state.userInfo.username);
   return (
     <Flex flexDirection="column" alignItems="center" width="80%">
       <Flex width="100%">

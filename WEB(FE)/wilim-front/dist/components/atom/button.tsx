@@ -3,7 +3,7 @@ import { BaseStyles } from '../theme';
 
 interface ButtonProps {
     onClick: () => {};
-    width: string;
+    width?: string;
     height?: string;
     color?: string;
     hoverColor?: string;

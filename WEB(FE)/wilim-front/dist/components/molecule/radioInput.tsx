@@ -3,6 +3,14 @@ import { Input } from "../atom/input";
 import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
 
+interface RadioInputProps {
+  name?: string;
+  value?: string;
+  onChange?: () => {};
+  innerText?: string;
+  color?: string;
+}
+
 export const RadioInput = ({ name, value, onChange, innerText, color }) => {
   return (
     <Flex>
@@ -11,7 +19,6 @@ export const RadioInput = ({ name, value, onChange, innerText, color }) => {
         innerText={innerText || value}
         fontSize={BaseStyles.Text.Heading4}
         color={color || "white"}
-        fontFamily={BaseStyles.Font.Inter}
         style={{ whiteSpace: "nowrap" }}
       />
     </Flex>
