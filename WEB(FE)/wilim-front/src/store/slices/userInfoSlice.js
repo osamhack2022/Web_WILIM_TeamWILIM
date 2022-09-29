@@ -5,7 +5,7 @@ export const userInfoSlice = createSlice({
   name: "user",
   initialState: user,
   reducers: {
-    callUserInfo: (state, action) => [ ...state, action.payload ],
+    callUserInfo: (state, action) => { state, action.payload },
   }
 });
 
