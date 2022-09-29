@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { BaseStyles } from '../theme';
+import { EventType } from "../types/eventType";
 
 interface ButtonProps {
-    onClick: () => {};
+    onClick: EventType;
     width?: string;
     height?: string;
     color?: string;

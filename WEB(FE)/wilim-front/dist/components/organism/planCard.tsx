@@ -18,21 +18,6 @@ export const PlanCard = () => {
   const handleToggle = (e: any) => {
     dispatch(toggleCompleted(e.target.id));
   }
-  // const PlanListArray = (planList: List[]) => {
-  //   return (
-  //     <>
-  //       {
-  //         planList.map((item, index) => {
-  //           <div key={index}>
-  //             <MarginBox marginBottom="1rem" />
-  //             <Plan completed={item.completed} detail={item.detail} onClick={(e) => handleToggle(e)} id={item.detail} />
-  //           </div>
-  //         })
-  //       }
-  //     </>
-  //   )
-  // }
-
   return (
     <Box
       width="80%"
@@ -58,7 +43,7 @@ export const PlanCard = () => {
         <Line width="100%" height="1px" color={BaseStyles.Color.Black0} />
         {planList && <>
           {
-            planList.map((item, index) => {
+            planList.map((item: List, index: number) => {
               <div key={index}>
                 <MarginBox marginBottom="1rem" />
                 <Plan completed={item.completed} detail={item.detail} onClick={(e) => handleToggle(e)} id={item.detail} />

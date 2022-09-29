@@ -5,14 +5,12 @@ import { Text } from "../atom/text";
 import { GoalCard } from "../organism/goalCard";
 import { PlanCard } from "../organism/planCard";
 import { BaseStyles } from "../theme";
-import { useSelector } from "react-redux";
 import { UserTitle } from "../molecule/userTitle";
 
 export const GoalPlanTemplate = () => {
-  const username = useSelector((state) => state.userInfo.username);
   return (
     <Flex flexDirection="column" alignItems="center">
-      <UserTitle username={username} />
+      <UserTitle />
       <MarginBox marginBottom="2rem" />
       <Flex
         flexDirection="column"

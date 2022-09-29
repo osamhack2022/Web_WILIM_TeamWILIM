@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { BaseStyles } from "../theme";
+import { EventType } from "../types/eventType";
+import { InputType } from "../types/inputType";
 
-export type InputType = "button" | "checkbox" | "color" | "date" | "datetime-local" | "email" | "file" | "hidden" | "image" | "month" | "number" | "password" | "radio" | "range" | "reset" | "search" | "submit" | "tel" | "text" | "time" | "url" | "week";
 
 interface InputProps {
   type: InputType;
@@ -9,8 +10,8 @@ interface InputProps {
   width?: string;
   height?: string;
   focusColor?: string;
-  onChange?: () => {};
-  onClick?: () => {};
+  onChange?: EventType;
+  onClick?: EventType;
   value?: string;
   name?: string;
   style?: Object;

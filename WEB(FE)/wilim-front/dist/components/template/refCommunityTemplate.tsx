@@ -5,9 +5,10 @@ import { Text } from "../atom/text";
 import { UserTitle } from "../molecule/userTitle";
 import { BaseStyles } from "../theme";
 import { useSelector } from "react-redux";
+import { ReducerType } from "../../store/rootReducer";
 
 export const RefCommunityTemplate = () => {
-  const goal = useSelector((state) => state.userInfo.goal);
+  const goal = useSelector((state: ReducerType) => state.userInfo.goal);
   return (
     <Flex flexDirection="column" alignItems="center">
       <UserTitle />

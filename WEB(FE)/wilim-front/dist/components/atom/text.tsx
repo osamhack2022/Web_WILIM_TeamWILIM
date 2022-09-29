@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { BaseStyles } from '../theme';
+import { EventType } from "../types/eventType";
 
 type AlignType = "left" | "center" | "right";
 
@@ -10,7 +11,7 @@ interface TextProps {
     textAlign?: AlignType;
     innerText: string;
     hoverColor?: string;
-    onClick?: () => {};
+    onClick?: EventType;
     style?: Object;
 }
 

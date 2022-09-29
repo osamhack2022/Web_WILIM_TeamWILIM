@@ -1,19 +1,21 @@
 import { Button } from "../atom/button";
 import { Flex } from "../atom/flex";
-import { Input, InputType } from "../atom/input";
+import { Input } from "../atom/input";
 import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
+import { EventType } from "../types/eventType";
+import { InputType } from "../types/inputType";
 
 interface InputAreaProps {
   name?: string;
   title?: string;
-  essential: boolean;
+  essential?: boolean;
   inputType: InputType;
   placeholder?: string;
-  onChange?: () => {};
+  onChange?: EventType;
   value?: string;
   buttonText?: string;
-  onClick?: () => {};
+  onClick?: EventType;
 }
 
 export const InputArea = ({ name, title, essential, inputType, placeholder, onChange, value, buttonText, onClick }: InputAreaProps) => {
