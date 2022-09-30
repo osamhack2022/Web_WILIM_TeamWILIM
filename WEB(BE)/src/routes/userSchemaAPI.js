@@ -22,9 +22,17 @@ router.route('/register')
     .get(renderRegister)
     .post( createNewUser)  // 새로운 유저 생성 회원가입은 이쪽에서!
 
-router.route('/login')//로그인 라우터
+router.route('/login')//local 로그인 라우터
     .get(renderLogin)
     .post(passport.authenticate('local',{failureRedirect: '/userSchemaAPI/loginerror'}), login)
+
+router.get('/login/kakao', passport.authenticate('kakao'));
+
+router.get('/login/kakao/callback', passport.authenticate('kakao', {
+    failureRedirect: '/',
+    }), (res, req) => {
+    res.redirect('/');
+});
 
 router.route('/loginerror')//로그인실패시
     .post(loginerror)    

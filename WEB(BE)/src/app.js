@@ -10,7 +10,7 @@ import ExpressError from './utils/error';
 import path from 'path';
 import methodOverride from 'method-override';
 import engine from 'ejs-mate';
-
+import {Strategy as KakaoStrategy} from 'passport-kakao';
 //순서대로 개발 끝나면 코맨트 풀기!
 import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
 // import newUserInfoFetchingAPIRoutes from './routes/newUserSchemaAPI';
@@ -19,7 +19,7 @@ import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
 
 //env setting
 import "./env.js";
-import { db_cstring , session_secret } from "./db.js";
+import { db_cstring , session_secret , kakao_key } from "./db.js";
 
 //
 const PORT = process.env.PORT || 5000
@@ -45,6 +45,12 @@ app.use(methodOverride("_method"));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy({usernameField: 'email'}, User.authenticate()));
+passport.use('kakao', new KakaoStrategy({
+    clientID: kakao_key,
+    callbackURL: '/userSchemaAPI/login/kakao/callback', 
+}, async (accessToken, refreshToken, profile, done) => {
+    res.status(200).json({profile, accessToken, refreshToken});
+}))
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
