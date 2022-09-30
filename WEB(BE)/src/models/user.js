@@ -1,0 +1,31 @@
+//id, username, password, email, goal, plan
+import mongoose from "mongoose";
+const passportLocalMongoose = require('passport-local-mongoose');
+
+
+const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        lowercase : true,
+        trim: true,
+        unique: true,
+        required: true
+    },
+    username: {
+        type: String,
+        maxLength: 50,
+        unique: true,
+        required : true
+    },
+    serviceType: {
+        type: String,
+        enum : ['ARMY', 'NAVY', 'AIR_FORCE', 'MARINE','OTHER'],
+        default : 'OTHER'
+    },
+    id: mongoose.Schema.Types.ObjectId,
+});
+
+userSchema.plugin(passportLocalMongoose,{ usernameField: "email" });//로그인할때 email,password 사용
+
+const User = mongoose.model("User", userSchema);
+export default User;

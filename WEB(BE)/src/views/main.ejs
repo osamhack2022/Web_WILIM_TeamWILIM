@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BACKEND</title>
+</head>
+<body>
+    <div>
+        <% if (!user) {%> 
+            <a href="/userSchemaAPI/login">LOGIN</a>
+            <a href="/userSchemaAPI/register">REGISTER</a>
+        <% } else{ %> 
+            <a href="/userSchemaAPI/logout">LOGOUT</a>
+            <div>
+                <H3>CURRENT USER : <%= user.username%></H3>
+            </div>
+        <% } %> 
+    </div>
+    <h1>백엔드 입니다</h1>
+    <div>메인 페이지 입니다</div>
+</body>
+</html>
