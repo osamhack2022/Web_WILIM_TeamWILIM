@@ -80,4 +80,9 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT,()=>{
     console.log(PORT);
+
+//api test
+app.get('/hello',(req,res,next)=>{
+    res.send({"msg" : "hello world!"});
+})
 });
