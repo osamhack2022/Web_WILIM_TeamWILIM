@@ -48,6 +48,11 @@ passport.use(new LocalStrategy({usernameField: 'email'}, User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use((req,res,next)=>{
+    res.locals.user = req.user; //ejs 에서 <%= user %> 는 로그인중인 유저 정보  return
+    next();
+})
+
 //mongoose connection
 main().catch(err => console.log(err));
 async function main() {

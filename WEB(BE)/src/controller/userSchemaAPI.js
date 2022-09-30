@@ -45,17 +45,21 @@ module.exports.renderRegister = (req,res,next)=>{
     res.render('userSchemaAPI/register');
 }
 
-//POST create new user 회원가입은 이쪽에서! res.status(201).json({email, username, serviceType})
+//POST create new user 회원가입은 이쪽에서!
 module.exports.createNewUser = async (req,res,next) => {
-    try{
-        const {email, username, password, serviceType} = req.body;
-        const user = new User({email : email, username : username, serviceType : serviceType});
-        const newUser = await User.register(user,password);
-        res.status(201).json({newUser});
-    } catch(e){
-        return res.status(404).json({message : e.message})
+    try {
+        const { email, username, password, serviceType } = req.body;
+        const user = new User({ email: email, username: username, serviceType : serviceType });
+        const newUser = await User.register(user, password);
+        req.login(newUser, err=>{
+            if (err) return next(err);
+            const returnUrl = req.session.returnTo || '/';
+            delete req.session.returnTo;
+            res.redirect(returnUrl);
+        })
+    } catch (e) {
+        res.status(400).json({message : e}).redirect("/register");
     }
-    
 }
 
 //GET render login
@@ -65,10 +69,10 @@ module.exports.renderLogin = (req,res,next)=>{
 
 //POST login
 module.exports.login = async(req,res,next)=>{
-    const {email} = req.body;
-    const user = await User.findOne({email : email});
-    res.status(200).json({"email" : user.email, "username" : user.username, "servictType" : user.serviceType});
+    res.status(200).redirect('/');
 }
+
+//GET logout
 
 //POST loginerror
 module.exports.loginerror = (req,res,next) =>{
