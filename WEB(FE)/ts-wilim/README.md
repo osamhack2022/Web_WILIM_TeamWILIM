@@ -1,46 +1,32 @@
-# Getting Started with Create React App
+## WILIM Front-End Code Architecture
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Atomic design을 참고하여 설계한다. 세부 구조는 다음과 같다.
 
-## Available Scripts
+1. Button, Text, label, Input 과 같은 **Atom**
+2. SRP(Single Responsibility Principle, 단일 책임 원칙)을 준수하여 동일한 역할을 맡는 Atom들을 합쳐 만든 **Molecule**
+3. Molecule을 합쳐서 만든 하나의 서비스적인 역할을 맡는 영역인(GNB,  Nav, Card 등) **Organism**
+4. Organism을 합쳐서 만든 실제 보여질 전체 Page의 뼈대가 되는 **Template**
+5. Template에 데이터를 합쳐서 제작하는 **Page** -> Template에 데이터를 심어줌으로써 제작함.
 
-In the project directory, you can run:
+### Design Pattern 은 Redux(Redux-toolkit)을 이용한 Flux 패턴을 적용한다.
 
-### `npm start`
+#### Action / Action creator
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Action은 Redux 에서 관리되는 전역 상태를 변경할 수 있는 명령 단위입니다. 모든 전역 상태는 Action을 통해서만 변경 가능합니다.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### Dispatcher
 
-### `npm test`
+Dispatcher는 Action의 동작에 의한 전역 상태 변경이 감지되면 해당 변경 사항을 각 Store에 전달하는 역할을 한다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Store(Model)
 
-### `npm run build`
+Store는 전역 상태와, 상태를 변경 가능한 메서드를 담은 하나의 단위이다. 들어오는 Action에 따라 상태를 변경하는 Trigger를 발동시킨다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### View
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+UI와 직접적으로 연결되는 부분. 위의 Atomic Pattern에서 Template과 View를 연결시켜 데이터를 전달하고 Page를 생성함.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Reference
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[아토믹 디자인을 활용한 디자인 시스템 도입기 - kakao 기술블로그](https://fe-developers.kakaoent.com/2022/220505-how-page-part-use-atomic-design-system/)<br />
+[Flux | 사용자 인터페이스를 만들기 위한 어플리케이션 아키텍쳐](https://haruair.github.io/flux/docs/overview.html)
