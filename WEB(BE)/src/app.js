@@ -71,6 +71,7 @@ app.use('/userSchemaAPI',userSchemaAPIRoutes); //기본적인 유저 정보에 �
 app.all("*",(err, req,res,next)=>{
     next(new ExpressError("page not found", 404));
 })
+
 //에러 핸들링
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
