@@ -10,7 +10,7 @@ import ExpressError from './utils/error';
 import path from 'path';
 import methodOverride from 'method-override';
 import engine from 'ejs-mate';
-
+import {Strategy as KakaoStrategy} from 'passport-kakao';
 //순서대로 개발 끝나면 코맨트 풀기!
 import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
 // import newUserInfoFetchingAPIRoutes from './routes/newUserSchemaAPI';
@@ -19,16 +19,11 @@ import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
 
 //env setting
 import "./env.js";
-import { db_cstring , session_secret } from "./db.js";
+import { db_cstring , session_secret , kakao_key } from "./db.js";
 
 //
 const PORT = process.env.PORT || 5000
 const app = express();
-const sessionConfig = {
-    secret: session_secret,
-    resave: false,
-    saveUninitialized: true,
-};
 
 //ejs config
 app.set('view engine', 'ejs');
@@ -38,15 +33,44 @@ app.engine("ejs", engine);
 //middlewares
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
-app.use(session(sessionConfig));
+app.use(session({
+    secret: session_secret,
+    resave: false,
+    saveUninitialized: true,
+}));
 app.use(methodOverride("_method"));
 
 //passport config
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy({usernameField: 'email'}, User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy({usernameField: 'email'}, User.authenticate()));
+passport.use(new KakaoStrategy(
+    {
+        clientID: kakao_key,
+        callbackURL: '/userSchemaAPI/login/kakao/callback',
+    },
+    async (accessToken, refreshToken, profile, done) => {
+        try {
+            const foundUser = await User.findOne(
+                {
+                    snsId: profile.id,
+                    provider: 'kakao',
+                },
+            );
+            if (foundUser) {
+                return done(null, foundUser);
+            }
+            else{
+                return done(null, false, profile);
+            } 
+        } catch (error) {
+            done(error);
+        }
+    },
+    ),
+);
 
 app.use((req,res,next)=>{
     res.locals.user = req.user; //ejs 에서 <%= user %> 는 로그인중인 유저 정보  return
