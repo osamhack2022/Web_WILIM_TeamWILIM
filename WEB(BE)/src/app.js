@@ -63,7 +63,6 @@ passport.use(new KakaoStrategy(
                 return done(null, foundUser);
             }
             else{
-                console.log("passed");
                 return done(null, false, profile);
             } 
         } catch (error) {

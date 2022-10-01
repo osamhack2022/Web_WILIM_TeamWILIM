@@ -35,7 +35,7 @@ router.get('/login/kakao', passport.authenticate('kakao'));//kakao 로그인 라
 
 
 router.get('/login/kakao/callback', (req, res, next) => {//kakao 로그인 콜백 라우터
-    passport.authenticate('kakao', (err, user, info) => {
+    passport.authenticate('kakao', function (err, user, info){
         if (err) {
             return next(err);
         }
@@ -47,10 +47,10 @@ router.get('/login/kakao/callback', (req, res, next) => {//kakao 로그인 콜�
                 username: info._json.properties.nickname,
             };
             return req.session.save(() => {
-            res.redirect('/userSchemaAPI/register/kakao');
+                res.redirect('/userSchemaAPI/register/kakao');
             });
         }
-    return req.login(user, (error) => {
+    return req.login(user, function (error){
         if (error) {
             next(error);
         }

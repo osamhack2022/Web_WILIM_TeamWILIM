@@ -47,7 +47,6 @@ module.exports.renderRegister = (req,res,next)=>{
 
 //GET render KAKAO register
 module.exports.renderRegisterKakao = (req,res,next)=>{
-    console.log("render")
     res.render('userSchemaAPI/kakaoRegister');
 }
 
@@ -82,7 +81,7 @@ module.exports.createNewKakaoUser = async(req,res,next)=>{
                 if (error) {
                     next(error);
         }
-        res.status(201).send(user); // 회원가입 완료!
+        return res.redirect(`/userSchemaAPI/${user.username}`); // 회원가입 완료!
             });
         });
     } catch (error) {
