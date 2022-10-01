@@ -45,6 +45,12 @@ module.exports.renderRegister = (req,res,next)=>{
     res.render('userSchemaAPI/register');
 }
 
+//GET render KAKAO register
+module.exports.renderRegisterKakao = (req,res,next)=>{
+    console.log("render")
+    res.render('userSchemaAPI/kakaoRegister');
+}
+
 //POST create new user 회원가입은 이쪽에서!
 module.exports.createNewUser = async (req,res,next) => {
     try {
@@ -60,6 +66,31 @@ module.exports.createNewUser = async (req,res,next) => {
         res.status(400).json({message : e});
     }
 }
+
+//POST create new user using kakao
+module.exports.createNewKakaoUser = async(req,res,next)=>{
+    try {
+        const { snsId, username, email } = req.session.joinUser;  
+        const user = await User.create({
+            provider : 'kakao',
+            snsId : snsId,
+            email: email,
+            username: req.body.username || username,
+        });
+        req.session.regenerate(() => { // 기존 회원가입을 위해 생성한 세션을 지우고
+            req.login(user, (error) => { // 새로운 로그인 세션을 생성한다.
+                if (error) {
+                    next(error);
+        }
+        res.status(201).send(user); // 회원가입 완료!
+            });
+        });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+}
+
 
 //GET render login
 module.exports.renderLogin = (req,res,next)=>{

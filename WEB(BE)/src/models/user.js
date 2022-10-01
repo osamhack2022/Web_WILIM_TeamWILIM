@@ -2,14 +2,12 @@
 import mongoose from "mongoose";
 const passportLocalMongoose = require('passport-local-mongoose');
 
-
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
         lowercase : true,
         trim: true,
         unique: true,
-        required: true
     },
     username: {
         type: String,
@@ -21,6 +19,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum : ['ARMY', 'NAVY', 'AIR_FORCE', 'MARINE','OTHER'],
         default : 'OTHER'
+    },
+    snsId:{
+        type:Number,
+        default : 0
+    },
+    provider : {
+        type:String,
+        default:'null'
     },
     id: mongoose.Schema.Types.ObjectId,
 });

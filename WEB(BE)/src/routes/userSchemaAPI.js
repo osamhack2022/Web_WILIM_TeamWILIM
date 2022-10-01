@@ -5,7 +5,7 @@
 */
 import express from 'express';
 const passport = require("passport");
-import {getUsers, getUserInfo,createNewUser,updateUser, deleteUser, loginerror, login, renderRegister, renderLogin, logout} from "../controller/userSchemaAPI.js";
+import {getUsers, getUserInfo,createNewUser,updateUser, deleteUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, kakaoCallback} from "../controller/userSchemaAPI.js";
 import {isLoggedIn } from '../middleware';
 const router = express.Router();
 
@@ -18,20 +18,45 @@ router.get('/logout', (req,res)=>{
     });
 })
 
-router.route('/register')
+router.route('/register/local')
     .get(renderRegister)
     .post( createNewUser)  // 새로운 유저 생성 회원가입은 이쪽에서!
 
-router.route('/login')//local 로그인 라우터
+router.route('/login/local')//local 로그인 라우터
     .get(renderLogin)
     .post(passport.authenticate('local',{failureRedirect: '/userSchemaAPI/loginerror'}), login)
 
-router.get('/login/kakao', passport.authenticate('kakao'));
+router.route('/register/kakao')//카카오 계정 인증이 되었으나 wilim 데이터에 유저 없을때
+    .get(renderRegisterKakao)
+    .post(createNewKakaoUser)
 
-router.get('/login/kakao/callback', passport.authenticate('kakao', {
-    failureRedirect: '/',
-    }), (res, req) => {
-    res.redirect('/');
+
+router.get('/login/kakao', passport.authenticate('kakao'));//kakao 로그인 라우터
+
+
+router.get('/login/kakao/callback', (req, res, next) => {//kakao 로그인 콜백 라우터
+    passport.authenticate('kakao', (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) { 
+            const { id } = info;
+            req.session.joinUser = {
+                snsId: id,
+                email: info._json.kakao_account.email,
+                username: info._json.properties.nickname,
+            };
+            return req.session.save(() => {
+            res.redirect('/userSchemaAPI/register/kakao');
+            });
+        }
+    return req.login(user, (error) => {
+        if (error) {
+            next(error);
+        }
+        res.redirect('/');
+    });
+    })(req, res, next);
 });
 
 router.route('/loginerror')//로그인실패시
