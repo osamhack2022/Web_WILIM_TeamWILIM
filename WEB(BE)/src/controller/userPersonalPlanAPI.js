@@ -1,70 +1,74 @@
 /*
 유저가 자신의 계획을 수립하고 체크할 수 있도록하는 기능을 수행한다.
-계획은 일간, 주간, 월간으로 나뉘고, 개발은 일간부터 진행한다.
-주간 계획에는 주간계획과 해당 주에 있는 일간 계획들을 모두 띄워준다.
-마찬가지로 월간 계획에는 해당 월에 있는 주간 계획과 일간 계획들을 모두 띄워준다.
-기본적으로 user를 인자로 받는다.
-- /daliyPlan
-    - /createDaliyPlan
-    - /readDaliyPlan
-    - /updateDaliyPlan
-    - /deleteDaliyPlan
-- /weeklyPlan
-    - /createWeeklyPlan
-    - /readWeeklyPlan
-    - /updateWeeklyPlan
-    - /deleteWeeklyPlan
-- /monthlyPlan
-    - /createMonthlyPlan
-    - /readMonthlyPlan
-    - /updateMonthlyPlan
-    - /deleteMonthlyPlan
+유저는 하루 단위로 계획을 세운다. 그러나, 매일 반복하고 싶은 계획이 있다면 표시를 했을 때 프로그램이 자동으로 매일매일 해당 계획을 추가해 준다.
+Plan은 기본적으로 User에 종속되어 있는 관계이다.
+또한 Plan은 PlanList와 PlanElement로 나뉜다. 각각의 Plan Element가 모여서 하나의 Plan List를 이룬다.
 */
 
-export const getDailyPlan = (req, res) => {
-    res.end();
+import mongoose from "mongoose";
+import { PlanList, PlanElement } from "../models/personalPlan.js"; 
+
+export const getPlanList = async (req, res, next) => {
+    // user를 받아와서, 그 user의 _id 값으로 PP 값을 검색해야 함.
+    // User Model에도 PP의 _id를 ref로 넣어서 상호 참조가 가능하도록 해야 할 듯!
+    // PP는 초기에는 플랜을 넣어주지 않아서 비어 있더라도, 무조건 하나 만들어주는 걸로! 
+    //    -> 그래야 CRUD가 편할 듯하다.
+
+    const { personalPlanId } = req.session.user;  // session 값에 저장되어 있는, 로그인한 user 객체에서 personalPlanId 값을 받아 온다.
+    const planList = await PlanList.findById(personalPlanId);   // user를 이용해 mongodb에서 planList를 query한다.
+    return res.send(planList);
 };
 
-export const postDailyPlan = (req, res) => {
-    res.end();
+export const getPlanElement = async (req, res, next) => {
+    const { id } = req.params;
+    const planElement = await PlanElement.findById(id);
+
+    return res.send(planElement);
 };
 
-export const updateDailyPlan = (req, res) => {
-    res.end();
+export const addPlanElement = async (req, res, next) => {
+    // 새로운 플랜을 저장할 때.
+    // 기존에 존재하던 personalPlans가 있다면 불러오고, 새로운 플랜 내용을 넣은 다음 다시 저장한다.
+    const { personalPlanId } = req.session.user;
+    const { detail, steady } = req.body;
+
+    const newPlanElement = new PlanElement({ detail, steady });
+    await PlanList.findByIdAndUpdate(personalPlanId, { planList: planList.push(newPlanElement._id) });
+
+    return res.redirect("/:username/plans");
 };
 
-export const deleteDailyPlan = (req, res) => {
-    res.end();
+export const updatePlanElement = async (req, res, next) => {
+    // 기존에 있던 특정 플랜의 내용 혹은 완료 여부를 업데이트하는 경우.
+    // PUT Method를 이용 / form에서 데이터를 submit할 때, Plan Element의 _id 값도 넘겨줘야 함!!!
+    // PUT Method의 경우에도 req.body 객체에 정보를 넣어서 보내는지 확인 필요
+    
+    const { detail, completed, steady } = req.body;    // 바꾸려는 내용 req.body로 전달
+    const { id } = req.params;
+    // Question. 내가 바꾸려는 Plan Element의 아이디까지 POST method의 body에 넣어서 전달할 수 있는가?
+    // URL의 Parameter로 전달해야 하나 ...?
+    
+    await PlanElement.findByIdAndUpdate(id, { 
+        detail: detail,
+        completed: completed,
+        steady: steady
+    });
+
+    return res.redirect("/:username/plans");
 };
 
-export const getWeeklyPlan = (req, res) => {
-    res.end();
-};
+export const deletePlanElement = async (req, res, next) => {
+    // 특정 플랜을 삭제하는 경우
+    // DELETE Method를 이용 / 버튼을 눌러서 요청을 전달할 때, Plan Element의 _id 값도 넘겨줘야 함!!!
+    // 삭제할 때는, 유저의 Plan List에서도 _id 값을 없애줘야 함.
+    
+    const { personalPlanId } = req.session.user;
+    const { id } = req.params;
 
-export const postWeeklyPlan = (req, res) => {
-    res.end();
-};
+    await findByIdAndUpdate(personalPlanId, {
+        planList: planList.filter((elem) => elem !== id)
+    });     // Plan List에서 Element의 _id 값 먼저 삭제
+    await PlanElement.findByIdAndDelete(id);    // Plan Element 삭제
 
-export const updateWeeklyPlan = (req, res) => {
-    res.end();
-};
-
-export const deleteWeeklyPlan = (req, res) => {
-    res.end();
-};
-
-export const getMonthlyPlan = (req, res) => {
-    res.end();
-};
-
-export const postMonthlyPlan = (req, res) => {
-    res.end();
-};
-
-export const updateMonthlyPlan = (req, res) => {
-    res.end();
-};
-
-export const deleteMonthlyPlan = (req, res) => {
-    res.end();
+    return res.redirect("/:username/plans");
 };
