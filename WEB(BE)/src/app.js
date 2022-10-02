@@ -43,8 +43,15 @@ app.use(methodOverride("_method"));
 //passport config
 app.use(passport.initialize());
 app.use(passport.session());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(function(user, done) {
+    done(null, user.username);
+});
+passport.deserializeUser(function(username, done) {
+    User.findOne({username : username}, function(err, user) {
+    done(err, user);
+});
+
+});
 passport.use(new LocalStrategy({usernameField: 'email'}, User.authenticate()));
 passport.use(new KakaoStrategy(
     {
@@ -66,7 +73,7 @@ passport.use(new KakaoStrategy(
                 return done(null, false, profile);
             } 
         } catch (error) {
-            done(error);
+            return done(error);
         }
     },
     ),
