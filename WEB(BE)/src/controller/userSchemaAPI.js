@@ -13,7 +13,7 @@ module.exports.getUserInfo = async (req,res,next) =>{
     if (!user) {
         return res.status(404).json({ message: "user not found" });
     }
-    res.status(201).json({email : user.email , username : user.username, serviceType : user.serviceType});
+    res.status(201).json({user});
 }
 
 //PUT update userInfo
