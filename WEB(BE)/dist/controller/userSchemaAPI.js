@@ -67,7 +67,11 @@ module.exports.getUserInfo = /*#__PURE__*/function () {
             }));
 
           case 6:
-            res.send(user);
+            res.status(201).json({
+              email: user.email,
+              username: user.username,
+              serviceType: user.serviceType
+            });
 
           case 7:
           case "end":
@@ -80,64 +84,19 @@ module.exports.getUserInfo = /*#__PURE__*/function () {
   return function (_x4, _x5, _x6) {
     return _ref2.apply(this, arguments);
   };
-}(); //POST create new user 회원가입은 이쪽에서!
+}(); //PUT update userInfo
 
 
-module.exports.createNewUser = /*#__PURE__*/function () {
+module.exports.updateUser = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res, next) {
-    var _req$body, email, username, password, serviceType, user, newUser;
-
+    var username, updatedUser;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.prev = 0;
-            _req$body = req.body, email = _req$body.email, username = _req$body.username, password = _req$body.password, serviceType = _req$body.serviceType;
-            user = new _user["default"]({
-              email: email,
-              username: username,
-              serviceType: serviceType
-            });
-            _context3.next = 5;
-            return _user["default"].register(user, password);
-
-          case 5:
-            newUser = _context3.sent;
-            res.send(newUser);
-            _context3.next = 12;
-            break;
-
-          case 9:
-            _context3.prev = 9;
-            _context3.t0 = _context3["catch"](0);
-            return _context3.abrupt("return", res.status(404).json({
-              message: _context3.t0.message
-            }));
-
-          case 12:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3, null, [[0, 9]]);
-  }));
-
-  return function (_x7, _x8, _x9) {
-    return _ref3.apply(this, arguments);
-  };
-}(); //PUT update userInfo
-
-
-module.exports.updateUser = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res, next) {
-    var username, updatedUser;
-    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            _context4.prev = 0;
             username = req.params.username;
-            _context4.next = 4;
+            _context3.next = 4;
             return _user["default"].findOneAndUpdate({
               username: username
             }, req.body, {
@@ -146,38 +105,38 @@ module.exports.updateUser = /*#__PURE__*/function () {
             });
 
           case 4:
-            updatedUser = _context4.sent;
+            updatedUser = _context3.sent;
             res.send(updatedUser);
-            _context4.next = 11;
+            _context3.next = 11;
             break;
 
           case 8:
-            _context4.prev = 8;
-            _context4.t0 = _context4["catch"](0);
-            return _context4.abrupt("return", res.status(404).json({
-              message: _context4.t0
+            _context3.prev = 8;
+            _context3.t0 = _context3["catch"](0);
+            return _context3.abrupt("return", res.status(404).json({
+              message: _context3.t0
             }));
 
           case 11:
           case "end":
-            return _context4.stop();
+            return _context3.stop();
         }
       }
-    }, _callee4, null, [[0, 8]]);
+    }, _callee3, null, [[0, 8]]);
   }));
 
-  return function (_x10, _x11, _x12) {
-    return _ref4.apply(this, arguments);
+  return function (_x7, _x8, _x9) {
+    return _ref3.apply(this, arguments);
   };
 }(); //DELETE delete user
 
 
 module.exports.deleteUser = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res, next) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res, next) {
     var username;
-    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context5.prev = _context5.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
             username = req.params.username;
 
@@ -195,48 +154,171 @@ module.exports.deleteUser = /*#__PURE__*/function () {
 
           case 2:
           case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function (_x10, _x11, _x12) {
+    return _ref4.apply(this, arguments);
+  };
+}(); //GET render Register
+
+
+module.exports.renderRegister = function (req, res, next) {
+  res.render('userSchemaAPI/register');
+}; //GET render KAKAO register
+
+
+module.exports.renderRegisterKakao = function (req, res, next) {
+  res.render('userSchemaAPI/kakaoRegister');
+}; //POST create new user 회원가입은 이쪽에서!
+
+
+module.exports.createNewUser = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res, next) {
+    var _req$body, email, username, password, serviceType, user, newUser;
+
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.prev = 0;
+            _req$body = req.body, email = _req$body.email, username = _req$body.username, password = _req$body.password, serviceType = _req$body.serviceType;
+            user = new _user["default"]({
+              email: email,
+              username: username,
+              serviceType: serviceType
+            });
+            _context5.next = 5;
+            return _user["default"].register(user, password);
+
+          case 5:
+            newUser = _context5.sent;
+            req.login(newUser, function (err) {
+              if (err) return next(err); //res.status(201).json({newUser});
+
+              res.status(201).redirect("/userSchemaAPI/".concat(newUser.username));
+            });
+            _context5.next = 12;
+            break;
+
+          case 9:
+            _context5.prev = 9;
+            _context5.t0 = _context5["catch"](0);
+            res.status(400).json({
+              message: _context5.t0
+            });
+
+          case 12:
+          case "end":
             return _context5.stop();
         }
       }
-    }, _callee5);
+    }, _callee5, null, [[0, 9]]);
   }));
 
   return function (_x13, _x14, _x15) {
     return _ref5.apply(this, arguments);
   };
-}(); //POST login  res.status(200).json({email, username, serviceType, goal})
+}(); //POST create new user using kakao
 
 
-module.exports.login = /*#__PURE__*/function () {
+module.exports.createNewKakaoUser = /*#__PURE__*/function () {
   var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res, next) {
-    var email, user;
+    var _req$session$joinUser, snsId, username, email, user;
+
     return _regeneratorRuntime().wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
-            email = req.body.email;
-            _context6.next = 3;
-            return _user["default"].findOne({
-              email: email
+            _context6.prev = 0;
+            _req$session$joinUser = req.session.joinUser, snsId = _req$session$joinUser.snsId, username = _req$session$joinUser.username, email = _req$session$joinUser.email;
+            _context6.next = 4;
+            return _user["default"].create({
+              provider: 'kakao',
+              snsId: snsId,
+              email: email,
+              username: req.body.username || username
             });
 
-          case 3:
+          case 4:
             user = _context6.sent;
-            res.status(200).json({
-              "email": user.email,
-              "username": user.username,
-              "servictType": user.serviceType
-            });
+            req.session.regenerate(function () {
+              // 기존 회원가입을 위해 생성한 세션을 지우고
+              req.login(user, function (error) {
+                // 새로운 로그인 세션을 생성한다.
+                if (error) {
+                  next(error);
+                }
 
-          case 5:
+                return res.redirect("/userSchemaAPI/".concat(user.username)); // 회원가입 완료!
+              });
+            });
+            _context6.next = 12;
+            break;
+
+          case 8:
+            _context6.prev = 8;
+            _context6.t0 = _context6["catch"](0);
+            console.error(_context6.t0);
+            next(_context6.t0);
+
+          case 12:
           case "end":
             return _context6.stop();
         }
       }
-    }, _callee6);
+    }, _callee6, null, [[0, 8]]);
   }));
 
   return function (_x16, _x17, _x18) {
     return _ref6.apply(this, arguments);
   };
-}();
+}(); //GET render login
+
+
+module.exports.renderLogin = function (req, res, next) {
+  res.render('userSchemaAPI/login');
+}; //POST login
+
+
+module.exports.login = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(req, res, next) {
+    var email, user;
+    return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            email = req.body.email;
+            _context7.next = 3;
+            return _user["default"].findOne({
+              email: email
+            });
+
+          case 3:
+            user = _context7.sent;
+            // res.status(200).json({message : user.email});
+            res.status(200).redirect("/userSchemaAPI/".concat(user.username));
+
+          case 5:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+
+  return function (_x19, _x20, _x21) {
+    return _ref7.apply(this, arguments);
+  };
+}(); //GET logout
+//POST loginerror
+
+
+module.exports.loginerror = function (req, res, next) {
+  res.status(404).json({
+    message: "User not found"
+  });
+};

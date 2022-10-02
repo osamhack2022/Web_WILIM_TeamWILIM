@@ -17,8 +17,7 @@ var userSchema = new _mongoose["default"].Schema({
     type: String,
     lowercase: true,
     trim: true,
-    unique: true,
-    required: true
+    unique: true
   },
   username: {
     type: String,
@@ -31,12 +30,19 @@ var userSchema = new _mongoose["default"].Schema({
     "enum": ['ARMY', 'NAVY', 'AIR_FORCE', 'MARINE', 'OTHER'],
     "default": 'OTHER'
   },
+  snsId: {
+    type: Number,
+    "default": 0
+  },
+  provider: {
+    type: String,
+    "default": 'null'
+  },
   id: _mongoose["default"].Schema.Types.ObjectId
-}); //유저스키마에 passport-local-mongoose 플러그인 함으로써 유저가 회원가입할때 받아온 비밀번호를 자동으로 hashing 해서 스키마에 추가해줌.
-
+});
 userSchema.plugin(passportLocalMongoose, {
   usernameField: "email"
-});
+}); //로그인할때 email,password 사용
 
 var User = _mongoose["default"].model("User", userSchema);
 

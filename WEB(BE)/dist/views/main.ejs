@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BACKEND</title>
+</head>
+<body>
+    <div>
+        <% if (!user) {%> 
+            <a href="/userSchemaAPI/login/local">LOGIN</a>
+            <a href="/userSchemaAPI/register/local">REGISTER</a>
+            <a href="/userSchemaAPI/login/kakao">KAKAOLOGIN</a>
+        <% } else{ %> 
+            <a href="/userSchemaAPI/logout">LOGOUT</a>
+            <div>
+                <H3>CURRENT USER : <%= user.username%></H3>
+            </div>
+        <% } %> 
+    </div>
+    <h1>백엔드 입니다</h1>
+    <h3>/userSchemaAPI 라우팅 리스트</h3>
+        <ul>
+            <li><b>/</b> - DB 에 있는 모든 유저 GET</li>
+            <li><b>/register/local</b> - local 회원가입</li>
+            <li><b>/login/local</b> - local 로그인</li>
+            <li><b>/register/kakao</b> - kakao 로그인 후 db에 없는 유저일때 회원가입</li>
+            <li><b>/login/kakao</b> - kakao 로그인</li>
+            <li><b>/login/kakao/callback</b> - kakao 로그인 시 자동으로 넘어가는곳</li>
+            <li><b>/loginerror</b> - 로그인 에러 발생시</li>
+            <li><b>/:username</b> - 
+                <div>GET - username 을 파라매터로 받아 db에서 찾아 해당 유저 정보 return</div> 
+                <div>PUT - 해당 유저 수정</div>
+                <div>DELETE - 해당 유저 삭제</div>
+            </li>
+        </ul>
+    <h3>/userPersonalPlanAPI 라우팅 리스트</h3>
+</body>
+</html>
