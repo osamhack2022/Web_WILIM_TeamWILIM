@@ -5,11 +5,11 @@ import { CreateAccountPage } from "./pages/creatAccountPage";
 
 function App() {
   return (
-    //<Layout />
-    
     <Routes>
       <Route path="/" element={<LoginPage />}/>
       <Route path="/CreateAccountPage" element={<CreateAccountPage />}/>
+
+      <Route path="/Layout" element={<Layout />} />
     </Routes>
   );
 }
