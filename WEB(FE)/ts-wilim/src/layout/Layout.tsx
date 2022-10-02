@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { LoginTemplate } from "../components/template/loginTemplate";
 import { CreateAccountTemplate } from "../components/template/createAccountTemplate";
 import { useState } from "react";
-import { UserTitle } from "../components/molecule/userTitle";
 import { RefCommunityTemplate } from "../components/template/refCommunityTemplate";
 import { GoalPlanTemplate } from "../components/template/goalPlanTemplate";
+import { KakaoTestButton } from "../components/molecule/kakaoTestButton";
 /**
  * Layout은 App.js로 가기 전에 최종적인 라우팅 밑 GNB 등의 컴포넌트가 합쳐지는 장소입니다.
  * 이곳에서 구현하고자 하는 화면을 모두 구성한 뒤 App.js로 넘깁니다.
@@ -27,7 +27,7 @@ export const Layout = () => {
           {(() => {
             switch(pageNumber) {
               case "0":
-                return <UserTitle />
+                return <KakaoTestButton />
               case "1":
                 return <RefCommunityTemplate />
               case "2":
