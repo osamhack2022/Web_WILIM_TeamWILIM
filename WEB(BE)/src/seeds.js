@@ -7,8 +7,31 @@ import "./env.js";
 import {db_cstring, qnet_key} from "./db.js";
 import axios from 'axios';
 import express from 'express';
+import qnetInfo from './qnetInfo.json';
 
 const app = express();
+
+const item = qnetInfo.response.body.items.item
+const qnetLength = Object.keys(item).length;
+
+//국가자격시험일정 쿼리 명세 
+//serviceKey, 
+// numOfRows 한페이지 결과 수, 
+// pageNo 페이지 넘버
+// dataFormat	json으로
+// implYy 시행년도
+// qualgbCd 자격구분코드
+// jmCd 종목코드값
+const serviceKey = qnet_key;
+let numOfRows = 10;
+let pageNo;
+const dataFormat = 'json';
+
+for(let i = 0; i< qnetLength; i++){
+    console.log(item[i]);
+}
+
+
 
 // //mongoose connection
 // main().catch(err => console.log(err));

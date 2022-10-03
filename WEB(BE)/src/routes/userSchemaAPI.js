@@ -54,7 +54,7 @@ router.get('/login/kakao/callback', (req, res, next) => {//kakao 로그인 콜�
         if (error) {
             return next(error);
         }
-        return res.redirect('/');
+        return res.redirect(`/userSchemaAPI/${user.username}`);
     });
     })(req, res, next);
 });
