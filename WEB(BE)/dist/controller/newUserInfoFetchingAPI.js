@@ -2,37 +2,9 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
-var _user = _interopRequireDefault(require("./models/user"));
+var _user = _interopRequireDefault(require("../models/user"));
 
-var _express = _interopRequireDefault(require("express"));
-
-var _bodyParser = _interopRequireDefault(require("body-parser"));
-
-var _mongoose = _interopRequireDefault(require("mongoose"));
-
-var _expressSession = _interopRequireDefault(require("express-session"));
-
-var _passport = _interopRequireDefault(require("passport"));
-
-var _passportLocal = _interopRequireDefault(require("passport-local"));
-
-var _error = _interopRequireDefault(require("./utils/error"));
-
-var _path = _interopRequireDefault(require("path"));
-
-var _methodOverride = _interopRequireDefault(require("method-override"));
-
-var _ejsMate = _interopRequireDefault(require("ejs-mate"));
-
-var _passportKakao = require("passport-kakao");
-
-var _userSchemaAPI = _interopRequireDefault(require("./routes/userSchemaAPI.js"));
-
-var _newUserInfoFetchingAPI = _interopRequireDefault(require("./routes/newUserInfoFetchingAPI.js"));
-
-require("./env.js");
-
-var _db = require("./db.js");
+var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -42,162 +14,39 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-var PORT = process.env.PORT || 5000;
-var app = (0, _express["default"])(); //ejs config
-
-app.set('view engine', 'ejs');
-app.set('views', _path["default"].join(__dirname, '/views'));
-app.engine("ejs", _ejsMate["default"]); //middlewares
-
-app.use(_bodyParser["default"].json());
-app.use(_express["default"].urlencoded({
-  extended: true
-}));
-app.use((0, _expressSession["default"])({
-  secret: _db.session_secret,
-  resave: false,
-  saveUninitialized: true
-}));
-app.use((0, _methodOverride["default"])("_method")); //passport config
-
-app.use(_passport["default"].initialize());
-app.use(_passport["default"].session());
-
-_passport["default"].serializeUser(function (user, done) {
-  done(null, user.username);
-});
-
-_passport["default"].deserializeUser(function (username, done) {
-  _user["default"].findOne({
-    username: username
-  }, function (err, user) {
-    done(err, user);
-  });
-});
-
-_passport["default"].use(new _passportLocal["default"]({
-  usernameField: 'email'
-}, _user["default"].authenticate()));
-
-_passport["default"].use(new _passportKakao.Strategy({
-  clientID: _db.kakao_key,
-  callbackURL: '/userSchemaAPI/login/kakao/callback'
-}, /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(accessToken, refreshToken, profile, done) {
-    var foundUser;
+// https 로 데이터 받아오면 validation 에서 막히는듯하다. url 은 왠만하면 http 로 받아오자...!
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED ="0";
+module.exports.getFetchWithQnet = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res, next) {
+    var data;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _user["default"].findOne({
-              snsId: profile.id,
-              provider: 'kakao'
-            });
+            return _axios["default"].get('http://apis.data.go.kr/B490007/qualExamSchd/getQualExamSchdList?serviceKey=h0s66po6sZAkb4Zx6EzM3pt79xH05dw1ReWavwvGpdxBHhbF%2FYTZqna5FZ3j8XBByBp6Ep7ccXM8j3Zdibxx9g%3D%3D&numOfRows=10&pageNo=1&dataFormat=json&implYy=2022&qualgbCd=T&jmCd=7916');
 
           case 3:
-            foundUser = _context.sent;
-
-            if (!foundUser) {
-              _context.next = 8;
-              break;
-            }
-
-            return _context.abrupt("return", done(null, foundUser));
-
-          case 8:
-            return _context.abrupt("return", done(null, false, profile));
-
-          case 9:
-            _context.next = 14;
+            data = _context.sent;
+            res.send(data.data);
+            _context.next = 10;
             break;
 
-          case 11:
-            _context.prev = 11;
+          case 7:
+            _context.prev = 7;
             _context.t0 = _context["catch"](0);
-            return _context.abrupt("return", done(_context.t0));
+            next(_context.t0);
 
-          case 14:
+          case 10:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 11]]);
+    }, _callee, null, [[0, 7]]);
   }));
 
-  return function (_x, _x2, _x3, _x4) {
+  return function (_x, _x2, _x3) {
     return _ref.apply(this, arguments);
   };
-}()));
-
-app.use(function (req, res, next) {
-  res.locals.user = req.user; //ejs 에서 <%= user %> 는 로그인중인 유저 정보  return
-
-  next();
-}); //mongoose connection
-
-main()["catch"](function (err) {
-  return console.log(err);
-});
-
-function main() {
-  return _main.apply(this, arguments);
-} //routes
-
-
-function _main() {
-  _main = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return _mongoose["default"].connect(_db.db_cstring);
-
-          case 2:
-            console.log("database connected!");
-
-          case 3:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-  return _main.apply(this, arguments);
-}
-
-app.get('/', function (req, res, next) {
-  res.status(200).render('main.ejs');
-}); //basic routes
-
-app.use('/userSchemaAPI', _userSchemaAPI["default"]); //기본적인 유저 정보에 대한 create, read, update, delete를 수행한다.
-
-app.use('/newUserInfoFetchingAPI', _newUserInfoFetchingAPI["default"]); //유저가 자신의 목표를 설정하면 관련 정보들을 받아서 저장하는 기능을 수행한다.
-// app.use('/userPersonalPlanAPI',userPersonalPlanAPIRoutes);//유저가 자신의 계획을 수립하고 체크할 수 있도록하는 기능을 수행한다.
-// app.use('/communityAPI',communityAPIRoutes);//커뮤니티 게시글 정보에 대한 create, read, update, delete를 수행한다.
-//404 에러
-
-app.all("*", function (err, req, res, next) {
-  next(new _error["default"]("page not found", 404));
-}); //에러 핸들링
-
-app.use(function (err, req, res, next) {
-  var _err$statusCode = err.statusCode,
-      statusCode = _err$statusCode === void 0 ? 500 : _err$statusCode;
-  if (!err.message) err.message = "unknown error";
-  res.status(statusCode).json({
-    err: err
-  });
-});
-app.listen(PORT, function () {
-  console.log(PORT); //api test
-
-  app.get('/hello', function (req, res, next) {
-    res.send({
-      "msg": "hello world!"
-    });
-  });
-});
+}();

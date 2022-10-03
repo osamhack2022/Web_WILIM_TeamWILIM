@@ -55,10 +55,10 @@ router.get('/login/kakao/callback', function (req, res, next) {
 
     return req.login(user, function (error) {
       if (error) {
-        next(error);
+        return next(error);
       }
 
-      res.redirect('/');
+      return res.redirect('/');
     });
   })(req, res, next);
 });

@@ -68,9 +68,7 @@ module.exports.getUserInfo = /*#__PURE__*/function () {
 
           case 6:
             res.status(201).json({
-              email: user.email,
-              username: user.username,
-              serviceType: user.serviceType
+              user: user
             });
 
           case 7:
@@ -246,14 +244,12 @@ module.exports.createNewKakaoUser = /*#__PURE__*/function () {
           case 4:
             user = _context6.sent;
             req.session.regenerate(function () {
-              // 기존 회원가입을 위해 생성한 세션을 지우고
               req.login(user, function (error) {
-                // 새로운 로그인 세션을 생성한다.
                 if (error) {
-                  next(error);
+                  return next(error);
                 }
 
-                return res.redirect("/userSchemaAPI/".concat(user.username)); // 회원가입 완료!
+                return res.redirect('/');
               });
             });
             _context6.next = 12;
