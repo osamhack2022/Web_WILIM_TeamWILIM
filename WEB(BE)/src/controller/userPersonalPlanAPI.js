@@ -44,12 +44,6 @@ export const getPlanElement = async (req, res, next) => {
     const planElement = await PlanElement.findById(id);
     const { detail, completed, steady } = planElement;
 
-    console.log(username);
-    console.log(id);
-    console.log(detail);
-    console.log(completed);
-    console.log(steady);
-
     return res.status(200).render('userPersonalPlanAPI/planElement', {
         username, id, detail, completed, steady
     });
@@ -97,7 +91,7 @@ export const updatePlanElement = async (req, res, next) => {
             detail: detail,
             completed: completed,
             steady: steady
-        });
+        }, { new: true });
 
         return res.status(200).send(updatedPlanElement);
     } catch(err) {
@@ -114,12 +108,10 @@ export const deletePlanElement = async (req, res, next) => {
     const { id } = req.params;
 
     try {
-        await findByIdAndUpdate(personalPlanId, {
-            list: list.filter((elem) => elem !== id)
-        });     // Plan List에서 Element의 _id 값 먼저 삭제
+        await PlanList.findByIdAndUpdate(personalPlanId, { $pull: { list: id } }, { new: true });     // Plan List에서 Element의 _id 값 먼저 삭제
         await PlanElement.findByIdAndDelete(id);    // Plan Element 삭제
     
-        return res.status(200).redirect(`userPersonalPlanAPI/${username}/plans`);
+        return res.status(200).redirect(`/userPersonalPlanAPI/${username}/plans`);
     } catch(err) {
         return res.status(404).json({message : err});
     }

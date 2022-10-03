@@ -26,8 +26,8 @@ router.route('/:username/plans')
 
 router.route("/:username/plans/:id")
     .get(getPlanElement)        // 전체 플랜 리스트 중 하나의 Element 가져오기
-    .patch(updatePlanElement)   // 기존에 존재하던 Plan Element 업데이트
-    .delete(deletePlanElement)  // 특정 Plan Element 삭제
+    .put(updatePlanElement)     // 기존에 존재하던 Plan Element 업데이트
+    .delete(deletePlanElement); // 특정 Plan Element 삭제
 
 
 export default router;

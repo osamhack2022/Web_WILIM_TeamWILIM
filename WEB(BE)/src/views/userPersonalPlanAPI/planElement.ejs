@@ -9,20 +9,20 @@
 <body>
     <h1>Plan Element: ID [<%=id %>]</h1>
 
-    <form action="/userPersonalPlanAPI/<%=username %>/plans/<%=id %>" method="PATCH" >
+    <form action="/userPersonalPlanAPI/<%=username %>/plans/<%=id %>?_method=PUT"" method="post" >
         <div>
             <label for="detail">detail</label>
-            <input type="text" name="detail" id="detail" placeholder="<%=detail %>" >
+            <input type="text" name="detail" id="detail" value="<%=detail %>" placeholder="당신의 계획은 무엇인가요?" />
         </div>
         <div>
             <span>Completed</span>
-            <label><input type="radio" name="completed" value="true"> True</label>
-            <label><input type="radio" name="completed" value="false"> False</label>
+            <label><input type="radio" name="completed" value="true" /> True</label>
+            <label><input type="radio" name="completed" value="false" /> False</label>
         </div>
         <div>
             <span>Steady</span>
-            <label><input type="radio" name="steady" value="true" checked="<%=checked%>"> True</label>
-            <label><input type="radio" name="steady" value="false" checked="<%=!checked%>"> False</label>
+            <label><input type="radio" name="steady" value="true" /> True</label>
+            <label><input type="radio" name="steady" value="false" /> False</label>
         </div>
         <button>Submit</button>
     </form>
