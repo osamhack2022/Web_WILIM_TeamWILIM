@@ -2,48 +2,37 @@
 //id, username, password, email, goal, plan
 import mongoose from 'mongoose';
 import User from './models/user.js';
+import GoalElement from './models/goalElement';
 import "./env.js";
-import {db_cstring} from "./db.js";
+import {db_cstring, qnet_key} from "./db.js";
+import axios from 'axios';
+import express from 'express';
 
-//mongoose connection
-main().catch(err => console.log(err));
-async function main() {
-    await mongoose.connect(db_cstring);
-    console.log("database connected!");
-}
+const app = express();
 
-const data = [
-    {
-        username : "Geun-Oh",
-        password : "00000000",
-        email : "bun73@naver.com",
-        serviceType : 'ARMY'
-    },
-    {
-        username : "JeongIn",
-        password : "00000000",
-        email : "leeji7682@gmail.com",
-        serviceType : 'ARMY'
-    },
-    {
-        username : "cerealmaster",
-        password : "00000000",
-        email : "cerealmaster@naver.com",
-        serviceType : 'ARMY',
-    },
-    {
-        username : "Chan",
-        password : "00000000",
-        email : "kandy1002@naver.com",
-        serviceType : 'AIR_FORCE',
-    }
-];
+// //mongoose connection
+// main().catch(err => console.log(err));
+// async function main() {
+//     await mongoose.connect(db_cstring);
+//     console.log("database connected!");
+// }
 
-const seedDB = async () =>{
-    await User.deleteMany({});
-    await User.insertMany(data);
-    mongoose.connection.close();
-    console.log("seeded done!"); 
-};
+// const url = 'http://apis.data.go.kr/B490007/qualExamSchd/getQualExamSchdList'
 
-seedDB();
+// app.get('/seed',async (req,res,next)=>{
+//     try{
+//         const data = await axios.get(url, {serviceKey : qnet_key})
+//         res.send(data.body);
+//     }catch(e){
+//         next(e);
+//     }
+// })
+
+// const seedDB = async () =>{
+//     await User.deleteMany({});
+//     await User.insertMany(data);
+//     mongoose.connection.close();
+//     console.log("seeded done!"); 
+// };
+
+// seedDB();

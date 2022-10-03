@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     },
     provider : {
         type:String,
-        default:'null'
+        default:null
     },
     id: mongoose.Schema.Types.ObjectId,
 });

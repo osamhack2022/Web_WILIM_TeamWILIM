@@ -10,6 +10,7 @@
 import express from 'express';
 import {getFetchWithQnet} from '../controller/newUserInfoFetchingAPI.js';
 const router = express.Router();
+import '../env.js';
 
 router.route('/fetchWithQnet')
     .get(getFetchWithQnet) //유저의 Plan, Goal 받아와서 Qnet 
