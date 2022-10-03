@@ -5,6 +5,7 @@ import { CreateAccountPage } from "./pages/createAccountPage";
 import { GoalPlanPage } from "./pages/goalPlanPage";
 import { RefCommunityPage } from "./pages/refCommunityPage";
 import { FindPasswordPage } from "./pages/findPasswordPage";
+import { UserSchemaPage } from "./pages/userSchemaPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/refCommunity/:username" element={<RefCommunityPage />} />
       <Route path="/findPassword" element={<FindPasswordPage />} />
       <Route path="/test" element={<Layout />} />
+      <Route path="/:username" element={<UserSchemaPage />} />
     </Routes>
   );
 }

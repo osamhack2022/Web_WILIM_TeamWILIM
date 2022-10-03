@@ -1,9 +1,7 @@
 import { BaseStyles } from "../components/theme";
 import styled from "styled-components";
-import { LoginTemplate } from "../components/template/loginTemplate";
 import { CreateAccountTemplate } from "../components/template/createAccountTemplate";
 import { useState } from "react";
-import { RefCommunityTemplate } from "../components/template/refCommunityTemplate";
 import { GoalPlanTemplate } from "../components/template/goalPlanTemplate";
 import { KakaoTestButton } from "../components/molecule/kakaoTestButton";
 import { LoginPage } from "../pages/loginPage";
