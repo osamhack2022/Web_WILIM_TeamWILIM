@@ -6,6 +6,7 @@ import { useState } from "react";
 import { RefCommunityTemplate } from "../components/template/refCommunityTemplate";
 import { GoalPlanTemplate } from "../components/template/goalPlanTemplate";
 import { KakaoTestButton } from "../components/molecule/kakaoTestButton";
+import { LoginPage } from "../pages/loginPage";
 /**
  * Layout은 App.js로 가기 전에 최종적인 라우팅 밑 GNB 등의 컴포넌트가 합쳐지는 장소입니다.
  * 이곳에서 구현하고자 하는 화면을 모두 구성한 뒤 App.js로 넘깁니다.
@@ -28,14 +29,12 @@ export const Layout = () => {
             switch(pageNumber) {
               case "0":
                 return <KakaoTestButton />
-              case "1":
-                return <RefCommunityTemplate />
               case "2":
                 return <CreateAccountTemplate />
                 case "3":
                   return <GoalPlanTemplate />
               default:
-                return <LoginTemplate />
+                return <LoginPage />
             }
           })()}
         </InnerMediaDiv>
@@ -44,7 +43,7 @@ export const Layout = () => {
   );
 };
 
-const MediaDiv = styled.div`
+export const MediaDiv = styled.div`
   position: absolute;
   left: 35vw;
   width: 30vw;
@@ -62,6 +61,6 @@ const MediaDiv = styled.div`
   }
 `;
 
-const InnerMediaDiv = styled.div`
+export const InnerMediaDiv = styled.div`
   width: 80%;
 `;

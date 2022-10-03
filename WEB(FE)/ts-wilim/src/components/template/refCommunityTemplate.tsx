@@ -4,10 +4,16 @@ import { MarginBox } from "../atom/marginBox";
 import { Text } from "../atom/text";
 import { UserTitle } from "../molecule/userTitle";
 import { BaseStyles } from "../theme";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ReducerType } from "../../store/rootReducer";
 
-export const RefCommunityTemplate = () => {
+interface RefCommunityTemplateProps {
+  examDownloadLink: string;
+  goToCommunityLink: string;
+}
+
+export const RefCommunityTemplate = ({ examDownloadLink, goToCommunityLink }: RefCommunityTemplateProps) => {
   const goal = useSelector((state: ReducerType) => state.userInfo.goal);
   return (
     <Flex flexDirection="column" alignItems="center">
@@ -29,17 +35,19 @@ export const RefCommunityTemplate = () => {
         />
       </Flex>
       <MarginBox marginBottom="2rem" />
-      <Button
-        innerText={`${goal} 공개문제 자료 다운로드`}
-        width="80%"
-        color={BaseStyles.Color.Orange3}
-        backgroundColor={BaseStyles.Color.Black4}
-        hoverColor={BaseStyles.Color.Black3}
-        onClick={() => console.log("공개문제 다운로드!")}
-      />
+      <Link to={examDownloadLink}>
+        <Button
+          innerText={`${goal} 공개문제 자료 다운로드`}
+          width="80%"
+          color={BaseStyles.Color.Orange3}
+          backgroundColor={BaseStyles.Color.Black4}
+          hoverColor={BaseStyles.Color.Black3}
+          onClick={() => console.log('공개문제 다운로드')}
+        />
+      </Link>
       <MarginBox marginBottom="2rem" />
       <Flex flexDirection="column" justifyContent="flex-start" width="80%">
-      <Text
+        <Text
           innerText="조주기능사는 유료 강의를 제공해주는
           곳이 없어요...."
           color="white"
@@ -64,14 +72,16 @@ export const RefCommunityTemplate = () => {
         />
       </Flex>
       <MarginBox marginBottom="2rem" />
-      <Button
-        innerText="네이버 커뮤니티 바로가기"
-        width="80%"
-        color="white"
-        backgroundColor="#2DB400"
-        hoverColor={BaseStyles.Color.Lime1}
-        onClick={() => console.log("커뮤니티 바로가기!")}
-      />
+      <Link to={goToCommunityLink}>
+        <Button
+          innerText="네이버 커뮤니티 바로가기"
+          width="80%"
+          color="white"
+          backgroundColor="#2DB400"
+          hoverColor={BaseStyles.Color.Lime1}
+          onClick={() => { console.log('커뮤니티 바로가기') }}
+        />
+      </Link>
     </Flex>
   );
 };
