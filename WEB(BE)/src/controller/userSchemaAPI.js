@@ -13,7 +13,7 @@ module.exports.getUserInfo = async (req,res,next) =>{
     if (!user) {
         return res.status(404).json({ message: "user not found" });
     }
-    res.status(201).json({email : user.email , username : user.username, serviceType : user.serviceType});
+    res.status(201).json({user});
 }
 
 //PUT update userInfo
@@ -45,6 +45,11 @@ module.exports.renderRegister = (req,res,next)=>{
     res.render('userSchemaAPI/register');
 }
 
+//GET render KAKAO register
+module.exports.renderRegisterKakao = (req,res,next)=>{
+    res.render('userSchemaAPI/kakaoRegister');
+}
+
 //POST create new user 회원가입은 이쪽에서!
 module.exports.createNewUser = async (req,res,next) => {
     try {
@@ -53,14 +58,38 @@ module.exports.createNewUser = async (req,res,next) => {
         const newUser = await User.register(user, password);
         req.login(newUser, err=>{
             if (err) return next(err);
-            const returnUrl = req.session.returnTo || '/';
-            delete req.session.returnTo;
-            res.redirect(returnUrl);
+            //res.status(201).json({newUser});
+            res.status(201).redirect(`/userSchemaAPI/${newUser.username}`);
         })
     } catch (e) {
-        res.status(400).json({message : e}).redirect("/register");
+        res.status(400).json({message : e});
     }
 }
+
+//POST create new user using kakao
+module.exports.createNewKakaoUser = async(req,res,next)=>{
+    try {
+        const { snsId, username, email } = req.session.joinUser;  
+        const user = await User.create({
+            provider : 'kakao',
+            snsId : snsId,
+            email: email,
+            username: req.body.username || username,
+        });
+        req.session.regenerate(() => { 
+            req.login(user, (error) => { 
+                if (error) {
+                    return next(error);
+                }
+                return res.redirect('/');
+            });
+        });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+}
+
 
 //GET render login
 module.exports.renderLogin = (req,res,next)=>{
@@ -69,7 +98,10 @@ module.exports.renderLogin = (req,res,next)=>{
 
 //POST login
 module.exports.login = async(req,res,next)=>{
-    res.status(200).redirect('/');
+    const {email} = req.body;
+    const user = await User.findOne({email : email});
+    // res.status(200).json({message : user.email});
+    res.status(200).redirect(`/userSchemaAPI/${user.username}`);
 }
 
 //GET logout

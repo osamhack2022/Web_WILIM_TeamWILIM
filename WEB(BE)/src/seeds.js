@@ -3,7 +3,7 @@
 import mongoose from 'mongoose';
 import User from './models/user.js';
 import "./env.js";
-import {db_cstring} from "./db.js";
+import { db_cstring } from "./db.js";
 
 //mongoose connection
 main().catch(err => console.log(err));
