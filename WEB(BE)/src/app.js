@@ -14,7 +14,7 @@ import {Strategy as KakaoStrategy} from 'passport-kakao';
 //순서대로 개발 끝나면 코맨트 풀기!
 import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
 // import newUserInfoFetchingAPIRoutes from './routes/newUserSchemaAPI';
-// import userPersonalPlanAPIRoutes from './routes/userPersonalPlanAPI';
+import userPersonalPlanAPIRoutes from './routes/userPersonalPlanAPI';
 // import communityAPIRoutes from './routes/communityAPI';
 
 //env setting
@@ -88,7 +88,7 @@ async function main() {
 app.get('/',(req,res,next)=>{res.status(200).render('main.ejs')});//basic routes
 app.use('/userSchemaAPI',userSchemaAPIRoutes); //기본적인 유저 정보에 대한 create, read, update, delete를 수행한다.
 // app.use('/newUserInfoFetchingAPI',newUserInfoFetchingAPIRoutes); //유저가 자신의 목표를 설정하면 관련 정보들을 받아서 저장하는 기능을 수행한다.
-// app.use('/userPersonalPlanAPI',userPersonalPlanAPIRoutes);//유저가 자신의 계획을 수립하고 체크할 수 있도록하는 기능을 수행한다.
+app.use('/userPersonalPlanAPI',userPersonalPlanAPIRoutes);//유저가 자신의 계획을 수립하고 체크할 수 있도록하는 기능을 수행한다.
 // app.use('/communityAPI',communityAPIRoutes);//커뮤니티 게시글 정보에 대한 create, read, update, delete를 수행한다.
 
 //404 에러
