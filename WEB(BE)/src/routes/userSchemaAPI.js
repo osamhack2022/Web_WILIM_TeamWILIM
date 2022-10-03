@@ -52,9 +52,9 @@ router.get('/login/kakao/callback', (req, res, next) => {//kakao 로그인 콜�
         }
     return req.login(user, function (error){
         if (error) {
-            next(error);
+            return next(error);
         }
-        res.redirect('/');
+        return res.redirect('/');
     });
     })(req, res, next);
 });

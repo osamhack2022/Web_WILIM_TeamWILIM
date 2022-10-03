@@ -13,7 +13,7 @@ module.exports.getUserInfo = async (req,res,next) =>{
     if (!user) {
         return res.status(404).json({ message: "user not found" });
     }
-    res.status(201).json({email : user.email , username : user.username, serviceType : user.serviceType});
+    res.status(201).json({user});
 }
 
 //PUT update userInfo
@@ -76,12 +76,12 @@ module.exports.createNewKakaoUser = async(req,res,next)=>{
             email: email,
             username: req.body.username || username,
         });
-        req.session.regenerate(() => { // 기존 회원가입을 위해 생성한 세션을 지우고
-            req.login(user, (error) => { // 새로운 로그인 세션을 생성한다.
+        req.session.regenerate(() => { 
+            req.login(user, (error) => { 
                 if (error) {
-                    next(error);
-        }
-        return res.redirect(`/userSchemaAPI/${user.username}`); // 회원가입 완료!
+                    return next(error);
+                }
+                return res.redirect('/');
             });
         });
     } catch (error) {

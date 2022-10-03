@@ -11,15 +11,14 @@ import path from 'path';
 import methodOverride from 'method-override';
 import engine from 'ejs-mate';
 import {Strategy as KakaoStrategy} from 'passport-kakao';
-//순서대로 개발 끝나면 코맨트 풀기!
 import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
-// import newUserInfoFetchingAPIRoutes from './routes/newUserSchemaAPI';
+import newUserInfoFetchingAPIRoutes from './routes/newUserInfoFetchingAPI.js';
 // import userPersonalPlanAPIRoutes from './routes/userPersonalPlanAPI';
 // import communityAPIRoutes from './routes/communityAPI';
 
 //env setting
 import "./env.js";
-import { db_cstring , session_secret , kakao_key } from "./db.js";
+import { db_cstring , session_secret , kakao_key , qnet_key} from "./db.js";
 
 //
 const PORT = process.env.PORT || 5000
@@ -43,8 +42,15 @@ app.use(methodOverride("_method"));
 //passport config
 app.use(passport.initialize());
 app.use(passport.session());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(function(user, done) {
+    done(null, user.username);
+});
+passport.deserializeUser(function(username, done) {
+    User.findOne({username : username}, function(err, user) {
+    done(err, user);
+});
+
+});
 passport.use(new LocalStrategy({usernameField: 'email'}, User.authenticate()));
 passport.use(new KakaoStrategy(
     {
@@ -66,7 +72,7 @@ passport.use(new KakaoStrategy(
                 return done(null, false, profile);
             } 
         } catch (error) {
-            done(error);
+            return done(error);
         }
     },
     ),
@@ -87,7 +93,7 @@ async function main() {
 //routes
 app.get('/',(req,res,next)=>{res.status(200).render('main.ejs')});//basic routes
 app.use('/userSchemaAPI',userSchemaAPIRoutes); //기본적인 유저 정보에 대한 create, read, update, delete를 수행한다.
-// app.use('/newUserInfoFetchingAPI',newUserInfoFetchingAPIRoutes); //유저가 자신의 목표를 설정하면 관련 정보들을 받아서 저장하는 기능을 수행한다.
+app.use('/newUserInfoFetchingAPI',newUserInfoFetchingAPIRoutes); //유저가 자신의 목표를 설정하면 관련 정보들을 받아서 저장하는 기능을 수행한다.
 // app.use('/userPersonalPlanAPI',userPersonalPlanAPIRoutes);//유저가 자신의 계획을 수립하고 체크할 수 있도록하는 기능을 수행한다.
 // app.use('/communityAPI',communityAPIRoutes);//커뮤니티 게시글 정보에 대한 create, read, update, delete를 수행한다.
 
