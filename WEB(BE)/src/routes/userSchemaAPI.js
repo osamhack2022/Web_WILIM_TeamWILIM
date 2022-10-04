@@ -54,7 +54,7 @@ router.get('/login/kakao/callback', (req, res, next) => {//kakao 로그인 콜�
         if (error) {
             return next(error);
         }
-        return res.redirect(`/userSchemaAPI/${user.username}`);
+        return res.redirect(`https://candid-nasturtium-545b93.netlify.app/${user.username}`);
     });
     })(req, res, next);
 });

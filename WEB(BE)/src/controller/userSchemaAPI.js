@@ -60,7 +60,7 @@ module.exports.createNewUser = async (req,res,next) => {
         req.login(newUser, err=>{
             if (err) return next(err);
             //res.status(201).json({newUser});
-            res.status(201).redirect(`/userSchemaAPI/${newUser.username}`);
+            res.status(201).redirect(`/userSchemaAPI/${username}`);
         })
     } catch (e) {
         res.status(400).json({message : e});
@@ -82,7 +82,7 @@ module.exports.createNewKakaoUser = async(req,res,next)=>{
                 if (error) {
                     return next(error);
                 }
-                return res.redirect(`/userSchemaAPI/${username}`);
+                return res.redirect(`https://candid-nasturtium-545b93.netlify.app/${user.username}`);
             });
         });
     } catch (error) {
