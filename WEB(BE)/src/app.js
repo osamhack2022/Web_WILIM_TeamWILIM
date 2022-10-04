@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import session from 'express-session';
 import passport from 'passport';
+import cors from 'cors';
 import LocalStrategy from 'passport-local';
 import ExpressError from './utils/error';
 import path from 'path';
@@ -38,6 +39,7 @@ app.use(session({
     saveUninitialized: true,
 }));
 app.use(methodOverride("_method"));
+app.use(cors());
 
 //passport config
 app.use(passport.initialize());
