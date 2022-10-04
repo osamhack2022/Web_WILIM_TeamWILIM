@@ -82,7 +82,7 @@ module.exports.createNewKakaoUser = async(req,res,next)=>{
                 if (error) {
                     return next(error);
                 }
-                return res.redirect('/');
+                return res.redirect(`/userSchemaAPI/${username}`);
             });
         });
     } catch (error) {

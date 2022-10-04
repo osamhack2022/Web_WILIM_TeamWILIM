@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     },
     provider : {
         type:String,
-        default:'null'
+        default:null
     },
     personalPlanId: {
         type: mongoose.Schema.Types.ObjectId,    // user의 Plan List의 _id 값

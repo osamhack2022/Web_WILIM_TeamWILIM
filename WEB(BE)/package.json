@@ -6,6 +6,7 @@
     "start": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --exec babel-node src/app.js",
+    "seed" : "nodemon --exec babel-node src/seeds.js",
     "compile": "npx babel src --out-dir dist"
   },
   "keywords": [],
