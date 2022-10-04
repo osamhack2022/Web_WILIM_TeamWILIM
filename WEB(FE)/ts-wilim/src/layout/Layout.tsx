@@ -7,6 +7,7 @@ import { KakaoTestButton } from "../components/molecule/kakaoTestButton";
 import { LoginPage } from "../pages/loginPage";
 import { Link } from "react-router-dom";
 import { Button } from "../components/atom/button";
+import { Calender } from "../components/atom/calender";
 /**
  * Layout은 App.js로 가기 전에 최종적인 라우팅 밑 GNB 등의 컴포넌트가 합쳐지는 장소입니다.
  * 이곳에서 구현하고자 하는 화면을 모두 구성한 뒤 App.js로 넘깁니다.
@@ -38,8 +39,8 @@ export const Layout = () => {
                 </>
               case "2":
                 return <CreateAccountTemplate />
-                case "3":
-                  return <GoalPlanTemplate />
+              case "3":
+                return <GoalPlanTemplate />
               default:
                 return <LoginPage />
             }
