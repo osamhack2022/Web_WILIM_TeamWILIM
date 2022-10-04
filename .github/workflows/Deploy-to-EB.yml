@@ -27,6 +27,10 @@ jobs:
       - name: npm compile with babel
         working-directory: ./WEB(BE)
         run: npm run compile
+        
+      - name: copy views to dist
+        working-directory: ./WEB(BE)
+        run: cp -r ./src/views ./dist
 
       - name: make zip file
         working-directory: ./WEB(BE)
