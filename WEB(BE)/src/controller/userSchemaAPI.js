@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import { PlanList } from "../models/personalPlan.js";
 
 //GET entire user
 module.exports.getUsers = async (req,res,next) =>{

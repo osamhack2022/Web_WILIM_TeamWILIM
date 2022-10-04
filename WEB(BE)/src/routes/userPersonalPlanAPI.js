@@ -20,14 +20,14 @@ import {
 const router = express.Router();
 
 router.route('/:username/plans')
-    .get(getPlanList)               // 유저의 전체 플랜 리스트 가져오기
-    .post(addPlanElement)       // 새로운 Plan Element 추가
+    .get(getPlanList)          // 유저의 전체 플랜 리스트 가져오기
+    .post(addPlanElement);      // 새로운 Plan Element 추가
     // .delete(deletePersonalPlan);    // 유저의 전체 플랜 리스트 없애기 -> 필요한가?
 
 router.route("/:username/plans/:id")
     .get(getPlanElement)        // 전체 플랜 리스트 중 하나의 Element 가져오기
-    .patch(updatePlanElement)   // 기존에 존재하던 Plan Element 업데이트
-    .delete(deletePlanElement)  // 특정 Plan Element 삭제
+    .put(updatePlanElement)     // 기존에 존재하던 Plan Element 업데이트
+    .delete(deletePlanElement); // 특정 Plan Element 삭제
 
 
 export default router;

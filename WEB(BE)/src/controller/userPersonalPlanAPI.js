@@ -6,6 +6,7 @@ Plan은 기본적으로 User에 종속되어 있는 관계이다.
 */
 
 import mongoose from "mongoose";
+import User from "../models/user.js";
 import { PlanList, PlanElement } from "../models/personalPlan.js"; 
 
 export const getPlanList = async (req, res, next) => {
@@ -14,47 +15,88 @@ export const getPlanList = async (req, res, next) => {
     // PP는 초기에는 플랜을 넣어주지 않아서 비어 있더라도, 무조건 하나 만들어주는 걸로! 
     //    -> 그래야 CRUD가 편할 듯하다.
 
-    const { personalPlanId } = req.session.user;  // session 값에 저장되어 있는, 로그인한 user 객체에서 personalPlanId 값을 받아 온다.
-    const planList = await PlanList.findById(personalPlanId);   // user를 이용해 mongodb에서 planList를 query한다.
-    return res.send(planList);
+    const { _id, username } = req.user;
+    let { personalPlanId } = req.user;
+
+    if (personalPlanId === null) {      // Plan List가 생성되지 않았을 때, 처음 생성해 준다.
+        await PlanList.create({
+            user: _id,
+            list: []
+        });
+
+        const planList = await PlanList.findOne({ user: _id });
+        req.user.personalPlanId = planList._id;     // session에 있는 유저 객체 수정
+        await User.findByIdAndUpdate(_id, { personalPlanId: planList._id });    // mongoDB의 user 값 업데이트
+        personalPlanId = planList._id;  // 기존에 불러온 personalPlanId 변수 값 재할당
+    }
+
+    const planList = await PlanList.findById(personalPlanId)
+    // .populate("planelements");       populate: StrictPopulate 에러 해결해야 함 ....
+    return res.status(200).render('userPersonalPlanAPI/planList', {
+        username: username,
+        list: planList.list
+    });
 };
 
 export const getPlanElement = async (req, res, next) => {
+    const { username } = req.user;
     const { id } = req.params;
     const planElement = await PlanElement.findById(id);
+    const { detail, completed, steady } = planElement;
 
-    return res.send(planElement);
+    return res.status(200).render('userPersonalPlanAPI/planElement', {
+        username, id, detail, completed, steady
+    });
+
+    /*
+    return res.status(200).json({
+        detail: detail,
+        completed: completed,
+        steady: steady
+    });
+    */
 };
 
 export const addPlanElement = async (req, res, next) => {
     // 새로운 플랜을 저장할 때.
     // 기존에 존재하던 personalPlans가 있다면 불러오고, 새로운 플랜 내용을 넣은 다음 다시 저장한다.
-    const { personalPlanId } = req.session.user;
+    const { personalPlanId } = req.user;
     const { detail, steady } = req.body;
 
-    const newPlanElement = new PlanElement({ detail, steady });
-    await PlanList.findByIdAndUpdate(personalPlanId, { planList: planList.push(newPlanElement._id) });
-
-    return res.redirect("/:username/plans");
+    try {    
+        const newPlanElement = new PlanElement({ 
+            detail, 
+            steady,
+            planListId: personalPlanId
+        });
+        await newPlanElement.save();
+        await PlanList.findByIdAndUpdate(personalPlanId, { $push: { list: newPlanElement._id } });
+    
+        return res.status(201).send(newPlanElement);
+    } catch(err) {
+        return res.status(404).json({message: err});
+    }
 };
 
 export const updatePlanElement = async (req, res, next) => {
     // 기존에 있던 특정 플랜의 내용 혹은 완료 여부를 업데이트하는 경우.
     // PUT Method를 이용 / form에서 데이터를 submit할 때, Plan Element의 _id 값도 넘겨줘야 함!!!
     // PUT Method의 경우에도 req.body 객체에 정보를 넣어서 보내는지 확인 필요
-    
+
     const { detail, completed, steady } = req.body;    // 바꾸려는 내용 req.body로 전달
     const { id } = req.params;
-    // Question. 내가 바꾸려는 Plan Element의 아이디까지 POST method의 body에 넣어서 전달할 수 있는가?
-    // URL의 Parameter로 전달해야 하나 ...?
     
-    await PlanElement.findByIdAndUpdate(id, { 
-        detail: detail,
-        completed: completed,
-        steady: steady
-    });
+    try {
+        const updatedPlanElement = await PlanElement.findByIdAndUpdate(id, { 
+            detail: detail,
+            completed: completed,
+            steady: steady
+        }, { new: true });
 
-    return res.redirect("/:username/plans");
+        return res.status(200).send(updatedPlanElement);
+    } catch(err) {
+        return res.status(404).json({message : err});
+    }
 };
 
 export const deletePlanElement = async (req, res, next) => {
@@ -62,13 +104,15 @@ export const deletePlanElement = async (req, res, next) => {
     // DELETE Method를 이용 / 버튼을 눌러서 요청을 전달할 때, Plan Element의 _id 값도 넘겨줘야 함!!!
     // 삭제할 때는, 유저의 Plan List에서도 _id 값을 없애줘야 함.
     
-    const { personalPlanId } = req.session.user;
+    const { username, personalPlanId } = req.user;
     const { id } = req.params;
 
-    await findByIdAndUpdate(personalPlanId, {
-        planList: planList.filter((elem) => elem !== id)
-    });     // Plan List에서 Element의 _id 값 먼저 삭제
-    await PlanElement.findByIdAndDelete(id);    // Plan Element 삭제
-
-    return res.redirect("/:username/plans");
+    try {
+        await PlanList.findByIdAndUpdate(personalPlanId, { $pull: { list: id } }, { new: true });     // Plan List에서 Element의 _id 값 먼저 삭제
+        await PlanElement.findByIdAndDelete(id);    // Plan Element 삭제
+    
+        return res.status(200).redirect(`/userPersonalPlanAPI/${username}/plans`);
+    } catch(err) {
+        return res.status(404).json({message : err});
+    }
 };
