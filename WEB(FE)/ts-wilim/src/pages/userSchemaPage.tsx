@@ -7,7 +7,7 @@ export const UserSchemaPage = () => {
     useEffect(() => {
         const getfunc = async () => {
             const data = await axios.get(`https://wilimbackend.tk/userSchemaAPI/${username}`)
-            console.log(data);
+            console.log(data.data.user);
         }
         getfunc();
     }, [])
