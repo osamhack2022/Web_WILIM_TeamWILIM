@@ -11,9 +11,6 @@ import qnetInfo from './qnetInfo.json';
 
 const app = express();
 
-const item = qnetInfo.response.body.items.item
-const qnetLength = Object.keys(item).length;
-
 //국가자격시험일정 쿼리 명세 
 //serviceKey, 
 // numOfRows 한페이지 결과 수, 
@@ -22,14 +19,18 @@ const qnetLength = Object.keys(item).length;
 // implYy 시행년도
 // qualgbCd 자격구분코드
 // jmCd 종목코드값
+//&numOfRows=10&pageNo=1&dataFormat=json&implYy=2022&qualgbCd=T&jmCd=7916
+const url ='http://apis.data.go.kr/B490007/qualExamSchd/getQualExamSchdList'
+const item = qnetInfo.response.body.items.item;
 const serviceKey = qnet_key;
-let numOfRows = 10;
-let pageNo;
+let numOfRows = 20;
+let pageNo=1;
 const dataFormat = 'json';
+const implYy = 2022;
+let qualgbCd;
+let jmCd; 
 
-for(let i = 0; i< qnetLength; i++){
-    console.log(item[i]);
-}
+console.log(`${url}?serviceKey=${qnet_key}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&implYy=${implYy}&qualgbCd=${item[0].qualgbcd}&jmCd=${item[0].jmcd}`);
 
 
 
