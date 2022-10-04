@@ -6,7 +6,7 @@ export const UserSchemaPage = () => {
     const { username } = useParams();
     useEffect(() => {
         const getfunc = async () => {
-            const data = await fetch(`http://Wilimback-env.eba-hbw286vk.ap-northeast-2.elasticbeanstalk.com/userSchemaAPI/${username}`)
+            const data = await axios.get(`https://wilimbackend.tk/userSchemaAPI/${username}`)
             console.log(data);
         }
         getfunc();
