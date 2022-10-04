@@ -1,7 +1,7 @@
 import { Button } from "../atom/button";
 
 export const KakaoTestButton = () => {
-    const URL = "http://Wilimback-env.eba-hbw286vk.ap-northeast-2.elasticbeanstalk.com/userSchemaAPI/login/kakao";
+    const URL = "https://wilimbackend.tk/userSchemaAPI/login/kakao";
     const onClick = (e: any) => {
         e.preventDefault();
         window.location.href = URL;
