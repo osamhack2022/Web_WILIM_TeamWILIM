@@ -12,9 +12,8 @@ module.exports.isLoggedIn = (req,res,next)=>{
 // module.exports.isGoalOwner = async (req,res,next)=>{
 //     const {username} = req.params;
 //     const user = await User.findOne({username : username});
-//     if (!campground.author.equals(req.user._id)){
-//     req.flash('error','You are not in charge of this campground!');
-//     return res.redirect(`/campgrounds/${id}`);
+//     if (!GoalElement.user.equals(req.user._id)){
+//     return res.redirect(`/userSchemaAPI/${username}`);
 //     }
 //     next();
 // };
