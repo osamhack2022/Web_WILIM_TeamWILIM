@@ -5,6 +5,8 @@ import { useState } from "react";
 import { GoalPlanTemplate } from "../components/template/goalPlanTemplate";
 import { KakaoTestButton } from "../components/molecule/kakaoTestButton";
 import { LoginPage } from "../pages/loginPage";
+import { Link } from "react-router-dom";
+import { Button } from "../components/atom/button";
 /**
  * Layout은 App.js로 가기 전에 최종적인 라우팅 밑 GNB 등의 컴포넌트가 합쳐지는 장소입니다.
  * 이곳에서 구현하고자 하는 화면을 모두 구성한 뒤 App.js로 넘깁니다.
@@ -27,6 +29,13 @@ export const Layout = () => {
             switch(pageNumber) {
               case "0":
                 return <KakaoTestButton />
+              case "1":
+                return <>
+                  <KakaoTestButton />
+                  <Link to="/Geun-Oh">
+                    <Button innerText="Geun-Oh Info" onClick={() => console.log('get geunoh info')} />
+                  </Link>
+                </>
               case "2":
                 return <CreateAccountTemplate />
                 case "3":
