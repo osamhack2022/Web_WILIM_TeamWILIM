@@ -19,6 +19,13 @@
             </div>
         <% } %> 
     </div>
+
+    <div>
+        <% if(user) { %>
+            <a href="/userPersonalPlanAPI/<%=user.username %>/plans">PERSONALPLANS</a>
+        <% } %>
+    </div>
+
     <h1>백엔드 입니다</h1>
     <h3>/userSchemaAPI 라우팅 리스트</h3>
         <ul>

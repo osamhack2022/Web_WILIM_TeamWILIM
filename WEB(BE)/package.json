@@ -6,6 +6,7 @@
     "start": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --exec babel-node src/app.js",
+    "seed" : "nodemon --exec babel-node src/seeds.js",
     "compile": "npx babel src --out-dir dist"
   },
   "keywords": [],
@@ -15,6 +16,7 @@
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "ejs": "^3.1.8",
     "ejs-mate": "^4.0.0",

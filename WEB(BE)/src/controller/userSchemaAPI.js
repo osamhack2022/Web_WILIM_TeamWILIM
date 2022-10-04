@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import { PlanList } from "../models/personalPlan.js";
 
 //GET entire user
 module.exports.getUsers = async (req,res,next) =>{
@@ -81,7 +82,7 @@ module.exports.createNewKakaoUser = async(req,res,next)=>{
                 if (error) {
                     return next(error);
                 }
-                return res.redirect('/');
+                return res.redirect(`/userSchemaAPI/${username}`);
             });
         });
     } catch (error) {
