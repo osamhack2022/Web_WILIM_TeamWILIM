@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import { ReducerType } from "../../store/rootReducer";
 import { Box } from "../atom/box";
 import { Flex } from "../atom/flex";
 import { MarginBox } from "../atom/marginBox";
@@ -5,6 +7,7 @@ import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
 
 export const GoalCard = () => {
+  const goal = useSelector((state: ReducerType) => state.userInfo.goal);
   return (
     <Flex flexDirection="column" width="100%" alignItems="center">
       <Box
@@ -13,7 +16,7 @@ export const GoalCard = () => {
         backgroundColor={BaseStyles.Color.Black4}
       >
         <Text
-          innerText="조주기능사"
+          innerText={goal}
           color="white"
           fontSize={BaseStyles.Text.Heading3}
           fontWeight={BaseStyles.Text.Border1}
