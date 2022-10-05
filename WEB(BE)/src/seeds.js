@@ -27,10 +27,14 @@ let numOfRows = 20;
 let pageNo=1;
 const dataFormat = 'json';
 const implYy = 2022;
-let qualgbCd;
-let jmCd; 
+let jmCd;
 
-console.log(`${url}?serviceKey=${qnet_key}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&implYy=${implYy}&qualgbCd=${item[0].qualgbcd}&jmCd=${item[0].jmcd}`);
+
+axios.get(`${url}?serviceKey=${qnet_key}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&implYy=${implYy}&qualgbCd=${item[0].qualgbcd}&jmCd=${item[0].jmcd}`)
+    .then((res)=>{
+        console.log(res.body.items)
+    }).catch((e)=>console.log(e))
+
 
 
 

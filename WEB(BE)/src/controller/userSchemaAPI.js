@@ -76,6 +76,7 @@ module.exports.createNewKakaoUser = async(req,res,next)=>{
             snsId : snsId,
             email: email,
             username: req.body.username || username,
+            serviceType : req.body.serviceType
         });
         req.session.regenerate(() => { 
             req.login(user, (error) => { 
