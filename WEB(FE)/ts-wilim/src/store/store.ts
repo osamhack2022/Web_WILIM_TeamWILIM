@@ -1,5 +1,4 @@
 import { AnyAction, configureStore, getDefaultMiddleware, ThunkDispatch } from '@reduxjs/toolkit';
-import { TypedUseSelectorHook } from 'react-redux';
 import logger from 'redux-logger';
 import reducer, { ReducerType } from './rootReducer';
 

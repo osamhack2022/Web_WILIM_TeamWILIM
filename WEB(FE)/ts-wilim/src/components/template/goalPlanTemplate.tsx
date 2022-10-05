@@ -6,8 +6,18 @@ import { GoalCard } from "../organism/goalCard";
 import { PlanCard } from "../organism/planCard";
 import { BaseStyles } from "../theme";
 import { UserTitle } from "../molecule/userTitle";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AppThunkDispatch } from "../../store/store";
+import { fetchUserByUsername } from "../../store/asyncThunks/fetchUserByUsername";
 
 export const GoalPlanTemplate = () => {
+  const { username } = useParams();
+  const dispatch = useDispatch<AppThunkDispatch>();
+  useEffect(() => {
+    dispatch(fetchUserByUsername(username!));
+  }, [])
   return (
     <Flex flexDirection="column" alignItems="center">
       <UserTitle />

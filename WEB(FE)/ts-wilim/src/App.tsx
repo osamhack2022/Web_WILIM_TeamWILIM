@@ -8,6 +8,7 @@ import { FindPasswordPage } from "./pages/findPasswordPage";
 import { UserSchemaPage } from "./pages/userSchemaPage";
 import { Button } from "./components/atom/button";
 import { Link } from "react-router-dom";
+import { ModifyUserInfoPage } from "./pages/modifyUserInfoPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/findPassword" element={<FindPasswordPage />} />
       <Route path="/test" element={<Layout />} />
       <Route path="/:username" element={<UserSchemaPage />} />
+      <Route path="/modifyUserInfo/:username" element={<ModifyUserInfoPage />} />
     </Routes>
   );
 }
