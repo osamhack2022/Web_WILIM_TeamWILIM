@@ -1,16 +1,15 @@
-import axios from "axios";
 import { useEffect } from "react"
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchUserByUsername } from "../models/fetchUserByUsername";
+import { AppThunkDispatch } from "../store/store";
 
 export const UserSchemaPage = () => {
     const { username } = useParams();
+    const dispatch = useDispatch<AppThunkDispatch>();
     useEffect(() => {
-        const getfunc = async () => {
-            const data = await axios.get(`https://wilimbackend.tk/userSchemaAPI/${username}`)
-            console.log(data.data.user);
-        }
-        getfunc();
-    }, [])
+        dispatch(fetchUserByUsername(username!));
+    }, []);
     return (
         <h1>ehllo</h1>
     )

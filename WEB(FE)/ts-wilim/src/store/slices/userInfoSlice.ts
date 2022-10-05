@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { fetchUserByUsername } from "../../models/fetchUserByUsername";
 import { User } from "../../schema/user";
 
 const user: User = {
@@ -14,6 +15,9 @@ export const userInfoSlice = createSlice({
   initialState: user,
   reducers: {
     updateUserInfo: (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }),
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchUserByUsername.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
   }
 });
 

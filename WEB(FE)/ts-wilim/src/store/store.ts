@@ -1,6 +1,7 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { AnyAction, configureStore, getDefaultMiddleware, ThunkDispatch } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook } from 'react-redux';
 import logger from 'redux-logger';
-import reducer from './rootReducer';
+import reducer, { ReducerType } from './rootReducer';
 
 const middleware = [ ...getDefaultMiddleware(), logger ];
 
@@ -9,5 +10,6 @@ const store = configureStore({
     middleware,
 });
 
+export type AppThunkDispatch = ThunkDispatch<ReducerType, any, AnyAction>;
 export type AppDispatch = typeof store.dispatch;
 export default store;
