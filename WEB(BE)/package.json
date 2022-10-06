@@ -6,7 +6,7 @@
     "start": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --exec babel-node src/app.js",
-    "seed" : "nodemon --exec babel-node src/seeds.js",
+    "seed": "nodemon --exec babel-node src/seeds.js",
     "compile": "npx babel src --out-dir dist"
   },
   "keywords": [],
@@ -39,6 +39,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.8",
+    "fs": "^0.0.1-security",
     "nodemon": "^2.0.20",
     "prettier": "^2.7.1"
   }
