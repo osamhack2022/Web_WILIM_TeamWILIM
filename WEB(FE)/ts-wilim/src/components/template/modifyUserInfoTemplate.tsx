@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BaseStyles } from "../theme";
 import { User } from '../../schema/user';
 import { Text } from "../atom/text";
@@ -14,15 +14,18 @@ import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../../store/store";
 import { modifyUserInfo } from "../../store/asyncThunks/modifyUserInfo";
 import { useParams } from "react-router-dom";
-import { fetchUserByUsername } from "../../store/asyncThunks/fetchUserByUsername";
-import { Link } from "react-router-dom";
+import { BackArrow } from "../molecule/backArrow";
+import { fetchUserById } from "../../store/asyncThunks/fetchUserById";
 
 export const ModifyUserInfoTemplate = () => {
-    const oldname = useParams().username!;
+    const _id = useParams()._id!;
     const dispatch = useDispatch<AppThunkDispatch>();
     const data = useSelector((state: ReducerType) => state.userInfo);
     const { username } = data;
     const [userInfoForm, setUserInfoForm] = useState<User>(data);
+    useEffect(() => {
+        setUserInfoForm(data);
+    }, [data])
     const handleChange = (event: any) => {
         const { name, value } = event.target;
         setUserInfoForm({ ...userInfoForm, [name]: value });
@@ -34,9 +37,8 @@ export const ModifyUserInfoTemplate = () => {
 
     return (
         <>
-            <Link to={`/${username}`}>
-                <p>돌아가기</p>
-            </Link>
+            <BackArrow to={`/${username}`} />
+            <MarginBox marginBottom="1rem" />
             <Text
                 innerText="Update Account"
                 fontSize={BaseStyles.Text.Heading2}
@@ -67,7 +69,6 @@ export const ModifyUserInfoTemplate = () => {
                     value={userInfoForm.password}
                 />
                 <MarginBox marginBottom="2rem" />
-
                 <InputArea
                     name="goal"
                     title="Goal"
@@ -126,9 +127,8 @@ export const ModifyUserInfoTemplate = () => {
                         innerText="Update Information"
                         onClick={(e) => {
                             e.preventDefault();
-                            dispatch(modifyUserInfo({ ...userInfoForm, oldname }));
-                            dispatch(fetchUserByUsername(username));
-                            setUserInfoForm(prev => ({ ...prev, username }));
+                            dispatch(modifyUserInfo({ ...userInfoForm }));
+                            dispatch(fetchUserById(_id));
                         }}
                         color="white"
                         backgroundColor={BaseStyles.Color.Orange2}
