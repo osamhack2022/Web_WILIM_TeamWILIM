@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { fetchUserByUsername } from "../asyncThunks/fetchUserByUsername";
 import { User } from "../../schema/user";
+import { modifyUserInfo } from "../asyncThunks/modifyUserInfo";
 
 const user: User = {
-  email: "kandy1002@naver.com",
-  password: "qq415263~",
-  username: "오형근",
-  serviceType: "육군",
-  goal: "조주기능사",
+  email: "",
+  password: "",
+  username: "",
+  serviceType: "",
+  goal: "",
 }
 
 export const userInfoSlice = createSlice({
@@ -14,6 +16,10 @@ export const userInfoSlice = createSlice({
   initialState: user,
   reducers: {
     updateUserInfo: (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }),
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchUserByUsername.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
+    builder.addCase(modifyUserInfo.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
   }
 });
 
