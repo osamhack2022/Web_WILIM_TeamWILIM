@@ -5,7 +5,7 @@
 */
 import express from 'express';
 const passport = require("passport");
-import {getUsers, getUserInfo,createNewUser,updateUser, deleteUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, kakaoCallback} from "../controller/userSchemaAPI.js";
+import {getUsers, getUserInfo,createNewUser,updateUser, deleteUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, getUserInfoById, updateUserById, deleteUserById} from "../controller/userSchemaAPI.js";
 import {isLoggedIn } from '../middleware';
 const router = express.Router();
 
@@ -66,5 +66,10 @@ router.route('/:username')
     .get(getUserInfo)  // username 일치하는 유저 가져옴
     .put(updateUser)  //기존 유저 update 
     .delete(deleteUser)  //기존 유저 delete
+
+router.route('/id/:id')
+    .get(getUserInfoById) //id 일치하는 유저 가져옴
+    .put(updateUserById) // 기존유저 update by id
+    .delete(deleteUserById) // 기존 유저 delete by id
 
 module.exports = router;

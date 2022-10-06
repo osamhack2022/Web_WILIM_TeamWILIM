@@ -7,7 +7,7 @@ module.exports.getUsers = async (req,res,next) =>{
     res.send(users);
 }
 
-//GET specified user
+//GET specified user by username
 module.exports.getUserInfo = async (req,res,next) =>{
     const { username } = req.params;
     const user = await User.findOne({username : username});
@@ -17,7 +17,17 @@ module.exports.getUserInfo = async (req,res,next) =>{
     res.status(201).json({user});
 }
 
-//PUT update userInfo
+//GET specified user by ID
+module.exports.getUserInfoById = async (req,res,next) =>{
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+        return res.status(404).json({ message: "user not found" });
+    }
+    res.status(201).json({user});
+}
+
+//PUT update userInfo by username
 module.exports.updateUser = async (req,res,next) =>{
     try{
         const {username} = req.params;
@@ -28,10 +38,34 @@ module.exports.updateUser = async (req,res,next) =>{
     }
 }
 
-//DELETE delete user
+//PUT update userInfo by ID
+module.exports.updateUserById = async (req,res,next) =>{
+    try{
+        const {id} = req.params;
+        const updatedUser = await User.findByIdAndUpdate(id, req.body, {new :true, runValidators : true});
+        res.send(updatedUser);
+    } catch(err){
+        return res.status(404).json({message : err});
+    }
+}
+
+//DELETE delete user by username
 module.exports.deleteUser = async(req,res,next)=>{
     const {username} = req.params;
     User.findOneAndDelete({username : username}, (err, deletedUser) => {
+        if (err){
+            return res.status(404).json({message: err.message});
+        }
+        else{
+            res.send(deletedUser);
+        }
+    });
+}
+
+//DELETE delete user by ID
+module.exports.deleteUserById = async(req,res,next)=>{
+    const {id} = req.params;
+    User.findByIdAndDelete(id, (err, deletedUser) => {
         if (err){
             return res.status(404).json({message: err.message});
         }
