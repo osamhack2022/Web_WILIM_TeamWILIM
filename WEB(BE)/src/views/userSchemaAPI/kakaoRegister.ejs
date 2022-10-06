@@ -10,6 +10,13 @@
     <form action="/userSchemaAPI/register/kakao" method="POST">
             <label for="username">username</label>
             <input type="text" name="username" id="username" required>
+            <div>
+                <span>serviceType</span>
+                <label><input type="radio" name="serviceType" value="ARMY" /> 육군</label>
+                <label><input type="radio" name="serviceType" value="NAVY" /> 해군</label>
+                <label><input type="radio" name="serviceType" value="AIR_FORCE" />공군</label>
+                <label><input type="radio" name="serviceType" value="OTHER" />기타</label>
+            </div>
         <button>Submit</button>
     </form>
 </body>
