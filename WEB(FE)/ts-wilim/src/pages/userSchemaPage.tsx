@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { fetchUserByUsername } from "../store/asyncThunks/fetchUserByUsername";
 import { AppThunkDispatch } from "../store/store";
@@ -11,8 +12,13 @@ export const UserSchemaPage = () => {
     useEffect(() => {
         dispatch(fetchUserByUsername(username!)); // username을 바탕으로 유저의 정보를 확인한다.
     }, []);
-    
+
     return (
-        <GoalPlanPage />
+        <>
+            <Link to={`/modifyUserInfo/${username}`}>
+                <p>정보 수정하기</p>
+            </Link>
+            <GoalPlanPage />
+        </>
     )
 }

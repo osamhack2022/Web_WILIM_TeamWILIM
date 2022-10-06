@@ -15,11 +15,13 @@ import { AppThunkDispatch } from "../../store/store";
 import { modifyUserInfo } from "../../store/asyncThunks/modifyUserInfo";
 import { useParams } from "react-router-dom";
 import { fetchUserByUsername } from "../../store/asyncThunks/fetchUserByUsername";
+import { Link } from "react-router-dom";
 
 export const ModifyUserInfoTemplate = () => {
     const oldname = useParams().username!;
     const dispatch = useDispatch<AppThunkDispatch>();
-    const { email, password, username, serviceType, goal } = useSelector((state: ReducerType) => state.userInfo);
+    const data = useSelector((state: ReducerType) => state.userInfo);
+    const { email, password, username, serviceType, goal } = data;
     const initialForm: User = {
         email,
         password,
@@ -28,17 +30,26 @@ export const ModifyUserInfoTemplate = () => {
         goal,
     };
     const [userInfoForm, setUserInfoForm] = useState<User>(initialForm);
-    const buttonColor = (type: string) =>
-        type === userInfoForm.serviceType
-            ? BaseStyles.Color.Purple2
-            : BaseStyles.Color.Purple1;
     const handleChange = (event: any) => {
         const { name, value } = event.target;
         setUserInfoForm({ ...userInfoForm, [name]: value });
     };
+    const modifyInfo = (e: any) => {
+        e.preventDefault();
+        dispatch(modifyUserInfo({ ...userInfoForm, oldname }));
+        dispatch(fetchUserByUsername(username));
+        setUserInfoForm({ email, password, username, serviceType, goal });
+    }
+    const buttonColor = (type: string) =>
+        type === userInfoForm.serviceType
+            ? BaseStyles.Color.Purple2
+            : BaseStyles.Color.Purple1;
 
     return (
         <>
+            <Link to={`/${username}`}>
+                <p>돌아가기</p>
+            </Link>
             <Text
                 innerText="Update Account"
                 fontSize={BaseStyles.Text.Heading2}
@@ -126,11 +137,7 @@ export const ModifyUserInfoTemplate = () => {
                 <Flex flexDirection="column" alignItems="center">
                     <Button
                         innerText="Update Information"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            dispatch(modifyUserInfo({ ...userInfoForm, oldname }));
-                            dispatch(fetchUserByUsername(username));
-                        }}
+                        onClick={(e) => modifyInfo(e)}
                         color="white"
                         backgroundColor={BaseStyles.Color.Orange2}
                         hoverColor={BaseStyles.Color.Orange3}

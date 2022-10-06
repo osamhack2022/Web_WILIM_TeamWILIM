@@ -25,7 +25,7 @@ export const GoalPlanTemplate = () => {
       <Flex
         flexDirection="column"
         justifyContent="flex-start"
-        width="calc(80% + 2rem)"
+        width="100%"
       >
         <Text
           innerText="Goal"
@@ -38,15 +38,15 @@ export const GoalPlanTemplate = () => {
       <GoalCard />
       <MarginBox marginBottom="2rem" />
       <Line
-          width="30%"
-          height="1px"
-          color={BaseStyles.Color.Black2}
-        />
+        width="30%"
+        height="1px"
+        color={BaseStyles.Color.Black2}
+      />
       <MarginBox marginBottom="2rem" />
       <Flex
         flexDirection="column"
         justifyContent="flex-start"
-        width="calc(80% + 2rem)"
+        width="100%"
       >
         <Text
           innerText="Plan"

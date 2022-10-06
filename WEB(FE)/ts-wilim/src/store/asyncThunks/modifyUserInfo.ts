@@ -11,6 +11,5 @@ async ({ email, password, username, serviceType, goal, oldname }: ModifyUserInfo
     const response = await axios.put(`https://wilimbackend.tk/userSchemaAPI/${oldname}`, {
         email, password, username, serviceType, goal
     });
-    console.log(response);
     return response.data;
 });

@@ -20,7 +20,7 @@ export const PlanCard = () => {
   }
   return (
     <Box
-      width="80%"
+      width="calc(100% - 2rem)"
       borderRadius="0.5rem"
       backgroundColor={BaseStyles.Color.Black4}
     >
