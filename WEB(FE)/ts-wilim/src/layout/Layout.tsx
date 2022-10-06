@@ -52,8 +52,8 @@ export const Layout = () => {
 
 export const MediaDiv = styled.div`
   position: absolute;
-  left: 35vw;
-  width: 30vw;
+  left: 30vw;
+  width: 40vw;
   height: 100vh;
   margin: 0;
   display: flex;
@@ -69,5 +69,8 @@ export const MediaDiv = styled.div`
 `;
 
 export const InnerMediaDiv = styled.div`
-  width: 80%;
+  width: 100%;
+  @media (max-width: 1280px) {
+    width: 80%;
+  }
 `;
