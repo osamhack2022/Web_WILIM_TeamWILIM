@@ -21,25 +21,12 @@ export const ModifyUserInfoTemplate = () => {
     const oldname = useParams().username!;
     const dispatch = useDispatch<AppThunkDispatch>();
     const data = useSelector((state: ReducerType) => state.userInfo);
-    const { email, password, username, serviceType, goal } = data;
-    const initialForm: User = {
-        email,
-        password,
-        username,
-        serviceType,
-        goal,
-    };
-    const [userInfoForm, setUserInfoForm] = useState<User>(initialForm);
+    const { username } = data;
+    const [userInfoForm, setUserInfoForm] = useState<User>(data);
     const handleChange = (event: any) => {
         const { name, value } = event.target;
         setUserInfoForm({ ...userInfoForm, [name]: value });
     };
-    const modifyInfo = (e: any) => {
-        e.preventDefault();
-        dispatch(modifyUserInfo({ ...userInfoForm, oldname }));
-        dispatch(fetchUserByUsername(username));
-        setUserInfoForm({ email, password, username, serviceType, goal });
-    }
     const buttonColor = (type: string) =>
         type === userInfoForm.serviceType
             ? BaseStyles.Color.Purple2
@@ -137,7 +124,12 @@ export const ModifyUserInfoTemplate = () => {
                 <Flex flexDirection="column" alignItems="center">
                     <Button
                         innerText="Update Information"
-                        onClick={(e) => modifyInfo(e)}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            dispatch(modifyUserInfo({ ...userInfoForm, oldname }));
+                            dispatch(fetchUserByUsername(username));
+                            setUserInfoForm(prev => ({ ...prev, username }));
+                        }}
                         color="white"
                         backgroundColor={BaseStyles.Color.Orange2}
                         hoverColor={BaseStyles.Color.Orange3}

@@ -15,7 +15,7 @@ function App() {
     <Routes>
       <Route path="/" element={<>
         <LoginPage />
-        <Link to="/test">
+        <Link to="/test" style={{ textDecoration: "none" }}>
           <Button innerText="테스트페이지로 이동" onClick={() => console.log("테스트페이지로 이동")} />
         </Link>
       </>} />
