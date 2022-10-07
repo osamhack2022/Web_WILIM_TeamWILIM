@@ -31,6 +31,7 @@ function fillZero(str){
 // qualgbCd 자격구분코드
 // jmCd 종목코드값
 //&numOfRows=10&pageNo=1&dataFormat=json&implYy=2022&qualgbCd=T&jmCd=7916
+/*
 const url ='http://apis.data.go.kr/B490007/qualExamSchd/getQualExamSchdList'
 const items = qnetInfo.response.body.items.item;//시험종목 정보
 const serviceKey = qnet_key;
@@ -73,7 +74,7 @@ seedDB()
         const dictstring = JSON.stringify(obj);
         fs.writeFile('qnetTestDate.json',dictstring);
     }).catch((e)=>console.log(e))
-
+*/
 // console.log(`${url}?serviceKey=${qnet_key}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&implYy=${implYy}&qualgbCd=${item[0].qualgbcd}&jmCd=${jmCd}`);
 // res.data.body.items
 // const seedDB = ((item)=>{
@@ -115,3 +116,36 @@ seedDB()
 //     mongoose.connection.close();
 //     console.log("seeded done!"); 
 // };
+
+
+// 국가자격시험 공개문제 조회 서비스 Fetch 
+const item = qnetInfo.response.body.items.item;
+
+const urlEndPoint = `http://apis.data.go.kr/B490007/openQst`;
+const serviceKey = qnet_key;    // 공공데이터포털에서 발급받은 인증키
+let numOfRows = 10;           // 한 페이지 결과 수
+let pageNo = 1;               // 페이지 번호
+const dataFormat = "json"       // 응답 데이터 표준 형식 - xml / json (대소문자 구분 없음)
+let qualgbCd;           // 자격구분코드 - T: 국가기술자격 - C: 과정평가형자격 - W: 일학습병행자격
+let seriesCd;            // 계열코드
+let jmCd;                // 종목코드
+let jmNm;                // 종목명
+
+const urlOpenQstList = `${urlEndPoint}/getOpenQstList?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&qualgbCd=${item[355].qualgbcd}&seriesCd=${String(item[355].seriescd).padStart(2, '0')}&jmCd=${String(item[355].jmcd).padStart(4, '0')}&jmNm=${encodeURIComponent(item[355].jmfldnm)}`;
+
+const seedDB = async() => {
+    try {
+        const resList = await axios.get(urlOpenQstList);
+        const listData = resList.data.body.items;
+        console.log(listData);
+
+        const urlOpenQst = `${urlEndPoint}/getOpenQst?serviceKey=${serviceKey}&dataFormat=${dataFormat}&qualgbCd=${listData.qualgbcd}&artlSeq=${listData.artlSeq}`;
+        const resQst = await axios.get(urlOpenQst);
+        const qstData = resQst.data.body.fileList;
+        console.log(qstData);
+    } catch(err) {
+        console.error(err);
+    }
+}
+
+seedDB();
