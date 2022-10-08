@@ -94,7 +94,7 @@ module.exports.createNewUser = async (req,res,next) => {
         req.login(newUser, err=>{
             if (err) return next(err);
             //res.status(201).json({newUser});
-            res.status(201).redirect(`https://candid-nasturtium-545b93.netlify.app/${username}`);
+            res.status(201).redirect(`/userSchemaAPI/${username}`);
         })
     } catch (e) {
         res.status(400).json({message : e});
