@@ -1,4 +1,4 @@
-import { LoginTemplate } from "../components/template/loginTemplate";
+import { LoginTemplate } from "../template/loginTemplate";
 import { MediaDiv, InnerMediaDiv } from "../layout/Layout";
 
 

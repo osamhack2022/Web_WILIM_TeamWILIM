@@ -89,7 +89,8 @@ export const ModifyUserInfoTemplate = () => {
                         }}
                         type="button"
                         name="serviceType"
-                        value="육군"
+                        placeholder="육군"
+                        value="ARMY"
                         onClick={(e) => handleChange(e)}
                     />
                     <MarginBox marginLeft="1rem" />
@@ -103,7 +104,8 @@ export const ModifyUserInfoTemplate = () => {
                         }}
                         type="button"
                         name="serviceType"
-                        value="해군"
+                        placeholder="해군"
+                        value="NAVY"
                         onClick={(e) => handleChange(e)}
                     />
                     <MarginBox marginLeft="1rem" />
@@ -117,7 +119,8 @@ export const ModifyUserInfoTemplate = () => {
                         }}
                         type="button"
                         name="serviceType"
-                        value="공군"
+                        placeholder="공군"
+                        value="AIR_FORCE"
                         onClick={(e) => handleChange(e)}
                     />
                 </Flex>

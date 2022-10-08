@@ -3,8 +3,8 @@ import { Flex } from "../atom/flex";
 import { Input } from "../atom/input";
 import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
-import { EventType } from "../types/eventType";
-import { InputType } from "../types/inputType";
+import { EventType } from "../../types/eventType";
+import { InputType } from "../../types/inputType";
 
 interface InputAreaProps {
   name?: string;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BaseStyles } from '../theme';
-import { EventType } from "../types/eventType";
+import { EventType } from "../../types/eventType";
 
 type AlignType = "left" | "center" | "right";
 

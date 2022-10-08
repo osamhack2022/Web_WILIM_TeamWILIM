@@ -1,12 +1,12 @@
-import { BaseStyles } from "../components/theme";
+import { BaseStyles } from "../theme";
 import styled from "styled-components";
-import { CreateAccountTemplate } from "../components/template/createAccountTemplate";
+import { CreateAccountTemplate } from "../template/createAccountTemplate";
 import { useState } from "react";
-import { GoalPlanTemplate } from "../components/template/goalPlanTemplate";
-import { KakaoTestButton } from "../components/molecule/kakaoTestButton";
+import { GoalPlanTemplate } from "../template/goalPlanTemplate";
+import { KakaoTestButton } from "../molecule/kakaoTestButton";
 import { LoginPage } from "../pages/loginPage";
 import { Link } from "react-router-dom";
-import { Button } from "../components/atom/button";
+import { Button } from "../atom/button";
 /**
  * Layout은 App.js로 가기 전에 최종적인 라우팅 밑 GNB 등의 컴포넌트가 합쳐지는 장소입니다.
  * 이곳에서 구현하고자 하는 화면을 모두 구성한 뒤 App.js로 넘깁니다.
