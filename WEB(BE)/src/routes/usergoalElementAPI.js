@@ -3,7 +3,7 @@
 유저의 goal과 관련된 /goal/:username 으로 나눠짐.
 */
 import express from 'express';
-import {getCtfInfo, postNewCtfInfo, updateCtfInfo, deleteCtfInfo, getUserGoal, postNewUserGoal, deleteUserGoal} from '../controller/newUserInfoFetchingAPI.js';
+import {getCtfInfo, postNewCtfInfo, updateCtfInfo, deleteCtfInfo, getUserGoal, postNewUserGoal, deleteUserGoal} from '../controller/userGoalElementAPI.js';
 const router = express.Router();
 
 router.route('/ctfInfo')

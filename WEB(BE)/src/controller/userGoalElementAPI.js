@@ -21,3 +21,8 @@ module.exports.getCtfInfo = async(req,res,next)=>{
     const response = await axios.get(ctf.dateUrl);
     res.status(200).json({ctf, date : response.data.body});
 }
+
+//POST update certificate Info from goalElement
+module.exports.updateCtfInfo = async(req,res,next)=>{
+    const {id} = req.params;
+}
