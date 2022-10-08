@@ -3,11 +3,11 @@
 유저의 goal과 관련된 /goal/:username 으로 나눠짐.
 */
 import express from 'express';
-import {getCtfInfo, postNewCtf, updateCtfInfo, deleteCtfInfo, getUserGoal, postNewUserGoal, deleteUserGoal} from '../controller/newUserInfoFetchingAPI.js';
+import {getCtfInfo, postNewCtfInfo, updateCtfInfo, deleteCtfInfo, getUserGoal, postNewUserGoal, deleteUserGoal} from '../controller/newUserInfoFetchingAPI.js';
 const router = express.Router();
 
-// router.route('/ctfInfo')
-//     .post(postNewCtf) // 새로운 자격증 추가
+router.route('/ctfInfo')
+    .post(postNewCtfInfo) // 새로운 자격증 추가
 
 router.route('/ctfInfo/:id')
     .get(getCtfInfo) //해당 자격증 정보 보여줌

@@ -7,8 +7,12 @@ import { db_cstring , session_secret , kakao_key , qnet_key} from "../db.js";
 //getCtfInfo, postNewCtfInfo, updateCtfInfo, deleteCtfInfo, getUserGoal, postNewUserGoal, deleteUserGoal
 
 //POST post new certificate Info
-// module.exports.postNewCtfInfo = async(req,res,next)=>{
-// }
+module.exports.postNewCtfInfo = async(req,res,next)=>{
+    const body = req.body;
+    const newCtf = new GoalElement(body);
+    await newCtf.save()
+    res.send(newCtf);
+}
 
 //GET certificate Info from goalElement
 module.exports.getCtfInfo = async(req,res,next)=>{
