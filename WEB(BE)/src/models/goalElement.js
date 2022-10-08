@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 
 const goalElementSchema = new mongoose.Schema({
-    name :{type: String , required : true}, //시험명
-    qualgbnm : {type : String}, //자격구분명 ex 국가기술자격
-    description : {type : String}, // 시험 설명
-    seriesnm : {type : String}, //계열명 ex 기술사
-    obligfldnm : {type : String}, //대직무분야명
-    mdobligfldnm: {type : String}, //중직무분야명
-    dateUrl : {type : String}, // 일정 api url
+    name :{type: String , required : true, unique : true}, //시험명
+    qualgbnm : {type : String ,default:null}, //자격구분명 ex 국가기술자격
+    description : {type : String ,default:null}, // 시험 설명
+    seriesnm : {type : String,default:null}, //계열명 ex 기술사
+    obligfldnm : {type : String,default:null}, //대직무분야명
+    mdobligfldnm: {type : String,default:null}, //중직무분야명
+    dateUrl : {type : String,default:'null'}, // 일정 api url
     //<--------------------------------------------------------->
     // implYy : {type : Number}, // 시행년도
     // implSeq : {type : Number}, //시행회차
@@ -23,8 +23,8 @@ const goalElementSchema = new mongoose.Schema({
     // pracExamEndDt : {type : Number}, //실기(작업)/면접 시험 종료일자
     // pracPassDt : {type : Number}, //실기(작업)/면접 합격자 발표일자
     //<----------------------------------------------------------->
-    mockLink : {type : String}, //공개문제 다운받는 링크
-    isQnet : {type : Boolean}, // qnet 에서 가져온 자격증정보인지 /토익, 수능 등 외부에서 가져온 정보인지 (t/f)
+    mockLink : {type : String,default:'null'}, //공개문제 다운받는 링크
+    isQnet : {type : Boolean,default:null}, // qnet 에서 가져온 자격증정보인지 /토익, 수능 등 외부에서 가져온 정보인지 (t/f)
     users : [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}], //이 자격증 목표로 한 유저들 id
     id: mongoose.Schema.Types.ObjectId
 })
