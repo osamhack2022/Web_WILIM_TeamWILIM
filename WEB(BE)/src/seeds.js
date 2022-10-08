@@ -119,10 +119,21 @@ const urlOpenQstList = `${urlEndPoint}/getOpenQstList?serviceKey=${serviceKey}&n
 const seedDB = async() => {
     try {
         const resList = await axios.get(urlOpenQstList);
-        const listData = resList.data.body.items;
-        console.log(listData);
+        const listData = resList.data.body.items[0];
+        const listDataJson = {
+            artlSeq: listData.artlSeq,
+            title: listData.title,
+            regDttm: listData.regDttm,
+            modDttm: listData.modDttm,
+            qualgbCd: listData.qualgbCd,
+            qualgbNm: listData.qualgbNm,
+            seriesCd: listData.seriesCd,
+            seriesNm: listData.seriesNm,
+            jmCd: listData.jmCd,
+            jmNm: listData.jmNm
+        };
 
-        const urlOpenQst = `${urlEndPoint}/getOpenQst?serviceKey=${serviceKey}&dataFormat=${dataFormat}&qualgbCd=${listData.qualgbcd}&artlSeq=${listData.artlSeq}`;
+        const urlOpenQst = `${urlEndPoint}/getOpenQst?serviceKey=${serviceKey}&dataFormat=${dataFormat}&qualgbCd=${listDataJson.qualgbCd}&artlSeq=${listDataJson.artlSeq}`;
         const resQst = await axios.get(urlOpenQst);
         const qstData = resQst.data.body.fileList;
         console.log(qstData);
