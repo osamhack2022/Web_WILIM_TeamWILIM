@@ -1,11 +1,11 @@
-import { Layout } from "./layout/Layout";
+import { Layout } from "./components/layout/Layout";
 import { Route, Routes } from "react-router-dom";
-import { LoginPage } from "./pages/loginPage";
-import { CreateAccountPage } from "./pages/createAccountPage";
-import { RefCommunityPage } from "./pages/refCommunityPage";
-import { FindPasswordPage } from "./pages/findPasswordPage";
-import { UserSchemaPage } from "./pages/userSchemaPage";
-import { ModifyUserInfoPage } from "./pages/modifyUserInfoPage";
+import { LoginPage } from "./components/pages/loginPage";
+import { CreateAccountPage } from "./components/pages/createAccountPage";
+import { RefCommunityPage } from "./components/pages/refCommunityPage";
+import { FindPasswordPage } from "./components/pages/findPasswordPage";
+import { ModifyUserInfoPage } from "./components/pages/modifyUserInfoPage";
+import { GoalPlanPage } from "./components/pages/goalPlanPage";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <Route path="/refCommunity/:username" element={<RefCommunityPage />} />
       <Route path="/findPassword" element={<FindPasswordPage />} />
       <Route path="/test" element={<Layout />} />
-      <Route path="/:username" element={<UserSchemaPage />} />
+      <Route path="/:username" element={<GoalPlanPage />} />
       <Route path="/modifyUserInfo/:_id" element={<ModifyUserInfoPage />} />
     </Routes>
   );

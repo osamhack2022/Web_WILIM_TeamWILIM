@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { BaseStyles } from "../theme";
-import { EventType } from "../types/eventType";
-import { InputType } from "../types/inputType";
+import { EventType } from "../../types/eventType";
+import { InputType } from "../../types/inputType";
 
 
 interface InputProps {
