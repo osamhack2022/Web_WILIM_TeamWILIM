@@ -74,27 +74,31 @@ function fillZero(str){
 // // }
 
 
-// //<-------종목 이름, 종류만 DB 에 넣어둔 후 일정에 관련된 API는 URL만 DB에 넣는 방법-------->
-// //<-------현재 사용중-------->
-// const seedDB = (async (item)=>{
+//<-------종목 이름, 종류만 DB 에 넣어둔 후 일정에 관련된 API는 URL만 DB에 넣는 방법-------->
+//<-------현재 사용중-------->
+// const seedDB = (async (items)=>{
 //     await GoalElement.deleteMany({});
-//     const dataJson = {
-//         name : item.jmfldnm,
-//         qualgbnm : item.qualgbnm,
-//         description : item.description,
-//         seriesnm : item.seriesnm,
-//         obligfldnm : item.obligfldnm,
-//         mdobligfldnm : item.mdobligfldnm,
-//         dateUrl : `${url}?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&implYy=${implYy}&qualgbCd=${item.qualgbcd}&jmCd=${fillZero((item.jmcd).toString())}`,
-//         isQnet : true
+//     for(const item of items){
+//         const dataJson = {
+//             name : item.jmfldnm,
+//             qualgbnm : item.qualgbnm,
+//             description : item.description,
+//             seriesnm : item.seriesnm,
+//             obligfldnm : item.obligfldnm,
+//             mdobligfldnm : item.mdobligfldnm,
+//             dateUrl : `${url}?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&implYy=${implYy}&qualgbCd=${item.qualgbcd}&jmCd=${fillZero((item.jmcd).toString())}`,
+//             isQnet : true
+//         }
+//         const newData = new GoalElement(dataJson);
+//         await newData.save();
 //     }
-//     const newData = new GoalElement(dataJson);
-//     await newData.save();
 // })
 
-// for(const item of items){
-//     seedDB(item);
-// }
+// seedDB(items)
+//     .then(()=>{
+//         mongoose.connection.close();
+//         console.log(length+" seeded done!");
+//     })
 
 
 // // 국가자격시험 공개문제 조회 서비스 Fetch 

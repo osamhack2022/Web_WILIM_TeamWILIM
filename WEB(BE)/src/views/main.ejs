@@ -24,10 +24,13 @@
         <% if(user) { %>
             <a href="/userPersonalPlanAPI/<%=user.username %>/plans">PERSONALPLANS</a>
         <% } %>
+        <% if(user) { %>
+            <a href="/userGoalElementAPI/goal/<%=user.username %>">USERGOAL</a>
+        <% } %>
     </div>
 
     <h1>백엔드 입니다</h1>
-    <h3>/userSchemaAPI 라우팅 리스트</h3>
+    <h3><u>/userSchemaAPI 라우팅 리스트</u></h3>
         <ul>
             <li><b>/</b> - DB 에 있는 모든 유저 GET</li>
             <li><b>/register/local</b> - local 회원가입</li>
@@ -42,7 +45,7 @@
                 <div>DELETE - 해당 유저 삭제</div>
             </li>
         </ul>
-    <h3>/userPersonalPlanAPI 라우팅 리스트</h3>
+    <h3><u>/userPersonalPlanAPI 라우팅 리스트</u></h3>
         <ul>
             <li><b>/:username/plans</b> - 
                 <div>GET - 유저의 전체 Plan List 가져오기</div>
@@ -54,6 +57,22 @@
                 <div>DELETE - 해당 Plan Element 삭제</div>
             </li>
         </ul>
-    <h3>/userGoalElementAPI 라우팅 리스트</h3>
+    <h3><u>/userGoalElementAPI 라우팅 리스트</u></h3>
+        <ul>
+            <li><b>/ctfInfo</b> - 
+                <div>GET - 모든 자격증 정보 가져오기</div>
+                <div>POST - 새로운 자격증 정보 생성하기</div>
+            </li>
+            <li><b>/ctfInfo/:id</b> -
+                <div>GET - :id에 해당하는 GoalElemnt 가져오기</div>
+                <div>PUT - :id에 해당하는 GoalElement의 내용 수정</div>
+                <div>DELETE - 해당 GoalElement 삭제</div>
+            </li>
+            <li><b>/goal/:username</b> -
+                <div>GET - 유저의 목표 가져오기</div>
+                <div>POST - 기존 GOAL 있으면 삭제하고 새로운 GOAL 생성</div>
+                <div>DELETE - 해당 GOAL 삭제</div>
+            </li>
+        </ul>
 </body>
 </html>
