@@ -6,6 +6,12 @@ import { Button } from "../atom/button";
 import { InputArea } from "../molecule/inputArea";
 import { Link } from "react-router-dom";
 import { KakaoTestButton } from "../molecule/kakaoTestButton";
+import { useDispatch } from "react-redux";
+import { AppThunkDispatch } from "../../store/store";
+import { localLogin } from "../../store/asyncThunks/localLogin";
+import { useState } from "react";
+import { ReducerType } from "../../store/rootReducer";
+import { useSelector } from "react-redux";
 
 interface LoginTemplateProps {
   findPasswordLink: string;
@@ -13,6 +19,18 @@ interface LoginTemplateProps {
 }
 
 export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemplateProps) => {
+  const { username } = useSelector((state: ReducerType) => state.userInfo);
+  const dispatch = useDispatch<AppThunkDispatch>();
+  const initialLoginForm = {
+    email: "",
+    password: "",
+  }
+  // window.location.href = `https://candid-nasturtium-545b93.netlify.app/${username}`;
+  const [loginForm, setLoginForm] = useState<typeof initialLoginForm>(initialLoginForm);
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+    setLoginForm({ ...loginForm, [name]: value });
+};
   return (
     <>
       <Flex justifyContent="center">
@@ -26,9 +44,9 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
       </Flex>
       <MarginBox marginBottom="6rem" />
       <Flex flexDirection="column" alignItems="left">
-        <InputArea title="E-mail" inputType="text" placeholder='E-mail...' />
+        <InputArea title="E-mail" inputType="text" placeholder='E-mail...' name="email" onChange={(e) => handleChange(e)} value={loginForm.email} />
         <MarginBox marginBottom="2rem" />
-        <InputArea title="Password" inputType="password" placeholder='password...' />
+        <InputArea title="Password" inputType="password" placeholder='password...' name="password" onChange={(e) => handleChange(e)} value={loginForm.password} />
       </Flex>
       <MarginBox marginBottom="1rem" />
       <Link to={findPasswordLink}>
@@ -47,7 +65,11 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
           innerText="Login"
           onClick={(e) => {
             e.preventDefault();
-            console.log("Login...");
+            console.log(loginForm);
+            dispatch(localLogin(loginForm))
+            .then(res => {
+              if(res.meta.requestStatus === "fulfilled") window.location.href = `https://candid-nasturtium-545b93.netlify.app/${res.payload.username}`;
+            })
           }}
           color="white"
           backgroundColor={BaseStyles.Color.Orange2}
