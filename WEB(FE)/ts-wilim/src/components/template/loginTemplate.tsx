@@ -10,8 +10,6 @@ import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../../store/store";
 import { localLogin } from "../../store/asyncThunks/localLogin";
 import { useState } from "react";
-import { ReducerType } from "../../store/rootReducer";
-import { useSelector } from "react-redux";
 
 interface LoginTemplateProps {
   findPasswordLink: string;
@@ -19,13 +17,11 @@ interface LoginTemplateProps {
 }
 
 export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemplateProps) => {
-  const { username } = useSelector((state: ReducerType) => state.userInfo);
   const dispatch = useDispatch<AppThunkDispatch>();
   const initialLoginForm = {
     email: "",
     password: "",
   }
-  // window.location.href = `https://candid-nasturtium-545b93.netlify.app/${username}`;
   const [loginForm, setLoginForm] = useState<typeof initialLoginForm>(initialLoginForm);
   const handleChange = (event: any) => {
     const { name, value } = event.target;
@@ -69,7 +65,7 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
             dispatch(localLogin(loginForm))
             .then(res => {
               if(res.meta.requestStatus === "fulfilled") window.location.href = `https://candid-nasturtium-545b93.netlify.app/${res.payload.username}`;
-            })
+            });
           }}
           color="white"
           backgroundColor={BaseStyles.Color.Orange2}

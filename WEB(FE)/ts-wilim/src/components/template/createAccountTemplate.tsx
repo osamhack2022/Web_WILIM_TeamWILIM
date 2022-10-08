@@ -126,8 +126,10 @@ export const CreateAccountTemplate = () => {
             innerText="Create New Account"
             onClick={(e) => {
               e.preventDefault();
-              dispatch(localRegister(userInfoForm));
-              window.location.href = `https://candid-nasturtium-545b93.netlify.app/${userInfoForm.username}`;
+              dispatch(localRegister(userInfoForm))
+              .then(res => {
+                if(res.meta.requestStatus === "fulfilled") window.location.href = `https://candid-nasturtium-545b93.netlify.app/${res.payload.username}`
+              })
             }}
             color="white"
             backgroundColor={BaseStyles.Color.Orange2}
