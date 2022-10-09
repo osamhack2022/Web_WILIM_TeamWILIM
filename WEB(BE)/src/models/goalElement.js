@@ -29,4 +29,6 @@ const goalElementSchema = new mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId
 })
 
-module.exports = mongoose.model('GoalElement', goalElementSchema);
+const GoalElement = mongoose.model('GoalElement', goalElementSchema);
+
+export default GoalElement;
