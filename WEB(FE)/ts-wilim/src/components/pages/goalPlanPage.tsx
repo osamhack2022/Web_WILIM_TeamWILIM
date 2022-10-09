@@ -15,7 +15,7 @@ export const GoalPlanPage = () => {
       dispatch(fetchUserByUsername(username!)); // username을 바탕으로 유저의 정보를 확인한다.
       dispatch(fetchUserPlanByUsername(username!)); // username을 바탕으로 유저의 개인 플랜을 가져온다.
   }, []);
-
+  console.log(document.cookie);
   return (
     <MediaDiv>
       <InnerMediaDiv>
