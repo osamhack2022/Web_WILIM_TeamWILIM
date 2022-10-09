@@ -8,6 +8,7 @@ const goalElementSchema = new mongoose.Schema({
     obligfldnm : {type : String,default:null}, //대직무분야명
     mdobligfldnm: {type : String,default:null}, //중직무분야명
     dateUrl : {type : String,default:'null'}, // 일정 api url
+    date : [{type : String, default:'null'}],
     //<--------------------------------------------------------->
     // implYy : {type : Number}, // 시행년도
     // implSeq : {type : Number}, //시행회차

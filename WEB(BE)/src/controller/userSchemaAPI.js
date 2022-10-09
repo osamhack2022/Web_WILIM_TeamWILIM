@@ -93,8 +93,8 @@ module.exports.createNewUser = async (req,res,next) => {
         const newUser = await User.register(user, password);
         req.login(newUser, err=>{
             if (err) return next(err);
-            //res.status(201).json({newUser});
-            res.status(201).redirect(`/userSchemaAPI/${username}`);
+            //res.status(201).send(newUser);
+            res.status(201).redirect(`/userSchemaAPI/${newUser.username}`);
         })
     } catch (e) {
         res.status(400).json({message : e});
@@ -136,8 +136,13 @@ module.exports.renderLogin = (req,res,next)=>{
 module.exports.login = async(req,res,next)=>{
     const {email} = req.body;
     const user = await User.findOne({email : email});
-    // res.status(200).json({message : user.email});
-    res.status(200).redirect(`/userSchemaAPI/${user.username}`);
+    req.login(user, (error) => { 
+        if (error) {
+            return next(error);
+        }
+        return res.status(200).redirect(`/userSchemaAPI/${user.username}`);
+        //res.send(user);
+    });
 }
 
 //GET logout
