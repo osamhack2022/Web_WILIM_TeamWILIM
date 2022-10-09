@@ -10,6 +10,7 @@ import { Input } from "../atom/input";
 import { localRegister } from "../../store/asyncThunks/localRegister";
 import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 export const CreateAccountTemplate = () => {
   const initialForm = {
@@ -19,6 +20,7 @@ export const CreateAccountTemplate = () => {
     serviceType: "",
   };
   const dispatch = useDispatch<AppThunkDispatch>();
+  const navigate = useNavigate();
   const [userInfoForm, setUserInfoForm] = useState(initialForm);
   const buttonColor = (type: string) =>
     type === userInfoForm.serviceType
@@ -128,7 +130,7 @@ export const CreateAccountTemplate = () => {
               e.preventDefault();
               dispatch(localRegister(userInfoForm))
               .then(res => {
-                if(res.meta.requestStatus === "fulfilled") window.location.href = `https://candid-nasturtium-545b93.netlify.app/${res.payload.username}`
+                if(res.meta.requestStatus === "fulfilled") navigate(`/${res.payload.username}`);
               })
             }}
             color="white"

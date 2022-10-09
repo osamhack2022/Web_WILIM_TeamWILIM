@@ -4,7 +4,7 @@ import { MarginBox } from "../atom/marginBox";
 import { BaseStyles } from "../theme";
 import { Button } from "../atom/button";
 import { InputArea } from "../molecule/inputArea";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { KakaoTestButton } from "../molecule/kakaoTestButton";
 import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../../store/store";
@@ -18,6 +18,7 @@ interface LoginTemplateProps {
 
 export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemplateProps) => {
   const dispatch = useDispatch<AppThunkDispatch>();
+  const navigate = useNavigate();
   const initialLoginForm = {
     email: "",
     password: "",
@@ -64,7 +65,7 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
             console.log(loginForm);
             dispatch(localLogin(loginForm))
             .then(res => {
-              if(res.meta.requestStatus === "fulfilled") window.location.href = `https://candid-nasturtium-545b93.netlify.app/${res.payload.username}`;
+              if(res.meta.requestStatus === "fulfilled") navigate(`/${res.payload.username}`);
             });
           }}
           color="white"
