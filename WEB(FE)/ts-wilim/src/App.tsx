@@ -7,6 +7,9 @@ import { FindPasswordPage } from "./components/pages/findPasswordPage";
 import { ModifyUserInfoPage } from "./components/pages/modifyUserInfoPage";
 import { GoalPlanPage } from "./components/pages/goalPlanPage";
 import { AdditionalUserInfoPage } from "./components/pages/additionalUserInfoPage";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 function App() {
   return (
