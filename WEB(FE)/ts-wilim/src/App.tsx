@@ -6,6 +6,7 @@ import { RefCommunityPage } from "./components/pages/refCommunityPage";
 import { FindPasswordPage } from "./components/pages/findPasswordPage";
 import { ModifyUserInfoPage } from "./components/pages/modifyUserInfoPage";
 import { GoalPlanPage } from "./components/pages/goalPlanPage";
+import { AdditionalUserInfoPage } from "./components/pages/additionalUserInfoPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/test" element={<Layout />} />
       <Route path="/:username" element={<GoalPlanPage />} />
       <Route path="/modifyUserInfo/:_id" element={<ModifyUserInfoPage />} />
+      <Route path="/additionalUserInfo" element={<AdditionalUserInfoPage />} />
     </Routes>
   );
 }
