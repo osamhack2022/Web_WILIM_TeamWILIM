@@ -35,7 +35,8 @@ const userSchema = new mongoose.Schema({
     },
     goal : {
         type : mongoose.Schema.Types.ObjectId,
-        ref: "goalElement"
+        ref: "goalElement",
+        default: null
     },
     id: mongoose.Schema.Types.ObjectId,
 });

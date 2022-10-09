@@ -31,7 +31,7 @@ app.set('views',path.join(__dirname,'/views'));
 app.engine("ejs", engine);
 
 //middlewares
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(session({
     secret: session_secret,
