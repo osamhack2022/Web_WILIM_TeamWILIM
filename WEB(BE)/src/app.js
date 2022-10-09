@@ -40,7 +40,7 @@ app.use(session({
 }));
 app.use(methodOverride("_method"));
 app.use(cors({
-    origin: ["https://candid-nasturtium-545b93.netlify.app", "https://3000-geunoh-webwilimteamwili-35mzi13263f.ws-us70.gitpod.io"],
+    origin: true,
     credentials: true,
   }));
 
