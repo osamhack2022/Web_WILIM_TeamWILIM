@@ -31,7 +31,7 @@ export const userPlanSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUserPlanByUsername.fulfilled, ((state: UserPlan) => ({ ...state })));
+    builder.addCase(fetchUserPlanByUsername.fulfilled, ((state: UserPlan, action: PayloadAction<UserPlan>) => ({ ...state, ...action.payload })));
   }
 });
 

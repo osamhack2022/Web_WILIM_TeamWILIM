@@ -4,9 +4,9 @@ import { UserPlan } from "../../schema/plan";
 
 export const fetchUserPlanByUsername = createAsyncThunk('user/fetchUserPlanByUsername',
 async (username: string) => {
-    const data = await axios.get(`https://wilimbackend.tk/userPersonalPlanAPI/${username}/plans`);
-    console.log(data);
-    const { date, list } = data.data.plan;
+    const response = await axios.get(`https://wilimbackend.tk/userPersonalPlanAPI/${username}/plans`);
+    console.log(response);
+    const { date, list } = response.data.plan;
     const plan: UserPlan = {
         date: date,
         list: list,
