@@ -30,11 +30,11 @@ export const getPlanList = async (req, res, next) => {
         personalPlanId = planList._id;  // 기존에 불러온 personalPlanId 변수 값 재할당
     }
 
-    const planList = await PlanList.findById(personalPlanId)
+    const planIdList = await PlanList.findById(personalPlanId);
     // .populate("planelements");       populate: StrictPopulate 에러 해결해야 함 ....
-    return res.status(200).render('userPersonalPlanAPI/planList', {
+    return res.status(200).json({
         username: username,
-        list: planList.list
+        list: planIdList.list
     });
 };
 
@@ -44,7 +44,7 @@ export const getPlanElement = async (req, res, next) => {
     const planElement = await PlanElement.findById(id);
     const { detail, completed, steady } = planElement;
 
-    return res.status(200).render('userPersonalPlanAPI/planElement', {
+    return res.status(200).json({
         username, id, detail, completed, steady
     });
 

@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
         ref: "PlanList",
         default: null
     },
+    goal : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref: "goalElement"
+    },
     id: mongoose.Schema.Types.ObjectId,
 });
 
