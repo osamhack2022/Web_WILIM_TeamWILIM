@@ -21,11 +21,11 @@ export const ModifyUserInfoTemplate = () => {
     const _id = useParams()._id!;
     const dispatch = useDispatch<AppThunkDispatch>();
     const data = useSelector((state: ReducerType) => state.userInfo);
-    const { username } = data;
-    const [userInfoForm, setUserInfoForm] = useState<User>(data);
+    const { username, password, serviceType } = data;
+    const [userInfoForm, setUserInfoForm] = useState<User>({ _id, username, password, serviceType });
     useEffect(() => {
-        setUserInfoForm(data);
-    }, [data])
+        setUserInfoForm({ _id, username, password, serviceType });
+    }, [data]);
     const handleChange = (event: any) => {
         const { name, value } = event.target;
         setUserInfoForm({ ...userInfoForm, [name]: value });
@@ -37,7 +37,7 @@ export const ModifyUserInfoTemplate = () => {
 
     return (
         <>
-            <BackArrow />
+            <BackArrow to={`/${username}`} />
             <MarginBox marginBottom="1rem" />
             <Text
                 innerText="Update Account"
@@ -67,15 +67,6 @@ export const ModifyUserInfoTemplate = () => {
                     placeholder="password..."
                     onChange={(e) => handleChange(e)}
                     value={userInfoForm.password}
-                />
-                <MarginBox marginBottom="2rem" />
-                <InputArea
-                    name="goal"
-                    title="Goal"
-                    inputType="text"
-                    placeholder="Goal..."
-                    onChange={(e) => handleChange(e)}
-                    value={userInfoForm.goal}
                 />
                 <MarginBox marginBottom="2rem" />
                 <Flex alignItems="center" justifyContent="center">
