@@ -40,7 +40,7 @@ app.use(session({
 }));
 app.use(methodOverride("_method"));
 app.use(cors({
-    origin: true,
+    origin: '*',
     credentials: true,
   }));
 
