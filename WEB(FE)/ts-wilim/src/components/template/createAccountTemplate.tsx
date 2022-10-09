@@ -7,6 +7,9 @@ import { Text } from "../atom/text";
 import { InputArea } from "../molecule/inputArea";
 import { BaseStyles } from "../theme";
 import { Input } from "../atom/input";
+import { localRegister } from "../../store/asyncThunks/localRegister";
+import { useDispatch } from "react-redux";
+import { AppThunkDispatch } from "../../store/store";
 
 export const CreateAccountTemplate = () => {
   const initialForm = {
@@ -15,6 +18,7 @@ export const CreateAccountTemplate = () => {
     username: "",
     serviceType: "",
   };
+  const dispatch = useDispatch<AppThunkDispatch>();
   const [userInfoForm, setUserInfoForm] = useState(initialForm);
   const buttonColor = (type: string) =>
     type === userInfoForm.serviceType
@@ -81,7 +85,8 @@ export const CreateAccountTemplate = () => {
             }}
             type="button"
             name="serviceType"
-            value="육군"
+            placeholder="육군"
+            value="ARMY"
             onClick={(e) => handleChange(e)}
           />
           <MarginBox marginLeft="1rem" />
@@ -95,7 +100,8 @@ export const CreateAccountTemplate = () => {
             }}
             type="button"
             name="serviceType"
-            value="해군"
+            placeholder="해군"
+            value="NAVY"
             onClick={(e) => handleChange(e)}
           />
           <MarginBox marginLeft="1rem" />
@@ -109,7 +115,8 @@ export const CreateAccountTemplate = () => {
             }}
             type="button"
             name="serviceType"
-            value="공군"
+            placeholder="공군"
+            value="AIR_FORCE"
             onClick={(e) => handleChange(e)}
           />
         </Flex>
@@ -119,7 +126,8 @@ export const CreateAccountTemplate = () => {
             innerText="Create New Account"
             onClick={(e) => {
               e.preventDefault();
-              console.log(userInfoForm);
+              dispatch(localRegister(userInfoForm));
+              window.location.href = `https://candid-nasturtium-545b93.netlify.app/${userInfoForm.username}`;
             }}
             color="white"
             backgroundColor={BaseStyles.Color.Orange2}

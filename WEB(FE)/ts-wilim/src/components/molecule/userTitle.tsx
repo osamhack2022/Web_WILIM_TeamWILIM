@@ -9,7 +9,7 @@ import { ReducerType } from "../../store/rootReducer";
 export const UserTitle = () => {
   const username = useSelector((state: ReducerType) => state.userInfo.username);
   return (
-    <Flex flexDirection="column" alignItems="center" width="80%">
+    <Flex flexDirection="column" alignItems="center" width="100%">
       <Flex width="100%">
         <Text
           innerText={`${username} 님`}

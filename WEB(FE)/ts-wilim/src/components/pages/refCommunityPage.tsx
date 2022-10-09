@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import { RefCommunityTemplate } from "../components/template/refCommunityTemplate";
+import { RefCommunityTemplate } from "../template/refCommunityTemplate";
 import { MediaDiv, InnerMediaDiv } from "../layout/Layout";
-import { ReducerType } from "../store/rootReducer";
+import { ReducerType } from "../../store/rootReducer";
 
 
 export const RefCommunityPage = () => {

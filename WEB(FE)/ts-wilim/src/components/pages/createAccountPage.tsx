@@ -1,4 +1,4 @@
-import { CreateAccountTemplate } from "../components/template/createAccountTemplate";
+import { CreateAccountTemplate } from "../template/createAccountTemplate";
 import { MediaDiv, InnerMediaDiv } from "../layout/Layout";
 
 

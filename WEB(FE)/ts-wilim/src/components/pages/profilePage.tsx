@@ -1,12 +1,12 @@
-import { GoalPlanTemplate } from "../components/template/goalPlanTemplate";
+import { ProfileTemplate } from "../template/profileTemplate";
 import { MediaDiv, InnerMediaDiv } from "../layout/Layout";
 
 
-export const GoalPlanPage = () => {
+export const ProfiletPage = () => {
   return (
     <MediaDiv>
       <InnerMediaDiv>
-        <GoalPlanTemplate />
+        <ProfileTemplate />
       </InnerMediaDiv>
     </MediaDiv>
   )

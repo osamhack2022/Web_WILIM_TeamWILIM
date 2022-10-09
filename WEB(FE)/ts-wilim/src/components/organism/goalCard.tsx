@@ -11,7 +11,7 @@ export const GoalCard = () => {
   return (
     <Flex flexDirection="column" width="100%" alignItems="center">
       <Box
-        width="80%"
+        width="calc(100% - 2rem)"
         borderRadius="0.5rem 0.5rem 0 0"
         backgroundColor={BaseStyles.Color.Black4}
       >
@@ -23,7 +23,7 @@ export const GoalCard = () => {
         />
       </Box>
       <Box
-        width="80%"
+        width="calc(100% - 2rem)"
         borderRadius="0 0 0.5rem 0.5rem"
         backgroundColor={BaseStyles.Color.Red1}
       >
