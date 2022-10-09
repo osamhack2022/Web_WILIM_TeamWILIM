@@ -104,7 +104,7 @@ module.exports.createNewUser = async (req,res,next) => {
 //POST create new user using kakao
 module.exports.createNewKakaoUser = async(req,res,next)=>{
     try {
-        const { snsId, username, email } = req.session.joinUser;  
+        const { snsId, username, email } = req.session.joinUser;
         const user = await User.create({
             provider : 'kakao',
             snsId : snsId,
