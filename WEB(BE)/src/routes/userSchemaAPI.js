@@ -47,7 +47,7 @@ router.get('/login/kakao/callback', (req, res, next) => {//kakao 로그인 콜�
                 username: info._json.properties.nickname,
             };
             return req.session.save(() => {
-                res.redirect('/userSchemaAPI/register/kakao');
+                res.redirect('https://candid-nasturtium-545b93.netlify.app/additionalUserInfo');
             });
         }
     return req.login(user, function (error){
