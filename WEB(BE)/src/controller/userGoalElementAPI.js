@@ -31,8 +31,8 @@ module.exports.getCtfInfo = async(req,res,next)=>{
     try{
         const {id} = req.params;
         const ctf = await GoalElement.findById(id);
-        const date = ctf.dateUrl === "null"?"null" : await axios.get(ctf.dateUrl);
-        date==="null"? res.status(200).json({ctf}) : res.status(200).json({ctf,date : date.data.body}); //dateUrl이 없을 경우 axios 에서 가져오는 부분 생략
+        const date = ctf.isQnet === false? ctf.date : await axios.get(ctf.dateUrl);
+        date===ctf.date? res.status(200).json({ctf}) : res.status(200).json({ctf,date : date.data.body}); //dateUrl이 없을 경우 axios 에서 가져오는 부분 생략
     }catch(e){console.log(e)};
 }
 
