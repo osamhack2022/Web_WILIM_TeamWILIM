@@ -12,7 +12,7 @@ interface FlexProps {
 
 export const Flex = ({ flexDirection, justifyContent, alignItems, width, height, children }: FlexProps) => {
     return (
-        <div style={{ display: "flex", flexDirection, justifyContent, alignItems, width, height }}>
+        <div style={{ display: "flex", flexDirection, justifyContent, alignItems, width: width ?? "100%", height }}>
             {children}
         </div>
     )

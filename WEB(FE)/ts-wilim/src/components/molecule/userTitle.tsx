@@ -5,18 +5,29 @@ import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
 import { useSelector } from "react-redux";
 import { ReducerType } from "../../store/rootReducer";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { MenuIcon } from "../atom/menuIcon";
+import { sideBarToggle } from "../../store/slices/sideBarToggleSlice";
 
 export const UserTitle = () => {
   const username = useSelector((state: ReducerType) => state.userInfo.username);
+  const [width, setWidth] = useState<number>(window.innerWidth);
+  window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+      console.log(width);
+  });
+  const dispatch = useDispatch();
   return (
     <Flex flexDirection="column" alignItems="center" width="100%">
-      <Flex width="100%">
+      <Flex width="100%" justifyContent="space-between" alignItems="center">
         <Text
           innerText={`${username} 님`}
           color="white"
           fontSize={BaseStyles.Text.Heading2}
           fontWeight={BaseStyles.Text.Border0}
         />
+        {width <= 1080 ? <div onClick={() => dispatch(sideBarToggle())} style={{ cursor: "pointer" }}><MenuIcon /></div> : <></>}
       </Flex>
       <MarginBox marginBottom="0.5rem" />
       <Line

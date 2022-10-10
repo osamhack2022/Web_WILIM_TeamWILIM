@@ -58,19 +58,21 @@ export const MediaDiv = styled.div`
   margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background: #616161;
   fontfamily: ${BaseStyles.Font.Inter};
-  @media (max-width: 1280px) {
+  @media (max-width: 1080px) {
     left: 0;
     width: 100vw;
   }
 `;
 
 export const InnerMediaDiv = styled.div`
+  margin-top: 10rem;
   width: 100%;
-  @media (max-width: 1280px) {
+  @media (max-width: 1080px) {
+    margin-top: 2rem;
     width: 80%;
   }
 `;

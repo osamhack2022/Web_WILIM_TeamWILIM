@@ -11,6 +11,7 @@ import { localRegister } from "../../store/asyncThunks/localRegister";
 import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../../store/store";
 import { useNavigate } from "react-router-dom";
+import { Title } from "../molecule/title";
 
 export const CreateAccountTemplate = () => {
   const initialForm = {
@@ -34,15 +35,7 @@ export const CreateAccountTemplate = () => {
 
   return (
     <>
-      <Text
-        innerText="Create Account"
-        fontSize={BaseStyles.Text.Heading2}
-        fontWeight={BaseStyles.Text.Border1}
-        textAlign="left"
-        color="white"
-      />
-      <MarginBox marginBottom="1rem" />
-      <Line width="100%" height="2px" color="white" />
+      <Title innerText="Create Account" />
       <MarginBox marginBottom="3rem" />
       <form>
         <InputArea

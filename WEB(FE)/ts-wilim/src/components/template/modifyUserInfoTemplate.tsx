@@ -13,12 +13,14 @@ import { ReducerType } from "../../store/rootReducer";
 import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../../store/store";
 import { modifyUserInfo } from "../../store/asyncThunks/modifyUserInfo";
-import { useParams } from "react-router-dom";
-import { BackArrow } from "../molecule/backArrow";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserById } from "../../store/asyncThunks/fetchUserById";
+import { Title } from "../molecule/title";
 
 export const ModifyUserInfoTemplate = () => {
     const _id = useParams()._id!;
+    console.log(_id);
+    const navigate = useNavigate();
     const dispatch = useDispatch<AppThunkDispatch>();
     const data = useSelector((state: ReducerType) => state.userInfo);
     const { username, password, serviceType } = data;
@@ -37,17 +39,7 @@ export const ModifyUserInfoTemplate = () => {
 
     return (
         <>
-            <BackArrow to={`/${username}`} />
-            <MarginBox marginBottom="1rem" />
-            <Text
-                innerText="Update Account"
-                fontSize={BaseStyles.Text.Heading2}
-                fontWeight={BaseStyles.Text.Border1}
-                textAlign="left"
-                color="white"
-            />
-            <MarginBox marginBottom="1rem" />
-            <Line width="100%" height="2px" color="white" />
+            <Title innerText="Update Account" />
             <MarginBox marginBottom="3rem" />
             <form>
                 <InputArea
@@ -121,8 +113,17 @@ export const ModifyUserInfoTemplate = () => {
                         innerText="Update Information"
                         onClick={(e) => {
                             e.preventDefault();
-                            dispatch(modifyUserInfo({ ...userInfoForm }));
-                            dispatch(fetchUserById(_id));
+                            dispatch(modifyUserInfo({ ...userInfoForm }))
+                                .then(res => {
+                                    if (res.meta.requestStatus === 'fulfilled') {
+                                        dispatch(fetchUserById(_id))
+                                            .then(res => {
+                                                if (res.meta.requestStatus === 'fulfilled') {
+                                                    navigate(`/${username}`);
+                                                }
+                                            })
+                                    }
+                                })
                         }}
                         color="white"
                         backgroundColor={BaseStyles.Color.Orange2}
