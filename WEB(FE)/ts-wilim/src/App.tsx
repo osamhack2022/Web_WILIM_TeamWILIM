@@ -28,11 +28,11 @@ function App() {
             <Route path="refCommunity/:username" element={<RefCommunityPage />} />
             <Route path="findPassword" element={<FindPasswordPage />} />
             <Route path="test" element={<Layout />} />
-            <Route path=":username" element={<GoalPlanPage />} />
+            <Route path="main" element={<GoalPlanPage />} />
             <Route path="modifyUserInfo/:_id" element={<ModifyUserInfoPage />} />
-            <Route path=":username/goal" element={<GoalPage />} />
-            <Route path=":username/plan" element={<PlanPage />} />
-            <Route path=":username/profile" element={<ProfiletPage />} />
+            <Route path="goal" element={<GoalPage />} />
+            <Route path="plan" element={<PlanPage />} />
+            <Route path="profile" element={<ProfiletPage />} />
             <Route path="snbt" element={<SideNavBarTestPage />} />
             <Route path="additionalUserInfo" element={<AdditionalUserInfoPage />} />
           </Route>

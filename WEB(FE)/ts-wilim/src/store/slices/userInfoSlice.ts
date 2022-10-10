@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchUserByUsername } from "../asyncThunks/fetchUserByUsername";
 import { User } from "../../schema/user";
 import { modifyUserInfo } from "../asyncThunks/modifyUserInfo";
 import { fetchUserById } from "../asyncThunks/fetchUserById";
@@ -23,7 +22,6 @@ export const userInfoSlice = createSlice({
     updateUserInfo: (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }),
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUserByUsername.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
     builder.addCase(modifyUserInfo.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
     builder.addCase(fetchUserById.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
     builder.addCase(localRegister.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));

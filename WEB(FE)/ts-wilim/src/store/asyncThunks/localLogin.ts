@@ -14,5 +14,5 @@ async ({ email, password }: LocalLoginProps) => {
     if(response.status < 400) {
         console.log(response.data);
     }
-    return response.data;
+    return response.data.user;
 })

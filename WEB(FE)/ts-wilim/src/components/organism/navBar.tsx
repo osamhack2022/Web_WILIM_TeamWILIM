@@ -13,7 +13,7 @@ export const NavBar = () => {
   });
   return (
     <>
-      {width > 1280 ? <SideNavBar mainLink="/main" goalLink="/:username/goal" planLink="/:username/plan" profileLink={`/modifyUserInfo/${_id}`} /> : <SideNavBarMobile mainLink="/main" goalLink="/goal" planLink="/plan" profileLink={`/modifyUserInfo/${_id}`} />}
+      {width > 1280 ? <SideNavBar mainLink="/main" goalLink="/goal" planLink="/plan" profileLink={`/modifyUserInfo/${_id}`} /> : <SideNavBarMobile mainLink="/main" goalLink="/goal" planLink="/plan" profileLink={`/modifyUserInfo/${_id}`} />}
       <Outlet />
     </>
   )
