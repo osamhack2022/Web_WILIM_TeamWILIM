@@ -72,7 +72,9 @@ export const InnerMediaDiv = styled.div`
   margin-top: 10rem;
   width: 100%;
   @media (max-width: 1080px) {
-    margin-top: 2rem;
     width: 80%;
+  }
+  @media (max-height: 800px) {
+    margin-top: 2rem;
   }
 `;
