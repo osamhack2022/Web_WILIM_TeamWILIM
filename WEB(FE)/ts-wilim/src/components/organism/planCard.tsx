@@ -3,21 +3,15 @@ import { Flex } from "../atom/flex";
 import { Line } from "../atom/line";
 import { MarginBox } from "../atom/marginBox";
 import { Text } from "../atom/text";
-import { Plan } from "../molecule/plan";
 import { BaseStyles } from "../theme";
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleCompleted } from '../../store/slices/userPlanSlice';
+import { useSelector } from 'react-redux';
 import { ReducerType } from "../../store/rootReducer";
-import { List } from "../../schema/plan";
+import { CheckList } from "../molecule/checkList";
 
 export const PlanCard = () => {
   const planList = useSelector((state: ReducerType) => state.userPlan.list);
   const checks = planList.filter((item) => item.completed === true).length;
   const completeColor = checks === planList.length ? BaseStyles.Color.Lime1 : BaseStyles.Color.Black1;
-  const dispatch = useDispatch();
-  const handleToggle = (e: any) => {
-    dispatch(toggleCompleted(e.target.id));
-  }
   return (
     <Box
       width="calc(100% - 2rem)"
@@ -41,16 +35,7 @@ export const PlanCard = () => {
         </Flex>
         <MarginBox marginBottom="0.5rem" />
         <Line width="100%" height="1px" color={BaseStyles.Color.Black0} />
-        {planList && <>
-          {
-            planList.map((item: List, index: number) => (
-              <div key={index}>
-                <MarginBox marginBottom="1rem" />
-                <Plan completed={item.completed} detail={item.detail} onClick={(e) => handleToggle(e)} id={item.detail} />
-              </div>
-            ))
-          }
-        </>}
+        <CheckList />
       </Flex>
     </Box>
   );
