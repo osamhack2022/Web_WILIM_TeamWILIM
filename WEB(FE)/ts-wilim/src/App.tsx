@@ -6,6 +6,11 @@ import { RefCommunityPage } from "./components/pages/refCommunityPage";
 import { FindPasswordPage } from "./components/pages/findPasswordPage";
 import { ModifyUserInfoPage } from "./components/pages/modifyUserInfoPage";
 import { GoalPlanPage } from "./components/pages/goalPlanPage";
+import { MaintPage } from "./components/pages/mainPage";
+import { GoaltPage } from "./components/pages/goalPage";
+import { PlanPage } from "./components/pages/planPage";
+import { ProfiletPage } from "./components/pages/profilePage";
+import { SideNavBarTestPage } from "./components/pages/sideNavBarTestPage";
 import { AdditionalUserInfoPage } from "./components/pages/additionalUserInfoPage";
 import axios from "axios";
 
@@ -21,7 +26,13 @@ function App() {
       <Route path="/test" element={<Layout />} />
       <Route path="/:username" element={<GoalPlanPage />} />
       <Route path="/modifyUserInfo/:_id" element={<ModifyUserInfoPage />} />
+      <Route path="/main" element={<MaintPage />} />
+      <Route path="/goal" element={<GoaltPage />} />
+      <Route path="/plan" element={<PlanPage />} />
+      <Route path="/profile" element={<ProfiletPage />} />
+      <Route path="/snbt" element={<SideNavBarTestPage />} />
       <Route path="/additionalUserInfo" element={<AdditionalUserInfoPage />} />
+
     </Routes>
   );
 }

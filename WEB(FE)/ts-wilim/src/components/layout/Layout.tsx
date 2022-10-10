@@ -38,8 +38,8 @@ export const Layout = () => {
                 </>
               case "2":
                 return <CreateAccountTemplate />
-                case "3":
-                  return <GoalPlanTemplate />
+              case "3":
+                return <GoalPlanTemplate />
               default:
                 return <LoginPage />
             }

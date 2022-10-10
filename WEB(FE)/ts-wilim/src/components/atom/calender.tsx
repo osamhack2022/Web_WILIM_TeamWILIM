@@ -6,6 +6,6 @@ export const Calender = () => {
     const [value, setValue] = useState<Date>(new Date());
 
     return (
-        <Calendar onChange={setValue} value={value} />
+        <Calendar onChange={setValue} value={value} calendarType="Hebrew" />
     )
 };
