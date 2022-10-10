@@ -38,7 +38,6 @@ app.use(cookieParser(session_secret));
 app.use(session({
     secret: session_secret,
     resave: false,
-    secure: true,
     saveUninitialized: true,
     cookie: {
         sameSite: 'none',
