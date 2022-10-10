@@ -19,10 +19,8 @@ interface SideNavBarProps {
 
 export const SideNavBarMobile = ({ mainLink, goalLink, planLink, profileLink }: SideNavBarProps) => {
     const dispatch = useDispatch();
-    const toggle = useSelector((state: ReducerType) => state.sideBarToggle);
-    const pixel = !toggle ? -182 : 0;
     return (
-        <div style={{ position: "fixed", top: 0, right: pixel, transitionDuration: "0.5s" }} onClick={() => dispatch(sideBarToggle())}>
+        <div style={{ position: "fixed", top: 0, right: "-182px", transitionDuration: "0.5s" }} onClick={() => dispatch(sideBarToggle())}>
             <MobileBox>
                 <Flex flexDirection="column" alignItems="center" justifyContent="flex-start" height="100%">
                     <MarginBox marginBottom="6rem" />

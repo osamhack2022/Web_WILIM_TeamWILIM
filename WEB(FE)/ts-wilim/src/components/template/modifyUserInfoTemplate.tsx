@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { BaseStyles } from "../theme";
 import { User } from '../../schema/user';
-import { Text } from "../atom/text";
 import { MarginBox } from "../atom/marginBox";
-import { Line } from "../atom/line";
 import { InputArea } from "../molecule/inputArea";
 import { Flex } from "../atom/flex";
 import { Input } from "../atom/input";
@@ -119,7 +117,7 @@ export const ModifyUserInfoTemplate = () => {
                                         dispatch(fetchUserById(_id))
                                             .then(res => {
                                                 if (res.meta.requestStatus === 'fulfilled') {
-                                                    navigate(`/${username}`);
+                                                    navigate(`/main`);
                                                 }
                                             })
                                     }

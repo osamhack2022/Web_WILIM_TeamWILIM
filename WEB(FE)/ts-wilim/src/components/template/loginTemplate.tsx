@@ -65,7 +65,7 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
             console.log(loginForm);
             dispatch(localLogin(loginForm))
             .then(res => {
-              if(res.meta.requestStatus === "fulfilled") navigate(`/${res.payload.username}`);
+              if(res.meta.requestStatus === "fulfilled") navigate(`/main`);
             });
           }}
           color="white"

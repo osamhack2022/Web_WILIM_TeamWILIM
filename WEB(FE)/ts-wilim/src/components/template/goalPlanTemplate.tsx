@@ -6,17 +6,18 @@ import { GoalCard } from "../organism/goalCard";
 import { PlanCard } from "../organism/planCard";
 import { BaseStyles } from "../theme";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../../store/store";
-import { fetchUserByUsername } from "../../store/asyncThunks/fetchUserByUsername";
 import { Title } from "../molecule/title";
+import { useSelector } from "react-redux";
+import { ReducerType } from "../../store/rootReducer";
+import { fetchUserById } from "../../store/asyncThunks/fetchUserById";
 
 export const GoalPlanTemplate = () => {
-  const { username } = useParams();
+  const { username, _id } = useSelector((state: ReducerType) => state.userInfo);
   const dispatch = useDispatch<AppThunkDispatch>();
   useEffect(() => {
-    dispatch(fetchUserByUsername(username!));
+    dispatch(fetchUserById(_id!));
   }, [])
   return (
     <Flex flexDirection="column" alignItems="center">
