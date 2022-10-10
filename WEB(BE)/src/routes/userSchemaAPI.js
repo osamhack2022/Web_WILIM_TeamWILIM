@@ -24,7 +24,20 @@ router.route('/register/local')
 
 router.route('/login/local')//local 로그인 라우터
     .get(renderLogin)
-    .post(passport.authenticate('local',{failureRedirect: '/userSchemaAPI/loginerror'}), login)
+    .post((req, res, next) => {
+        passport.authenticate('local', function(err, user, info) {
+            if (err) { return next(err); }
+            if(user){
+            // const json = JSON.parse(JSON.stringify(user));
+            req.logIn(user, function(err) {
+                if (err) { return next(err); }
+                return res.json(user);
+            });
+            }else{
+                res.json({msg : "로그인 실패"});
+            }
+        })(req, res, next);
+    });
 
 router.route('/register/kakao')//카카오 계정 인증이 되었으나 wilim 데이터에 유저 없을때
     .get(renderRegisterKakao)
