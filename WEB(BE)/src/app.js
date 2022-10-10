@@ -44,7 +44,10 @@ app.use(session({
     }
 }));
 app.use(methodOverride("_method"));
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials: true,
+  }));
 
 //passport config
 app.use(passport.initialize());
@@ -118,9 +121,4 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT,()=>{
     console.log(PORT);
-
-//api test
-app.get('/hello',(req,res,next)=>{
-    res.send({"msg" : "hello world!"});
-})
 });

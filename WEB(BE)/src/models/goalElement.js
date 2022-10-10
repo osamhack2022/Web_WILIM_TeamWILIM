@@ -8,6 +8,7 @@ const goalElementSchema = new mongoose.Schema({
     obligfldnm : {type : String,default:null}, //대직무분야명
     mdobligfldnm: {type : String,default:null}, //중직무분야명
     dateUrl : {type : String,default:'null'}, // 일정 api url
+    date : {items : [{implYy:String, description:String, docRegStartDt:String, docRegEndDt:String, docExamStartDt:String, docExamEndDt:String, docPassDt: String}]},
     //<--------------------------------------------------------->
     // implYy : {type : Number}, // 시행년도
     // implSeq : {type : Number}, //시행회차
@@ -29,4 +30,6 @@ const goalElementSchema = new mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId
 })
 
-module.exports = mongoose.model('GoalElement', goalElementSchema);
+const GoalElement = mongoose.model('GoalElement', goalElementSchema);
+
+export default GoalElement;
