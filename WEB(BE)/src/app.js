@@ -13,6 +13,7 @@ import methodOverride from 'method-override';
 import engine from 'ejs-mate';
 import cookieParser from 'cookie-parser';
 import {Strategy as KakaoStrategy} from 'passport-kakao';
+import {Strategy as NaverStrategy} from 'passport-naver-v2';
 import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
 import userGoalElementAPI from './routes/userGoalElementAPI.js';
 import userPersonalPlanAPIRoutes from './routes/userPersonalPlanAPI';
@@ -20,7 +21,7 @@ import userPersonalPlanAPIRoutes from './routes/userPersonalPlanAPI';
 
 //env setting
 import "./env.js";
-import { db_cstring , session_secret , kakao_key , qnet_key} from "./db.js";
+import { db_cstring , session_secret , kakao_key , qnet_key , naver_client_id, naver_client_secret} from "./db.js";
 
 //
 const PORT = process.env.PORT || 5000
@@ -75,6 +76,32 @@ passport.use(new KakaoStrategy(
                 {
                     snsId: profile.id,
                     provider: 'kakao',
+                },
+            );
+            if (foundUser) {
+                return done(null, foundUser);
+            }
+            else{
+                return done(null, false, profile);
+            } 
+        } catch (error) {
+            return done(error);
+        }
+    },
+    ),
+);
+passport.use(new NaverStrategy(
+    {
+        clientID: naver_client_id,
+        clientSecret: naver_client_secret,
+        callbackURL: '/userSchemaAPI/login/naver/callback',
+    },
+    async (accessToken, refreshToken, profile, done) => {
+        try {
+            const foundUser = await User.findOne(
+                {
+                    snsId: profile.id,
+                    provider: 'naver',
                 },
             );
             if (foundUser) {

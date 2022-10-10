@@ -5,7 +5,7 @@
 */
 import express from 'express';
 const passport = require("passport");
-import {getUsers, getUserInfo,createNewUser,updateUser, deleteUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, getUserInfoById, updateUserById, deleteUserById} from "../controller/userSchemaAPI.js";
+import {getUsers, getUserInfo,createNewUser,updateUser, deleteUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, getUserInfoById, updateUserById, deleteUserById, renderRegisterNaver, createNewNaverUser} from "../controller/userSchemaAPI.js";
 import {isLoggedIn } from '../middleware';
 const router = express.Router();
 
@@ -31,7 +31,7 @@ router.route('/login/local')//local 로그인 라우터
             // const json = JSON.parse(JSON.stringify(user));
             req.logIn(user, function(err) {
                 if (err) { return next(err); }
-                return res.json(user);
+                return res.status(200).redirect(`/userSchemaAPI/id/${user._id}`);
             });
             }else{
                 res.json({msg : "로그인 실패"});
@@ -61,6 +61,38 @@ router.get('/login/kakao/callback', (req, res, next) => {//kakao 로그인 콜�
             };
             return req.session.save(() => {
                 res.redirect('/userSchemaAPI/register/kakao');
+            });
+        }
+    return req.login(user, function (error){
+        if (error) {
+            return next(error);
+        }
+        return res.redirect(`https://candid-nasturtium-545b93.netlify.app/${user.username}`);
+    });
+    })(req, res, next);
+});
+
+router.route('/register/naver')//네이버 계정 인증이 되었으나 wilim 데이터에 유저 없을때
+    .get(renderRegisterNaver)
+    .post(createNewNaverUser)
+
+router.get('/login/naver', passport.authenticate('naver',{ authType: 'reprompt' }));//네이버 로그인 라우터
+
+router.get('/login/naver/callback', (req, res, next) => {//네이버 로그인 콜백 라우터
+    passport.authenticate('naver', function (err, user, info){
+        if (err) {
+            return next(err);
+        }
+        if (!user) { 
+            const { id } = info;
+            console.log(info);
+            req.session.joinUser = {
+                snsId: id,
+                // email: info._json.kakao_account.email,
+                // username: info._json.properties.nickname,
+            };
+            return req.session.save(() => {
+                res.redirect('/userSchemaAPI/register/naver');
             });
         }
     return req.login(user, function (error){
