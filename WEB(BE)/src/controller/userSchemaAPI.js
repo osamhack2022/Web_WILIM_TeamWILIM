@@ -7,10 +7,10 @@ module.exports.getUsers = async (req,res,next) =>{
     res.send(users);
 }
 
-//GET specified user by username
+//GET specified user by id
 module.exports.getUserInfo = async (req,res,next) =>{
-    const { username } = req.params;
-    const user = await User.findOne({username : username});
+    const { id } = req.params;
+    const user = await User.findById(id);
     if (!user) {
         return res.status(404).json({ message: "user not found" });
     }
@@ -126,6 +126,35 @@ module.exports.createNewKakaoUser = async(req,res,next)=>{
     }
 }
 
+//GET render NAVER register
+module.exports.renderRegisterNaver = (req,res,next)=>{
+    res.render('userSchemaAPI/naverRegister');
+}
+
+//POST create new user using naver
+module.exports.createNewNaverUser = async(req,res,next)=>{
+    try {
+        const { snsId, username, email } = req.session.joinUser;
+        const user = await User.create({
+            provider : 'naver',
+            snsId : snsId,
+            email: email,
+            username: req.body.username || username,
+            serviceType : req.body.serviceType
+        });
+        req.session.regenerate(() => { 
+            req.login(user, (error) => { 
+                if (error) {
+                    return next(error);
+                }
+                return res.redirect(`https://candid-nasturtium-545b93.netlify.app/${user.username}`);
+            });
+        });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+}
 
 //GET render login
 module.exports.renderLogin = (req,res,next)=>{

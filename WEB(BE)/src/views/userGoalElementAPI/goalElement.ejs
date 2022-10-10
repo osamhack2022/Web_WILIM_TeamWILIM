@@ -8,7 +8,7 @@
 </head>
 <body>
     <%  if (goalElement) { %>
-        <h1>Goal Element: ID [<%=goalElement.id %>]</h1>
+        <h1>Goal Element: ID [<a href="/userGoalElementAPI/ctfInfo/<%=goalElement._id %>"><%=goalElement._id %></a>]</h1>
         <h2>현재 <%=username %> 님의 Goal: <%=goalElement.name %></h2>
     <% } %>
 
