@@ -21,8 +21,7 @@ const userSchema = new mongoose.Schema({
         default : 'OTHER'
     },
     snsId:{
-        type:Number,
-        default : 0
+        type:String
     },
     provider : {
         type:String,
