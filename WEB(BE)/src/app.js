@@ -13,7 +13,7 @@ import methodOverride from 'method-override';
 import engine from 'ejs-mate';
 import cookieParser from 'cookie-parser';
 import {Strategy as KakaoStrategy} from 'passport-kakao';
-import {Strategy as NaverStrategy} from 'passport-naver-v2';
+import {Strategy as NaverStrategy, Profile as NaverProfile} from 'passport-naver-v2';
 import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
 import userGoalElementAPI from './routes/userGoalElementAPI.js';
 import userPersonalPlanAPIRoutes from './routes/userPersonalPlanAPI';
@@ -95,7 +95,6 @@ passport.use(new NaverStrategy(
     },
     async (accessToken, refreshToken, profile, done) => {
         try {
-            console.log(profile);
             const foundUser = await User.findOne(
                 {
                     snsId: profile.id,
