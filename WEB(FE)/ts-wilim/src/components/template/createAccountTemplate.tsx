@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Button } from "../atom/button";
 import { Flex } from "../atom/flex";
-import { Line } from "../atom/line";
 import { MarginBox } from "../atom/marginBox";
-import { Text } from "../atom/text";
 import { InputArea } from "../molecule/inputArea";
 import { BaseStyles } from "../theme";
 import { Input } from "../atom/input";
