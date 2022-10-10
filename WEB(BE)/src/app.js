@@ -37,6 +37,11 @@ app.use(session({
     secret: session_secret,
     resave: false,
     saveUninitialized: true,
+    cookie: {
+        sameSite: 'none',
+        secure: true,
+        httpOnly: true,
+    }
 }));
 app.use(methodOverride("_method"));
 app.use(cors());
