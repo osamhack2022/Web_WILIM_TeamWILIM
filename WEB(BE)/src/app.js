@@ -98,6 +98,7 @@ passport.use(new NaverStrategy(
     },
     async (accessToken, refreshToken, profile, done) => {
         try {
+            console.log(profile);
             const foundUser = await User.findOne(
                 {
                     snsId: profile.id,
