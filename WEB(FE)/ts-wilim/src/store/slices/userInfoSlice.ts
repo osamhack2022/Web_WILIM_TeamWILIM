@@ -13,7 +13,7 @@ const user: User = {
   password: "",
   username: "",
   serviceType: "",
-  goal: "",
+  goal: "6341538a9c885e23cfe2691e"
 }
 
 export const userInfoSlice = createSlice({

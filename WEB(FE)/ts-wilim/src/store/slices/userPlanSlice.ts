@@ -3,7 +3,7 @@ import { UserPlan } from "../../schema/plan";
 import { fetchUserPlanByUsername } from "../asyncThunks/fetchUserPlanByUsername";
 
 const userPlan: UserPlan = {
-  date: new Date(),
+  date: "",
   list: [
     {
       detail: "레시피 4개 암기하기",

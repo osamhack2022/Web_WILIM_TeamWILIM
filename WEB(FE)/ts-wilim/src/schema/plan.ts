@@ -4,6 +4,6 @@ export interface List {
 }
 
 export interface UserPlan {
-    date: Date;
+    date: string;
     list: List[];
 }
