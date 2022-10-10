@@ -80,16 +80,16 @@ router.get('/login/naver', passport.authenticate('naver',{ authType: 'reprompt' 
 
 router.get('/login/naver/callback', (req, res, next) => {//네이버 로그인 콜백 라우터
     passport.authenticate('naver', function (err, user, info){
+        console.log("info : ",info);
         if (err) {
             return next(err);
         }
         if (!user) { 
             const { id } = info;
-            console.log(info);
             req.session.joinUser = {
                 snsId: id,
-                // email: info._json.kakao_account.email,
-                // username: info._json.properties.nickname,
+                email: info._json.email,
+                // username: info._json.nickname,
             };
             return req.session.save(() => {
                 res.redirect('/userSchemaAPI/register/naver');
