@@ -134,12 +134,11 @@ module.exports.renderRegisterNaver = (req,res,next)=>{
 //POST create new user using naver
 module.exports.createNewNaverUser = async(req,res,next)=>{
     try {
-        const { snsId, username, email } = req.session.joinUser;
+        const { snsId} = req.session.joinUser;
         const user = await User.create({
             provider : 'naver',
             snsId : snsId,
-            email: email,
-            username: req.body.username || username,
+            username: req.body.username,
             serviceType : req.body.serviceType
         });
         req.session.regenerate(() => { 
