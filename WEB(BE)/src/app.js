@@ -31,12 +31,17 @@ app.set('views',path.join(__dirname,'/views'));
 app.engine("ejs", engine);
 
 //middlewares
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
 app.use(session({
     secret: session_secret,
     resave: false,
     saveUninitialized: true,
+    cookie: {
+        sameSite: 'none',
+        secure: true,
+        httpOnly: true,
+    }
 }));
 app.use(methodOverride("_method"));
 app.use(cors({
@@ -116,9 +121,4 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT,()=>{
     console.log(PORT);
-
-//api test
-app.get('/hello',(req,res,next)=>{
-    res.send({"msg" : "hello world!"});
-})
 });

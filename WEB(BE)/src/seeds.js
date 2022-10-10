@@ -143,3 +143,89 @@ const seedDB = async() => {
 }
 
 seedDB();
+
+// const khistory = {
+//   name : "지텔프(G-TELP)",
+//   isQnet : false,
+//   description : "1985년 샌디에이고 주립대학교 산하 연구기관 국제 테스트 연구원(ITSC, International Testing Services Center)이 캘리포니아 주립대학교 로스앤젤레스, 조지타운 대학교 등의 교수진과 언어학자, 평가 전문가와 함께 개발한 외국인을 위한 영어 시험이다. 수준별 문법, 청취, 어휘 및 독해를 평가하기 위한 G-TELP Level Test (Level 1~5)), 말하기와 쓰기 능력을 측정하기 위한 G-TELP Speaking과 G-TELP Writing, 비즈니스 실무 영어 능력을 평가하기 위한 G-TELP Business, 초등학생 및 청소년의 어학 수준을 평가하는 G-TELP Jr. 등으로 구성되어 있다.",
+//   date : {
+//     items : [
+//       {
+//         implYy : "2022",
+//         description : "제486회",
+//         docRegStartDt : "20220923",
+//         docRegEndDt : "20220930",
+//         docExamStartDt : "20221016",
+//         docExamEndDt : "20221016",
+//         docPassDt : "20221021"
+//       },
+//       {
+//         implYy : "2022",
+//         description : "제487회(IBT)",
+//         docRegStartDt : "20221005",
+//         docRegEndDt : "20221011",
+//         docExamStartDt : "20221023",
+//         docExamEndDt : "20221023",
+//         docPassDt : "20221028"
+//       },
+//       {
+//         implYy : "2022",
+//         description : "제488회",
+//         docRegStartDt : "20221007",
+//         docRegEndDt : "20221014",
+//         docExamStartDt : "20221030",
+//         docExamEndDt : "20221030",
+//         docPassDt : "20221104"
+//       },
+//       {
+//         implYy : "2022",
+//         description : "제489회",
+//         docRegStartDt : "20221021",
+//         docRegEndDt : "20221028",
+//         docExamStartDt : "20221113",
+//         docExamEndDt : "20221113",
+//         docPassDt : "20221118"
+//       },
+//       {
+//         implYy : "2022",
+//         description : "제490회",
+//         docRegStartDt : "20221104",
+//         docRegEndDt : "20221111",
+//         docExamStartDt : "20221127",
+//         docExamEndDt : "20221127",
+//         docPassDt : "20221202"
+//       },
+//       {
+//         implYy : "2022",
+//         description : "제491회(IBT)",
+//         docRegStartDt : "20221116",
+//         docRegEndDt : "20221122",
+//         docExamStartDt : "20221204",
+//         docExamEndDt : "20221204",
+//         docPassDt : "20221209"
+//       },
+//       {
+//         implYy : "2022",
+//         description : "제492회",
+//         docRegStartDt : "20221118",
+//         docRegEndDt : "20221125",
+//         docExamStartDt : "20221211",
+//         docExamEndDt : "20221211",
+//         docPassDt : "20221216"
+//       },
+//       {
+//         implYy : "2022",
+//         description : "제493회",
+//         docRegStartDt : "20221202",
+//         docRegEndDt : "20221209",
+//         docExamStartDt : "20221225",
+//         docExamEndDt : "20221225",
+//         docPassDt : "20221230"
+//       },
+//     ]
+//   }
+// }
+
+// const response = new GoalElement(khistory);
+// response.save()
+//   .then(()=>{mongoose.connection.close()})
