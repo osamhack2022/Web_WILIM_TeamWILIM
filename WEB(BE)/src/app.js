@@ -11,6 +11,7 @@ import ExpressError from './utils/error';
 import path from 'path';
 import methodOverride from 'method-override';
 import engine from 'ejs-mate';
+import cookieParser from 'cookie-parser';
 import {Strategy as KakaoStrategy} from 'passport-kakao';
 import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
 import userGoalElementAPI from './routes/userGoalElementAPI.js';
@@ -33,13 +34,14 @@ app.engine("ejs", engine);
 //middlewares
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser(session_secret));
 app.use(session({
     secret: session_secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
-        sameSite: 'none',
-        secure: true,
+        // sameSite: 'none',
+        // secure: true,
         httpOnly: true,
     }
 }));
@@ -47,7 +49,7 @@ app.use(methodOverride("_method"));
 app.use(cors({
     origin: true,
     credentials: true,
-  }));
+}));
 
 //passport config
 app.use(passport.initialize());
