@@ -62,10 +62,14 @@ module.exports.deleteCtfInfo = async(req,res,next)=>{
 
 module.exports.getUserGoal = async (req, res, next) => {
     const { _id, username, goal } = req.user;
+    let goalElement;
 
     try {
-        const goalElement = await GoalElement.findById(goal);
-        console.log(goalElement);
+        if (goal) {
+            goalElement = await GoalElement.findById(goal);
+        } else {
+            goalElement = null;
+        }
 
         const ctfInfoList = await GoalElement.find({});
 
@@ -81,22 +85,26 @@ module.exports.getUserGoal = async (req, res, next) => {
 }
 
 module.exports.postNewUserGoal = async (req, res, next) => {
+    const { goalElement } = req.body;
+    const { _id, username } = req.user;
 
+    try {
+        const newUserGoal = await GoalElement.findOne({ name: goalElement });
+        await User.findByIdAndUpdate(_id, { goal: newUserGoal._id }, { new: true });
+        await GoalElement.findByIdAndUpdate(newUserGoal._id, { $push: { users: _id }});
+        return res.status(200).send(newUserGoal);
+    } catch(err) {
+        return res.status(404).json({message: err});
+    }
 }
 
 module.exports.deleteUserGoal = async (req, res, next) => {
-    const { username, goal } = req.user;
+    const { _id, username, goal } = req.user;
 
     try {
-        // GoalElement의 users에서 유저 아이디 빼야 함.
-        await GoalElement.findByIdAndDelete(goal, (err, deletedGoal => {
-            if(err) {
-                return res.status(404).json({message: err.message});
-            }
-            else { 
-                return res.send(deletedGoal);
-            }
-        }));
+        const updatedUser = await User.findByIdAndUpdate(_id, { goal: null }, { new: true });
+        await GoalElement.findByIdAndUpdate(goal, { $pull: { users: _id }});
+        return res.status(200).send(updatedUser);
     } catch(err) {
         return res.status(404).json({message: err});
     }
