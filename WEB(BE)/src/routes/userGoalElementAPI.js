@@ -15,9 +15,9 @@ router.route('/ctfInfo/:id')
     .put(updateCtfInfo) //자격증 정보 변경
     .delete(deleteCtfInfo) //자격증 삭제
 
-// router.route('/goal/:username')
-//     .get(getUserGoal) //해당 유저의 goal에 해당하는 자격증 정보 보여줌(res.render)
-//     .post(postNewUserGoal) //기존 goal 있으면 없애고 새로운 유저 goal 생성(goal 변경시에도 사용)
-//     .delete(deleteUserGoal) // 기존 goal 없앰
+router.route('/goal/:username')
+    .get(getUserGoal)           //해당 유저의 goal에 해당하는 자격증 정보 보여줌(res.render)
+    .post(postNewUserGoal)      //기존 goal 있으면 없애고 새로운 유저 goal 생성(goal 변경시에도 사용)
+    .delete(deleteUserGoal);    // 기존 goal 없앰
 
 export default router;
