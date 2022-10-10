@@ -7,15 +7,17 @@
     <title>Goal Element</title>
 </head>
 <body>
-    <h1>Goal Element: ID [<%=goalElement.id %>]</h1>
-    <h2>현재 <%=username %> 님의 Goal: <%=goalElement.name %></h2>
+    <%  if (goalElement) { %>
+        <h1>Goal Element: ID [<%=goalElement.id %>]</h1>
+        <h2>현재 <%=username %> 님의 Goal: <%=goalElement.name %></h2>
+    <% } %>
 
     <form action="/userGoalElementAPI/goal/<%=username %>" method="post">
         <label for="goalElement">새로운 Goal을 정해 보세요!</label>
         <select name="goalElement" id="goalElement">
             <option value="">Options</option>
-            <% for (int i = 0; i < <%=ctfInfoList.length %> ; i++) { %>
-                <option value="<%= ctfInfoList[i].name %>"><%= ctfInfoList[i].name %></option>
+            <% for (var ctfInfo of ctfInfoList) { %>
+                <option value="<%=ctfInfo.name %>"><%=ctfInfo.name %></option>
             <% } %>
         </select>
         <button>Submit</button>
