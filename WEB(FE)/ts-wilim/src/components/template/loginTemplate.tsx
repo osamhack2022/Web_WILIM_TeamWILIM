@@ -4,8 +4,12 @@ import { MarginBox } from "../atom/marginBox";
 import { BaseStyles } from "../theme";
 import { Button } from "../atom/button";
 import { InputArea } from "../molecule/inputArea";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { KakaoTestButton } from "../molecule/kakaoTestButton";
+import { useDispatch } from "react-redux";
+import { AppThunkDispatch } from "../../store/store";
+import { localLogin } from "../../store/asyncThunks/localLogin";
+import { useState } from "react";
 
 interface LoginTemplateProps {
   findPasswordLink: string;
@@ -13,6 +17,17 @@ interface LoginTemplateProps {
 }
 
 export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemplateProps) => {
+  const dispatch = useDispatch<AppThunkDispatch>();
+  const navigate = useNavigate();
+  const initialLoginForm = {
+    email: "",
+    password: "",
+  }
+  const [loginForm, setLoginForm] = useState<typeof initialLoginForm>(initialLoginForm);
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+    setLoginForm({ ...loginForm, [name]: value });
+};
   return (
     <>
       <Flex justifyContent="center">
@@ -26,9 +41,9 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
       </Flex>
       <MarginBox marginBottom="6rem" />
       <Flex flexDirection="column" alignItems="left">
-        <InputArea title="E-mail" inputType="text" placeholder='E-mail...' />
+        <InputArea title="E-mail" inputType="text" placeholder='E-mail...' name="email" onChange={(e) => handleChange(e)} value={loginForm.email} />
         <MarginBox marginBottom="2rem" />
-        <InputArea title="Password" inputType="password" placeholder='password...' />
+        <InputArea title="Password" inputType="password" placeholder='password...' name="password" onChange={(e) => handleChange(e)} value={loginForm.password} />
       </Flex>
       <MarginBox marginBottom="1rem" />
       <Link to={findPasswordLink}>
@@ -47,7 +62,11 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
           innerText="Login"
           onClick={(e) => {
             e.preventDefault();
-            console.log("Login...");
+            console.log(loginForm);
+            dispatch(localLogin(loginForm))
+            .then(res => {
+              if(res.meta.requestStatus === "fulfilled") navigate(`/${res.payload.username}`);
+            });
           }}
           color="white"
           backgroundColor={BaseStyles.Color.Orange2}

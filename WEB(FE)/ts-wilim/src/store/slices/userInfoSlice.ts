@@ -4,6 +4,8 @@ import { User } from "../../schema/user";
 import { modifyUserInfo } from "../asyncThunks/modifyUserInfo";
 import { fetchUserById } from "../asyncThunks/fetchUserById";
 import { localRegister } from "../asyncThunks/localRegister";
+import { localLogin } from "../asyncThunks/localLogin";
+import { fetchAdditionalUserInfo } from "../asyncThunks/fetchAdditionalUserInfo";
 
 const user: User = {
   _id: "",
@@ -11,7 +13,7 @@ const user: User = {
   password: "",
   username: "",
   serviceType: "",
-  goal: "",
+  goal: "6341538a9c885e23cfe2691e"
 }
 
 export const userInfoSlice = createSlice({
@@ -25,6 +27,8 @@ export const userInfoSlice = createSlice({
     builder.addCase(modifyUserInfo.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
     builder.addCase(fetchUserById.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
     builder.addCase(localRegister.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
+    builder.addCase(localLogin.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
+    builder.addCase(fetchAdditionalUserInfo.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
   }
 });
 

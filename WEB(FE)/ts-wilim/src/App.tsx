@@ -11,6 +11,10 @@ import { GoaltPage } from "./components/pages/goalPage";
 import { PlanPage } from "./components/pages/planPage";
 import { ProfiletPage } from "./components/pages/profilePage";
 import { SideNavBarTestPage } from "./components/pages/sideNavBarTestPage";
+import { AdditionalUserInfoPage } from "./components/pages/additionalUserInfoPage";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 function App() {
   return (
@@ -27,6 +31,8 @@ function App() {
       <Route path="/plan" element={<PlanPage />} />
       <Route path="/profile" element={<ProfiletPage />} />
       <Route path="/snbt" element={<SideNavBarTestPage />} />
+      <Route path="/additionalUserInfo" element={<AdditionalUserInfoPage />} />
+
     </Routes>
   );
 }

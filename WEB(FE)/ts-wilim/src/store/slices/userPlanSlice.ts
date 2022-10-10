@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserPlan } from "../../schema/plan";
+import { fetchUserPlanByUsername } from "../asyncThunks/fetchUserPlanByUsername";
 
 const userPlan: UserPlan = {
-  date: new Date(),
+  date: "",
   list: [
     {
       detail: "레시피 4개 암기하기",
@@ -28,6 +29,9 @@ export const userPlanSlice = createSlice({
         const { completed } = state.list[index];
         state.list[index].completed = !completed;
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchUserPlanByUsername.fulfilled, ((state: UserPlan, action: PayloadAction<UserPlan>) => ({ ...state, ...action.payload })));
   }
 });
 

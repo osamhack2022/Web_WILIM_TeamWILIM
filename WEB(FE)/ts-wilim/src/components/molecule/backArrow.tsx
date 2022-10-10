@@ -1,12 +1,11 @@
-import { Link } from "react-router-dom"
 import { ArrowLeft } from "../atom/arrowLeft"
+import { useNavigate } from "react-router-dom"
 
-export const BackArrow = ({ to }: { to: string}) => {
+export const BackArrow = ({ to }: { to: string }) => {
+    const navigate = useNavigate();
     return (
-        <>
-            <Link to={to}>
+        <div onClick={() => navigate(`${to}`)}>
                 <ArrowLeft />
-            </Link>
-        </>
+        </div>
     )
 }
