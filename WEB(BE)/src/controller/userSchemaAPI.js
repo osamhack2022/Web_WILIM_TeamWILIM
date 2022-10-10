@@ -132,18 +132,18 @@ module.exports.renderLogin = (req,res,next)=>{
     res.render('userSchemaAPI/login');
 }
 
-//POST login
-module.exports.login = async(req,res,next)=>{
-    const {email} = req.body;
-    const user = await User.findOne({email : email});
-    req.login(user, (error) => { 
-        if (error) {
-            return next(error);
-        }
-        return res.status(200).json(user);
-        //res.send(user);
-    });
-}
+//POST login 로그인 로직 변경으로 인한 모듈 미사용
+// module.exports.login = async(req,res,next)=>{
+//     const {email} = req.body;
+//     const user = await User.findOne({email : email});
+//     req.login(user, (error) => { 
+//         if (error) {
+//             return next(error);
+//         }
+//         return res.status(200).json(user);
+//         //res.send(user);
+//     });
+// }
 
 //GET logout
 
