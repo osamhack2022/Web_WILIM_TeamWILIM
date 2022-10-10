@@ -40,16 +40,13 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        sameSite: 'none',
-        secure: true,
+        // sameSite: 'none',
+        // secure: true,
         httpOnly: true,
     }
 }));
 app.use(methodOverride("_method"));
-app.use(cors({
-    origin: true,
-    credentials: true,
-}));
+app.use(cors());
 
 //passport config
 app.use(passport.initialize());
