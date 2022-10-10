@@ -140,7 +140,7 @@ module.exports.login = async(req,res,next)=>{
         if (error) {
             return next(error);
         }
-        return res.status(200).redirect(`/userSchemaAPI/${user.username}`);
+        return res.status(200).json(user);
         //res.send(user);
     });
 }
