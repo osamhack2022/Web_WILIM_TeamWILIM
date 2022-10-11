@@ -5,7 +5,7 @@
 */
 import express from 'express';
 const passport = require("passport");
-import {getUsers, getUserInfo,createNewUser,updateUser, deleteUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, getUserInfoById, updateUserById, deleteUserById, renderRegisterNaver, createNewNaverUser} from "../controller/userSchemaAPI.js";
+import {getUsers,createNewUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, getUserInfoById, updateUserById, deleteUserById, renderRegisterNaver, createNewNaverUser} from "../controller/userSchemaAPI.js";
 import {isLoggedIn } from '../middleware';
 const router = express.Router();
 
@@ -104,12 +104,7 @@ router.get('/login/naver/callback', (req, res, next) => {//네이버 로그인 �
 });
 
 router.route('/loginerror')//로그인실패시
-    .post(loginerror)    
-
-router.route('/:username')
-    .get(getUserInfo)  // username 일치하는 유저 가져옴
-    .put(updateUser)  //기존 유저 update 
-    .delete(deleteUser)  //기존 유저 delete
+    .post(loginerror)   
 
 router.route('/id/:id')
     .get(getUserInfoById) //id 일치하는 유저 가져옴
