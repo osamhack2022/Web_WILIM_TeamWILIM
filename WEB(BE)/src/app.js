@@ -41,8 +41,8 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        // sameSite: 'none',
-        // secure: true,
+        sameSite: 'none',
+        secure: true,
         httpOnly: true,
     }
 }));
