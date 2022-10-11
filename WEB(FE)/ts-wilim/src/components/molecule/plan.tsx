@@ -5,14 +5,14 @@ import { BaseStyles } from "../theme";
 
 interface PlanProps {
   detail?: string;
-  completed: boolean;
+  completed?: boolean;
   onClick?: (e: any) => any;
   id?: string;
 }
 
 export const Plan = ({ detail, completed, onClick, id }: PlanProps) => {
   return (
-    <Flex width="100%">
+    <Flex width="100%" alignItems="center">
       <svg
         width="12"
         height="12"

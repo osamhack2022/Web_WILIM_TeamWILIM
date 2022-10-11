@@ -6,6 +6,7 @@ interface BoxProps {
   borderRadius?: string;
   backgroundColor?: string;
   children?: JSX.Element | JSX.Element[];
+  height?: string;
 }
 
 export const Box = ({
@@ -13,16 +14,18 @@ export const Box = ({
   borderRadius,
   backgroundColor,
   children,
+  height
 }: BoxProps) => {
     return (
-        <BoxDiv width={width} borderRadius={borderRadius} backgroundColor={backgroundColor}>
+        <BoxDiv width={width} borderRadius={borderRadius} backgroundColor={backgroundColor} height={height}>
           {children}
         </BoxDiv>
     )
 };
 
 const BoxDiv = styled.div<BoxProps>`
-  width: ${({ width }) => width};
+  width: ${({ width }) => width || "calc(100% - 2rem)"};
+  height: ${({ height }) => height};
   background-color: ${({ backgroundColor }) =>
     backgroundColor || BaseStyles.Color.Black4};
   box-shadow: ${BaseStyles.Shadow.BottomDefault};
@@ -32,5 +35,5 @@ const BoxDiv = styled.div<BoxProps>`
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  border-radius: ${({ borderRadius }) => borderRadius || "1rem"};
+  border-radius: ${({ borderRadius }) => borderRadius || "6px"};
 `;
