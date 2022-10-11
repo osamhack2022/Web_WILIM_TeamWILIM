@@ -24,7 +24,7 @@ const goalElementSchema = new mongoose.Schema({
     // pracExamEndDt : {type : Number}, //실기(작업)/면접 시험 종료일자
     // pracPassDt : {type : Number}, //실기(작업)/면접 합격자 발표일자
     //<----------------------------------------------------------->
-    mockLink : {type : String,default:'null'}, //공개문제 다운받는 링크
+    mockLink : {type : [{fileNm:String, fileSn:Number, fileUrl:String}], default: null}, //공개문제 다운받는 링크
     isQnet : {type : Boolean,default:null}, // qnet 에서 가져온 자격증정보인지 /토익, 수능 등 외부에서 가져온 정보인지 (t/f)
     users : [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}], //이 자격증 목표로 한 유저들 id
     id: mongoose.Schema.Types.ObjectId
