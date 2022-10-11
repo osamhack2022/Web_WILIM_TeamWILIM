@@ -117,7 +117,7 @@ module.exports.createNewKakaoUser = async(req,res,next)=>{
                 if (error) {
                     return next(error);
                 }
-                return res.redirect(`https://candid-nasturtium-545b93.netlify.app/${user.username}`);
+                return res.redirect(`https://front.wilimbackend.tk/main`);
             });
         });
     } catch (error) {
@@ -134,19 +134,20 @@ module.exports.renderRegisterNaver = (req,res,next)=>{
 //POST create new user using naver
 module.exports.createNewNaverUser = async(req,res,next)=>{
     try {
-        const { snsId} = req.session.joinUser;
+        const { snsId, email} = req.session.joinUser;
         const user = await User.create({
             provider : 'naver',
             snsId : snsId,
             username: req.body.username,
-            serviceType : req.body.serviceType
+            serviceType : req.body.serviceType,
+            email : email
         });
         req.session.regenerate(() => { 
             req.login(user, (error) => { 
                 if (error) {
                     return next(error);
                 }
-                return res.redirect(`https://candid-nasturtium-545b93.netlify.app/${user.username}`);
+                return res.redirect(`https://front.wilimbackend.tk/main`);
             });
         });
     } catch (error) {

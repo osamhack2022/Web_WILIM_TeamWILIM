@@ -99,7 +99,6 @@ passport.use(new NaverStrategy(
     },
     async (accessToken, refreshToken, profile, done) => {
         try {
-            console.log(profile);
             const foundUser = await User.findOne(
                 {
                     snsId: profile.id,
@@ -116,8 +115,7 @@ passport.use(new NaverStrategy(
             return done(error);
         }
     },
-    ),
-);
+));
 
 app.use((req,res,next)=>{
     res.locals.user = req.user; //ejs 에서 <%= user %> 는 로그인중인 유저 정보  return
