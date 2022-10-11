@@ -12,6 +12,12 @@ export const localRegister = createAsyncThunk('user/localRegister',
 async ({ email, password, username, serviceType }: LocalRegisterProps) => {
     const response = await axios.post(`https://wilimbackend.tk/userSchemaAPI/register/local`, {
         email, password, username, serviceType
+    },
+    {
+        withCredentials: true,
+        headers: {
+            'Access-Control-Allow-Origin' : '*',
+        }
     });
     if(response.status === 201) {
         console.log(response.data);

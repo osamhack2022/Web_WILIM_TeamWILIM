@@ -7,6 +7,9 @@ async (username: string) => {
         url: `https://wilimbackend.tk/userPersonalPlanAPI/${username}/plans`,
         method: "GET",
         withCredentials: true,
+        headers: {
+            'Access-Control-Allow-Origin' : '*',
+        }
     });
     console.log(response);
     return response.data;
