@@ -101,42 +101,91 @@ function fillZero(str){
 //     })
 
 
-// // 국가자격시험 공개문제 조회 서비스 Fetch 
-const item = qnetInfo.response.body.items.item;
+// // 공개문제 서비스 API 테스트용 코드
+// const item = qnetInfo.response.body.items.item;
 
-const urlEndPoint = `http://apis.data.go.kr/B490007/openQst`;
+// const urlEndPoint = `http://apis.data.go.kr/B490007/openQst`;
+// const serviceKey = qnet_key;    // 공공데이터포털에서 발급받은 인증키
+// let numOfRows = 10;           // 한 페이지 결과 수
+// let pageNo = 1;               // 페이지 번호
+// const dataFormat = "json"       // 응답 데이터 표준 형식 - xml / json (대소문자 구분 없음)
+// let qualgbCd;           // 자격구분코드 - T: 국가기술자격 - C: 과정평가형자격 - W: 일학습병행자격
+// let seriesCd;            // 계열코드
+// let jmCd;                // 종목코드
+// let jmNm;                // 종목명
+
+// const urlOpenQstList = `${urlEndPoint}/getOpenQstList?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&qualgbCd=${item[475].qualgbcd}&seriesCd=${String(item[475].seriescd).padStart(2, '0')}&jmCd=${String(item[475].jmcd).padStart(4, '0')}&jmNm=${encodeURIComponent(item[475].jmfldnm)}`;
+
+// const seedDB = async() => {
+//     try {
+//         const resList = await axios.get(urlOpenQstList);
+//         const listData = resList.data.body.items[0];
+//         const listDataJson = {
+//             artlSeq: listData.artlSeq,
+//             qualgbCd: listData.qualgbCd,
+//         };
+
+//         const urlOpenQst = `${urlEndPoint}/getOpenQst?serviceKey=${serviceKey}&dataFormat=${dataFormat}&qualgbCd=${listDataJson.qualgbCd}&artlSeq=${listDataJson.artlSeq}`;
+//         const resQst = await axios.get(urlOpenQst);
+//         const qstData = resQst.data.body;
+//         console.log(qstData);
+//     } catch(err) {
+//         console.error(err);
+//     }
+// }
+
+// seedDB();
+
+// 실제 mongoDB에 다운로드 진행했을 때 사용한 코드
+// 국가기술자격(qualgbcd: T)까지는 잘 진행됐으나, 국가전문자격(qualgbcd: S)부터 에러 발생 .. 해결 필요
+const urlEndPoint_examSchd ='http://apis.data.go.kr/B490007/qualExamSchd/getQualExamSchdList';  // 시험일정 정보 url 엔드포인트
+const urlEndPoint_openQst = `http://apis.data.go.kr/B490007/openQst`;   // 공개문제 url 엔드포인트
+const items = qnetInfo.response.body.items.item;    // 시험종목 정보
 const serviceKey = qnet_key;    // 공공데이터포털에서 발급받은 인증키
 let numOfRows = 10;           // 한 페이지 결과 수
 let pageNo = 1;               // 페이지 번호
 const dataFormat = "json"       // 응답 데이터 표준 형식 - xml / json (대소문자 구분 없음)
-let qualgbCd;           // 자격구분코드 - T: 국가기술자격 - C: 과정평가형자격 - W: 일학습병행자격
-let seriesCd;            // 계열코드
-let jmCd;                // 종목코드
-let jmNm;                // 종목명
-
-const urlOpenQstList = `${urlEndPoint}/getOpenQstList?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&qualgbCd=${item[355].qualgbcd}&seriesCd=${String(item[355].seriescd).padStart(2, '0')}&jmCd=${String(item[355].jmcd).padStart(4, '0')}&jmNm=${encodeURIComponent(item[355].jmfldnm)}`;
+let implYy = 2022;
 
 const seedDB = async() => {
     try {
-        const resList = await axios.get(urlOpenQstList);
-        const listData = resList.data.body.items[0];
-        const listDataJson = {
-            artlSeq: listData.artlSeq,
-            title: listData.title,
-            regDttm: listData.regDttm,
-            modDttm: listData.modDttm,
-            qualgbCd: listData.qualgbCd,
-            qualgbNm: listData.qualgbNm,
-            seriesCd: listData.seriesCd,
-            seriesNm: listData.seriesNm,
-            jmCd: listData.jmCd,
-            jmNm: listData.jmNm
-        };
+        await GoalElement.deleteMany({});
 
-        const urlOpenQst = `${urlEndPoint}/getOpenQst?serviceKey=${serviceKey}&dataFormat=${dataFormat}&qualgbCd=${listDataJson.qualgbCd}&artlSeq=${listDataJson.artlSeq}`;
-        const resQst = await axios.get(urlOpenQst);
-        const qstData = resQst.data.body.fileList;
-        console.log(qstData);
+        for(const item of items) {
+            let fileList;
+
+            // 1. 국가자격 공개문제 목록 조회
+            const urlOpenQstList = `${urlEndPoint_openQst}/getOpenQstList?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&qualgbCd=${item.qualgbcd}&seriesCd=${String(item.seriescd).padStart(2, '0')}&jmCd=${String(item.jmcd).padStart(4, '0')}&jmNm=${encodeURIComponent(item.jmfldnm)}`;
+            const resQstList = await axios.get(urlOpenQstList);
+            const resData = resQstList.data.body.items;
+            const listData = resData.length !== 0 ? resData[0] : null; 
+            if(listData) {   
+                // 2. 국가자격 공개문제 상세 조회
+                const urlOpenQst = `${urlEndPoint_openQst}/getOpenQst?serviceKey=${serviceKey}&dataFormat=${dataFormat}&qualgbCd=${listData.qualgbCd}&artlSeq=${listData.artlSeq}`;
+                const resQst = await axios.get(urlOpenQst);
+                fileList = resQst.data.body.fileList;
+            }
+
+            // 3. 종합해서 mongoDB에 저장
+            const dataJson = {
+                name : item.jmfldnm,
+                qualgbnm : item.qualgbnm,
+                description : item.description,
+                seriesnm : item.seriesnm,
+                obligfldnm : item.obligfldnm,
+                mdobligfldnm : item.mdobligfldnm,
+                dateUrl : `${urlEndPoint_examSchd}?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&implYy=${implYy}&qualgbCd=${item.qualgbcd}&jmCd=${fillZero((item.jmcd).toString())}`,
+                mockLink: fileList ? fileList : {
+                    fileNm: "공개문제 링크를 찾을 수 없습니다.",
+                    fileSn: null,
+                    fileUrl: "공개문제 링크를 찾을 수 없습니다."
+                },
+                isQnet : true
+            }
+            console.log(dataJson);
+            const newData = new GoalElement(dataJson);
+            await newData.save();
+        }
     } catch(err) {
         console.error(err);
     }

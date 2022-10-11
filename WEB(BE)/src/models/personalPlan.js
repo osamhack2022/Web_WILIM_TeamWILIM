@@ -3,8 +3,16 @@
 
 import mongoose from "mongoose";
 
+const dateFormatting = (date, delimiter = '') => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return [year, month, day].join(delimiter);
+}
+
 const planElementSchema = new mongoose.Schema({
-    date: { type: Date, default: Date.now },    
+    date: { type: String, default: dateFormatting(new Date())},    
     detail: { type: String, required: true },   // plan의 내용을 저장하는 detail 프로퍼티
     completed: { type: Boolean, default: false, required: true },   // plan의 완수 여부를 저장하는 completed 프로퍼티
     steady: { type: Boolean },  // plan이 매일 지속되는 것인지를 저장하는 steady 프로퍼티, steady && !completed라면 다음날 plan에도 추가되는 방식으로 구현
