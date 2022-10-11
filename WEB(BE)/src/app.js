@@ -13,7 +13,7 @@ import methodOverride from 'method-override';
 import engine from 'ejs-mate';
 import cookieParser from 'cookie-parser';
 import {Strategy as KakaoStrategy} from 'passport-kakao';
-import {Strategy as NaverStrategy, Profile as NaverProfile} from 'passport-naver-v2';
+import {Strategy as NaverStrategy} from 'passport-naver-v2';
 import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
 import userGoalElementAPI from './routes/userGoalElementAPI.js';
 import userPersonalPlanAPIRoutes from './routes/userPersonalPlanAPI';
@@ -90,6 +90,7 @@ passport.use(new KakaoStrategy(
     },
     ),
 );
+//passport.use 안 지나감
 passport.use(new NaverStrategy(
     {
         clientID: naver_client_id,
@@ -114,8 +115,7 @@ passport.use(new NaverStrategy(
             return done(error);
         }
     },
-    ),
-);
+));
 
 app.use((req,res,next)=>{
     res.locals.user = req.user; //ejs 에서 <%= user %> 는 로그인중인 유저 정보  return
