@@ -2,7 +2,6 @@ import { GoalPlanTemplate } from "../template/goalPlanTemplate";
 import { MediaDiv, InnerMediaDiv } from "../layout/Layout";
 import { useEffect } from "react"
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
 import { AppThunkDispatch } from "../../store/store";
 import { fetchUserPlanByUsername } from "../../store/asyncThunks/fetchUserPlanByUsername";
 import { useSelector } from "react-redux";

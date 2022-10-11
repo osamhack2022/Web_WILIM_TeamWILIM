@@ -17,6 +17,9 @@ export const fetchAdditionalUserInfo = createAsyncThunk(
       },
       {
         withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
       }
     );
     if (response.status === 201) {
