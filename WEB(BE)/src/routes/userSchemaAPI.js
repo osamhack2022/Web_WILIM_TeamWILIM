@@ -67,7 +67,7 @@ router.get('/login/kakao/callback', (req, res, next) => {//kakao 로그인 콜�
         if (error) {
             return next(error);
         }
-        return res.redirect(`https://candid-nasturtium-545b93.netlify.app/${user.username}`);
+        return res.redirect(`https://front.wilimbackend.tk/main`);
     });
     })(req, res, next);
 });
@@ -80,7 +80,6 @@ router.get('/login/naver', passport.authenticate('naver',{ authType: 'reprompt' 
 
 router.get('/login/naver/callback', (req, res, next) => {//네이버 로그인 콜백 라우터
     passport.authenticate('naver', function (err, user, info){
-        console.log("info : ",info);
         if (err) {
             return next(err);
         }
@@ -88,7 +87,7 @@ router.get('/login/naver/callback', (req, res, next) => {//네이버 로그인 �
             const { id } = info;
             req.session.joinUser = {
                 snsId: id,
-                email: info._json.email,
+                email: info._json.response.email,
                 // username: info._json.nickname,
             };
             return req.session.save(() => {
@@ -99,7 +98,7 @@ router.get('/login/naver/callback', (req, res, next) => {//네이버 로그인 �
         if (error) {
             return next(error);
         }
-        return res.redirect(`https://candid-nasturtium-545b93.netlify.app/${user.username}`);
+        return res.redirect(`https://front.wilimbackend.tk/main`);
     });
     })(req, res, next);
 });
