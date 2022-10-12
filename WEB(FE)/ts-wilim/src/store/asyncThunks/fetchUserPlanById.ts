@@ -19,5 +19,3 @@ async ({ username, id }: fetchUserPlanByIdProps) => {
     console.log(response);
     return response.data;
 })
-
-//{"username":"테스트","id":"63421d55d391c40fee7ed0d5","detail":"1","completed":false,"steady":true}

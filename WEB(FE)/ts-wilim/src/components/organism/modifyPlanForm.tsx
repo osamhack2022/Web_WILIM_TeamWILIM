@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { List } from "../../schema/plan"
 import { Button } from "../atom/button"
 import { Flex } from "../atom/flex"
 import { Input } from "../atom/input"
@@ -8,17 +9,18 @@ import { Text } from "../atom/text"
 import { Plan } from "../molecule/plan"
 import { BaseStyles } from "../theme"
 
-export const NewPlanForm = () => {
-    const initialForm = {
-        detail: "",
-        steady: false,
-        completed: false,
-    }
+export const ModifyPlanForm = ({ id, detail, steady, completed }: List) => {
+    const initialForm = { id, detail, steady, completed };
     const [newPlanForm, setNewPlanForm] = useState<typeof initialForm>(initialForm);
+    const handleChange = (event: any) => {
+        const { name, value } = event.target;
+        setNewPlanForm({ ...newPlanForm, [name]: value });
+        console.log(newPlanForm);
+      };
     return (
         <>
             <Flex justifyContent="center" alignItems="center">
-                <Text innerText="New Plan" color="white"
+                <Text innerText="Modify Plan" color="white"
                     fontSize={BaseStyles.Text.Heading2}
                     fontWeight={BaseStyles.Text.Border0} />
                 <MarginBox marginLeft="24px" />
@@ -33,7 +35,7 @@ export const NewPlanForm = () => {
                     fontSize={BaseStyles.Text.Heading3}
                     fontWeight={BaseStyles.Text.Border0} />
                 <MarginBox marginBottom="0.5rem" />
-                <Input type="text" width="calc(100% - 2rem)" name="detail" style={{ background: "none", border: "none", boxShadow: "none" }} />
+                <Input type="text" width="calc(100% - 2rem)" name="detail" value={newPlanForm.detail} onChange={(e) => handleChange(e)} style={{ background: "none", border: "none", boxShadow: "none" }} />
                 <Line width="100%" height="1px" color="#bbbbbb" />
                 <MarginBox marginBottom="2rem" />
                 <Plan detail="Steady?" completed={newPlanForm.steady} onClick={() => setNewPlanForm(prev => ({ ...prev, steady: !newPlanForm.steady }))} id="steady" />
@@ -43,7 +45,7 @@ export const NewPlanForm = () => {
                 <Flex justifyContent="center" alignItems="center" width="100%">
                     <Button
                         innerText="Add New Plan"
-                        onClick={(e) => { }}
+                        onClick={(e) => { {/**여기에 변경된 플랜 내용을 fetch하는 함수를 추가하자! */}}}
                         color="white"
                         backgroundColor={BaseStyles.Color.Orange2}
                         hoverColor={BaseStyles.Color.Orange3}

@@ -3,7 +3,7 @@ import { UserPlan } from "../../schema/plan";
 import { fetchUserPlanById } from "../asyncThunks/fetchUserPlanById";
 import { fetchUserPlanByUsername } from "../asyncThunks/fetchUserPlanByUsername";
 
-interface Plan {
+interface FetchedPlan {
   username: string;
   id: string;
   detail: string;
@@ -23,7 +23,7 @@ const userPlan: UserPlan = {
       id: "63421d55d391c40fee7ed0d5",
       detail: "",
       completed: true,
-      steady: false,
+      steady: true,
     },
     {
       detail: "",
@@ -45,7 +45,7 @@ export const userPlanSlice = createSlice({
   initialState: userPlan,
   reducers: {
     toggleCompleted: (state: UserPlan, action: PayloadAction<string>) => {
-        const index = state.list.findIndex(item => item.detail === action.payload);
+        const index = state.list.findIndex(item => item.id === action.payload);
         const { completed } = state.list[index];
         state.list[index].completed = !completed;
     }
@@ -56,7 +56,7 @@ export const userPlanSlice = createSlice({
         state.list[i].id = action.payload.list[i];
       }
     }));
-    builder.addCase(fetchUserPlanById.fulfilled, ((state: UserPlan, action: PayloadAction<Plan>) => {
+    builder.addCase(fetchUserPlanById.fulfilled, ((state: UserPlan, action: PayloadAction<FetchedPlan>) => {
       const index = state.list.findIndex(item => item.id === action.payload.id);
       const { id, detail, completed, steady } = action.payload;
       const plan = {
