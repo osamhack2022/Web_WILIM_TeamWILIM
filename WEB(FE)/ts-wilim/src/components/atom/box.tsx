@@ -7,6 +7,7 @@ interface BoxProps {
   backgroundColor?: string;
   children?: JSX.Element | JSX.Element[];
   height?: string;
+  style?: Object;
 }
 
 export const Box = ({
@@ -14,10 +15,11 @@ export const Box = ({
   borderRadius,
   backgroundColor,
   children,
-  height
+  height,
+  style
 }: BoxProps) => {
     return (
-        <BoxDiv width={width} borderRadius={borderRadius} backgroundColor={backgroundColor} height={height}>
+        <BoxDiv width={width} borderRadius={borderRadius} backgroundColor={backgroundColor} height={height} style={style}>
           {children}
         </BoxDiv>
     )
@@ -35,5 +37,6 @@ const BoxDiv = styled.div<BoxProps>`
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  overflow: hidden;
   border-radius: ${({ borderRadius }) => borderRadius || "6px"};
 `;

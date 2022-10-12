@@ -1,20 +1,16 @@
-import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import { ReducerType } from "../../store/rootReducer"
-import { newPlanToggle } from "../../store/slices/toggleSlice"
 import { AngleLeft } from "../atom/angleLeft"
 import { AngleRight } from "../atom/angleRight"
 import { Flex } from "../atom/flex"
 import { Line } from "../atom/line"
 import { MarginBox } from "../atom/marginBox"
-import { SquarePlus } from "../atom/squarePlus"
 import { Text } from "../atom/text"
 import { CheckList } from "../molecule/checkList"
 import { BaseStyles } from "../theme"
 
 export const DailyPlan = () => {
     const planList = useSelector((state: ReducerType) => state.userPlan.list);
-    const dispatch = useDispatch();
     const checks = planList.filter((item) => item.completed === true).length;
     const completeColor = checks === planList.length ? BaseStyles.Color.Lime1 : BaseStyles.Color.Black1;
     return (
@@ -32,14 +28,13 @@ export const DailyPlan = () => {
                 <CheckList />
             </div>
             <Flex flexDirection="column" justifyContent="center" alignItems="center">
-                <div onClick={() => dispatch(newPlanToggle())}><SquarePlus /></div>
-                <MarginBox marginBottom="1.5rem" />
                 <Text
                     innerText={`Got ${checks}/3`}
                     color={completeColor}
                     fontWeight={BaseStyles.Text.Border2}
                     fontSize={BaseStyles.Text.Heading3}
                 />
+                <MarginBox marginBottom="1.5rem" />
             </Flex>
         </Flex>
     )

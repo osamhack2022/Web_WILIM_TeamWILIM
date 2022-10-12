@@ -12,7 +12,6 @@ import { Plan } from "../molecule/plan"
 import { BaseStyles } from "../theme"
 
 export const NewPlanForm = () => {
-    const dispatch = useDispatch();
     const initialForm = {
         detail: "",
         steady: false,
@@ -21,8 +20,7 @@ export const NewPlanForm = () => {
     const [newPlanForm, setNewPlanForm] = useState<typeof initialForm>(initialForm);
     return (
         <>
-            <Flex justifyContent="space-evenly" alignItems="center">
-                <div onClick={() => dispatch(newPlanToggle())}><ArrowLeft /></div>
+            <Flex justifyContent="center" alignItems="center">
                 <Text innerText="New Plan" color="white"
                     fontSize={BaseStyles.Text.Heading2}
                     fontWeight={BaseStyles.Text.Border0} />
@@ -30,7 +28,7 @@ export const NewPlanForm = () => {
             </Flex>
             <MarginBox marginBottom="1.5rem" />
             <Flex justifyContent="center" alignItems="center">
-                <Line width="50%" height="0.5px" color="#767676" />
+                <Line width="100%" height="0.5px" color="#767676" />
             </Flex>
             <MarginBox marginBottom="2.5rem" />
             <Flex flexDirection="column" alignItems="flex-start">
