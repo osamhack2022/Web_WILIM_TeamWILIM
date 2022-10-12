@@ -26,7 +26,7 @@ export const Text = ({ color, fontSize, fontWeight, textAlign, innerText, style,
 const TextDiv = styled.span<{color?: string, fontSize?: string, fontWeight?: number, textAlign?: AlignType, hoverColor?: string}>`
     color: ${({color}) => color || 'white'};
     cursor: pointer;
-    font-size: ${({fontSize}) => fontSize || '10px'};
+    font-size: ${({fontSize}) => fontSize || BaseStyles.Text.Heading3};
     font-weight: ${({fontWeight}) => fontWeight || BaseStyles.Text.Border3};
     font-family: ${BaseStyles.Font.Inter};
     text-align: ${({textAlign}) => textAlign || 'left'};
