@@ -5,10 +5,8 @@ import { BaseStyles } from "../theme";
 import { Line } from "../atom/line";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { ReducerType } from "../../store/rootReducer";
 import { useDispatch } from "react-redux";
-import { sideBarToggle } from "../../store/slices/sideBarToggleSlice";
+import { sideBarToggle } from "../../store/slices/toggleSlice";
 
 interface SideNavBarProps {
     mainLink: string;

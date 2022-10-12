@@ -1,12 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import userInfo from "./slices/userInfoSlice";
 import userPlan from "./slices/userPlanSlice";
-import sideBarToggle from "./slices/sideBarToggleSlice";
+import toggle from "./slices/toggleSlice";
 
 const reducer = combineReducers({
     userInfo,
     userPlan,
-    sideBarToggle
+    toggle,
 });
 
 export type ReducerType = ReturnType<typeof reducer>;

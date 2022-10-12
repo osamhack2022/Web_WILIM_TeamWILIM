@@ -8,7 +8,7 @@ import { ReducerType } from "../../store/rootReducer";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { MenuIcon } from "../atom/menuIcon";
-import { sideBarToggle } from "../../store/slices/sideBarToggleSlice";
+import { sideBarToggle } from "../../store/slices/toggleSlice";
 
 export const UserTitle = () => {
   const username = useSelector((state: ReducerType) => state.userInfo.username);

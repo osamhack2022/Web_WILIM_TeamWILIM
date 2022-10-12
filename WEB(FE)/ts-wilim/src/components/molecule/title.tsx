@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { sideBarToggle } from "../../store/slices/sideBarToggleSlice";
+import { sideBarToggle } from "../../store/slices/toggleSlice";
 import { Flex } from "../atom/flex";
 import { Line } from "../atom/line";
 import { MarginBox } from "../atom/marginBox";

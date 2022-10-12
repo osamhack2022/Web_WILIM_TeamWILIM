@@ -16,7 +16,7 @@ import { ReducerType } from "./store/rootReducer";
 import { NavBar } from "./components/organism/navBar";
 
 function App() {
-  const toggle = useSelector((state: ReducerType) => state.sideBarToggle);
+  const toggle = useSelector((state: ReducerType) => state.toggle.sideBar);
   const pixel = toggle ? -182 : 0;
   return (
     <>
