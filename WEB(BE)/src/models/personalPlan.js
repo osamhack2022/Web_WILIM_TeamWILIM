@@ -38,6 +38,6 @@ const planListSchema = new mongoose.Schema({
     }]
 });
 
-export const PlanElement = mongoose.model("planElement", planElementSchema);
-export const PlanList = mongoose.model("planList", planListSchema);
+export const PlanElement = mongoose.model("PlanElement", planElementSchema);
+export const PlanList = mongoose.model("PlanList", planListSchema);
 
