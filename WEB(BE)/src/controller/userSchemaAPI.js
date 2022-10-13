@@ -57,10 +57,10 @@ module.exports.createNewUser = async (req,res,next) => {
         const { email, username, password, serviceType } = req.body;
         const user = new User({ email: email, username: username, serviceType : serviceType });
         const newUser = await User.register(user, password);
-        req.login(newUser, err=>{
+        req.login(user, err=>{
             if (err) return next(err);
             //res.status(201).send(newUser);
-            res.status(201).redirect(`/userSchemaAPI/id/${newUser.id}`);
+            res.status(201).redirect(`/userSchemaAPI/id/${user._id}`);
         })
     } catch (e) {
         res.status(400).json({message : e});
