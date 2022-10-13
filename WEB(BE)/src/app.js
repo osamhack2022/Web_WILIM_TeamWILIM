@@ -43,7 +43,7 @@ app.use(session({
     cookie: {
         // sameSite: 'none',
         // secure: true,
-        httpOnly: true,
+        httpOnly: true
     }
 }));
 app.use(methodOverride("_method"));
