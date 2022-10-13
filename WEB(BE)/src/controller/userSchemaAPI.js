@@ -113,7 +113,7 @@ module.exports.createNewNaverUser = async(req,res,next)=>{
                 if (error) {
                     return next(error);
                 }
-                return res.status(200).redirect(`/userSchemaAPI/id/${user._id}`);
+                return res.status(200).redirect(`https://front.wilimbackend.tk/main`);
             });
         });
     } catch (error) {
