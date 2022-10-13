@@ -5,7 +5,7 @@
 */
 import express from 'express';
 const passport = require("passport");
-import {getUsers, getUserInfo,createNewUser,updateUser, deleteUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, getUserInfoById, updateUserById, deleteUserById, renderRegisterNaver, createNewNaverUser} from "../controller/userSchemaAPI.js";
+import {getUsers,createNewUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, getUserInfoById, updateUserById, deleteUserById, renderRegisterNaver, createNewNaverUser} from "../controller/userSchemaAPI.js";
 import {isLoggedIn } from '../middleware';
 const router = express.Router();
 
@@ -67,7 +67,7 @@ router.get('/login/kakao/callback', (req, res, next) => {//kakao 로그인 콜�
         if (error) {
             return next(error);
         }
-        return res.redirect(`https://front.wilimbackend.tk/main`);
+        return res.status(200).redirect(`/userSchemaAPI/id/${user._id}`);
     });
     })(req, res, next);
 });
@@ -98,18 +98,13 @@ router.get('/login/naver/callback', (req, res, next) => {//네이버 로그인 �
         if (error) {
             return next(error);
         }
-        return res.redirect(`https://front.wilimbackend.tk/main`);
+        return res.status(200).redirect(`/userSchemaAPI/id/${user._id}`);
     });
     })(req, res, next);
 });
 
 router.route('/loginerror')//로그인실패시
-    .post(loginerror)    
-
-router.route('/:username')
-    .get(getUserInfo)  // username 일치하는 유저 가져옴
-    .put(updateUser)  //기존 유저 update 
-    .delete(deleteUser)  //기존 유저 delete
+    .post(loginerror)   
 
 router.route('/id/:id')
     .get(getUserInfoById) //id 일치하는 유저 가져옴

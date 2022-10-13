@@ -7,16 +7,6 @@ module.exports.getUsers = async (req,res,next) =>{
     res.send(users);
 }
 
-//GET specified user by id
-module.exports.getUserInfo = async (req,res,next) =>{
-    const { id } = req.params;
-    const user = await User.findById(id);
-    if (!user) {
-        return res.status(404).json({ message: "user not found" });
-    }
-    res.status(201).json({user});
-}
-
 //GET specified user by ID
 module.exports.getUserInfoById = async (req,res,next) =>{
     const { id } = req.params;
@@ -25,17 +15,6 @@ module.exports.getUserInfoById = async (req,res,next) =>{
         return res.status(404).json({ message: "user not found" });
     }
     res.status(201).json({user});
-}
-
-//PUT update userInfo by username
-module.exports.updateUser = async (req,res,next) =>{
-    try{
-        const {username} = req.params;
-        const updatedUser = await User.findOneAndUpdate({username : username},req.body,{new : true, runValidators : true})
-        res.send(updatedUser);
-    } catch(err){
-        return res.status(404).json({message : err});
-    }
 }
 
 //PUT update userInfo by ID
@@ -47,19 +26,6 @@ module.exports.updateUserById = async (req,res,next) =>{
     } catch(err){
         return res.status(404).json({message : err});
     }
-}
-
-//DELETE delete user by username
-module.exports.deleteUser = async(req,res,next)=>{
-    const {username} = req.params;
-    User.findOneAndDelete({username : username}, (err, deletedUser) => {
-        if (err){
-            return res.status(404).json({message: err.message});
-        }
-        else{
-            res.send(deletedUser);
-        }
-    });
 }
 
 //DELETE delete user by ID
@@ -94,7 +60,7 @@ module.exports.createNewUser = async (req,res,next) => {
         req.login(newUser, err=>{
             if (err) return next(err);
             //res.status(201).send(newUser);
-            res.status(201).redirect(`/userSchemaAPI/${newUser.username}`);
+            res.status(201).redirect(`/userSchemaAPI/id/${newUser.id}`);
         })
     } catch (e) {
         res.status(400).json({message : e});
@@ -117,7 +83,7 @@ module.exports.createNewKakaoUser = async(req,res,next)=>{
                 if (error) {
                     return next(error);
                 }
-                return res.redirect(`https://front.wilimbackend.tk/main`);
+                return res.status(200).redirect(`/userSchemaAPI/id/${user._id}`);
             });
         });
     } catch (error) {
@@ -147,7 +113,7 @@ module.exports.createNewNaverUser = async(req,res,next)=>{
                 if (error) {
                     return next(error);
                 }
-                return res.redirect(`https://front.wilimbackend.tk/main`);
+                return res.status(200).redirect(`/userSchemaAPI/id/${user._id}`);
             });
         });
     } catch (error) {
