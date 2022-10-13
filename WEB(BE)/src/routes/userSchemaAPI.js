@@ -67,7 +67,7 @@ router.get('/login/kakao/callback', (req, res, next) => {//kakao 로그인 콜�
         if (error) {
             return next(error);
         }
-        return res.redirect(`https://front.wilimbackend.tk/main`);
+        return res.status(200).redirect(`/userSchemaAPI/id/${user._id}`);
     });
     })(req, res, next);
 });
@@ -98,7 +98,7 @@ router.get('/login/naver/callback', (req, res, next) => {//네이버 로그인 �
         if (error) {
             return next(error);
         }
-        return res.redirect(`https://front.wilimbackend.tk/main`);
+        return res.status(200).redirect(`/userSchemaAPI/id/${user._id}`);
     });
     })(req, res, next);
 });
