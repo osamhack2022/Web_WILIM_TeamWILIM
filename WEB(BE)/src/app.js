@@ -64,8 +64,8 @@ passport.deserializeUser(function(username, done) {
 });
 
 });
-passport.use(new LocalStrategy({usernameField: 'email'}, User.authenticate()));
-passport.use(new KakaoStrategy(
+passport.use(new LocalStrategy({usernameField: 'email'}, User.authenticate()));//로컬 전략
+passport.use(new KakaoStrategy(//카카오 전략
     {
         clientID: kakao_key,
         callbackURL: '/userSchemaAPI/login/kakao/callback',
@@ -90,8 +90,7 @@ passport.use(new KakaoStrategy(
     },
     ),
 );
-//passport.use 안 지나감
-passport.use(new NaverStrategy(
+passport.use(new NaverStrategy(//네이버 전략
     {
         clientID: naver_client_id,
         clientSecret: naver_client_secret,
