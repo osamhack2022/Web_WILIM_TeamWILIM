@@ -60,7 +60,7 @@ module.exports.createNewUser = async (req,res,next) => {
         req.login(user, err=>{
             if (err) return next(err);
             //res.status(201).send(newUser);
-            res.status(201).redirect(`/userSchemaAPI/id/${user._id}`);
+            res.status(201).redirect(`https://front.wilimbackend.tk/main`);
         })
     } catch (e) {
         res.status(400).json({message : e});
@@ -83,7 +83,7 @@ module.exports.createNewKakaoUser = async(req,res,next)=>{
                 if (error) {
                     return next(error);
                 }
-                return res.status(200).redirect(`/userSchemaAPI/id/${user._id}`);
+                return res.status(200).redirect(`https://front.wilimbackend.tk/main`);
             });
         });
     } catch (error) {
