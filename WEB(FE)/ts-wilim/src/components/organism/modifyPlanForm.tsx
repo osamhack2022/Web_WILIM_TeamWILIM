@@ -9,8 +9,8 @@ import { Text } from "../atom/text"
 import { Plan } from "../molecule/plan"
 import { BaseStyles } from "../theme"
 
-export const ModifyPlanForm = ({ id, detail, steady, completed }: List) => {
-    const initialForm = { id, detail, steady, completed };
+export const ModifyPlanForm = ({ _id, detail, steady, completed }: List) => {
+    const initialForm = { _id, detail, steady, completed };
     const [newPlanForm, setNewPlanForm] = useState<typeof initialForm>(initialForm);
     const handleChange = (event: any) => {
         const { name, value } = event.target;

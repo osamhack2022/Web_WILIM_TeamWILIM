@@ -1,12 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { LocalRegisterProps } from "../../schema/fetch";
 
-interface LocalRegisterProps {
-    email: string;
-    password: string;
-    username: string;
-    serviceType: string;
-}
+
 
 export const localRegister = createAsyncThunk('user/localRegister',
 async ({ email, password, username, serviceType }: LocalRegisterProps) => {

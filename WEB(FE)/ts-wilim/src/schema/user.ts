@@ -6,3 +6,5 @@ export interface User {
   serviceType: string;
   goal?: string;
 }
+
+

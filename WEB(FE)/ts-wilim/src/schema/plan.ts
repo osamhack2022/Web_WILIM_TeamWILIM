@@ -1,11 +1,13 @@
 export interface List {
-    id: string;
-    detail: string;
-    completed: boolean;
-    steady: boolean;
+  _id: string;
+  detail: string;
+  completed: boolean;
+  steady: boolean;
+  planListId: string;
+  date: string;
 }
 
 export interface UserPlan {
-    date: string;
-    list: List[];
+  date: string;
+  list: List[];
 }

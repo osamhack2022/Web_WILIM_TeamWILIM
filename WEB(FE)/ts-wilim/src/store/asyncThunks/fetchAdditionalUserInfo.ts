@@ -1,10 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-interface FetchAdditionalUserInfoProps {
-  username: string;
-  serviceType: "ARMY" | "NAVY" | "AIR_FORCE";
-}
+import { FetchAdditionalUserInfoProps } from "../../schema/fetch";
 
 export const fetchAdditionalUserInfo = createAsyncThunk(
   "user/FetchAdditionalUserInfo",

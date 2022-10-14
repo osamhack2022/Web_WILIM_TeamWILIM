@@ -1,10 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-interface fetchUserPlanByIdProps {
-    username: string;
-    id: string;
-}
+import { fetchUserPlanByIdProps } from "../../schema/fetch";
 
 export const fetchUserPlanById= createAsyncThunk('user/fetchUserPlanById',
 async ({ username, id }: fetchUserPlanByIdProps) => {
