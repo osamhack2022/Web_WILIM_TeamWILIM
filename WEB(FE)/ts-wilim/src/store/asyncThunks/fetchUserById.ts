@@ -5,7 +5,14 @@ import { User } from "../../schema/user";
 export const fetchUserById = createAsyncThunk(
   "user/fetchUserById",
   async (_id: string) => {
-    const data = await axios.get(`https://wilimbackend.tk/userSchemaAPI/id/${_id}`);
+    const data = await axios({
+      url: `https://wilimbackend.tk/userSchemaAPI/id/${_id}`,
+      method: 'GET',
+      withCredentials: true,
+      headers: {
+          'Access-Control-Allow-Origin' : '*',
+      }
+    });
     console.log(data);
     const { email, username, password, serviceType } = data.data.user;
     const user: User = {

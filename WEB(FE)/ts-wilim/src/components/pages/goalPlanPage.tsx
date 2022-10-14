@@ -19,13 +19,13 @@ export const GoalPlanPage = () => {
       .then(res => {
         if(res.meta.requestStatus === "fulfilled") {
           dispatch(fetchUserPlanByUsername(username!))
-          .then(res => {
-            if(res.meta.requestStatus === "fulfilled") {
-              for(let i = 0; i < list.length; i++) {
-                dispatch(fetchUserPlanById({ username: username, id: list[i].id }));
-              }
-            }
-          })
+          // .then(res => {
+          //   if(res.meta.requestStatus === "fulfilled") {
+          //     for(let i = 0; i < list.length; i++) {
+          //       dispatch(fetchUserPlanById({ username: username, id: list[i].id }));
+          //     }
+          //   }
+          // })
         }
       }) // username을 바탕으로 유저의 정보를 확인한다.
       // username을 바탕으로 유저의 개인 플랜을 가져온다.
