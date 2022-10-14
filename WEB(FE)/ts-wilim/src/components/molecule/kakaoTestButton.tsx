@@ -6,6 +6,5 @@ export const KakaoTestButton = () => {
             <Button innerText="카카오로 로그인하기" width="100%" onClick={() => {}}
                 color="#3A1D1D" backgroundColor="#F7E600" hoverColor="#F7E600" />
         </a>
-
     )
 };

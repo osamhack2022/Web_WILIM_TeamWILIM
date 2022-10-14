@@ -32,9 +32,9 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
     <>
       <Flex justifyContent="center">
         <Text
-          innerText="Login"
+          innerText="WILIM"
           fontWeight={BaseStyles.Text.Border1}
-          color="white"
+          color={BaseStyles.Color.Orange2}
           fontSize="60px"
           textAlign="center"
         />

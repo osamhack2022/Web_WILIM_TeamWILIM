@@ -1,9 +1,9 @@
 export interface List {
-  _id: string;
+  _id?: string;
   detail: string;
   completed: boolean;
   steady: boolean;
-  planListId: string;
+  planListId?: string;
   date: string;
 }
 

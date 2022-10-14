@@ -1,3 +1,8 @@
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { deleteUserPlan } from "../../store/asyncThunks/deleteUserPlan";
+import { ReducerType } from "../../store/rootReducer";
+import { AppThunkDispatch } from "../../store/store";
 import { Flex } from "../atom/flex";
 import { MarginBox } from "../atom/marginBox";
 import { Text } from "../atom/text";
@@ -11,6 +16,8 @@ interface PlanProps {
 }
 
 export const Plan = ({ detail, completed, onClick, id }: PlanProps) => {
+  const { username } = useSelector((state: ReducerType) => state.userInfo);
+  const dispatch = useDispatch<AppThunkDispatch>();
   return (
     <Flex width="100%" alignItems="center">
       <svg
@@ -37,11 +44,13 @@ export const Plan = ({ detail, completed, onClick, id }: PlanProps) => {
         )}
       </svg>
       <MarginBox marginRight="1rem" />
-      <Text
-        innerText={detail}
-        color="white"
-        fontSize={BaseStyles.Text.Heading4}
-      />
+      <div onClick={() => dispatch(deleteUserPlan({ username, id: id! }))}>
+        <Text
+          innerText={detail}
+          color="white"
+          fontSize={BaseStyles.Text.Heading4}
+        />
+      </div>
     </Flex>
   );
 };

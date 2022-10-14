@@ -28,7 +28,7 @@ export const userInfoSlice = createSlice({
     builder.addCase(localRegister.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
     builder.addCase(localLogin.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
     builder.addCase(fetchAdditionalUserInfo.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
-    builder.addCase(fetchLoginInfo.fulfilled, (state: any) => ({ ...state }));
+    builder.addCase(fetchLoginInfo.fulfilled, (state: User, action: PayloadAction<User>) => ({ ...state, ...action.payload }));
   }
 });
 
