@@ -2,7 +2,6 @@ import { Layout } from "./components/layout/Layout";
 import { Route, Routes } from "react-router-dom";
 import { LoginPage } from "./components/pages/loginPage";
 import { CreateAccountPage } from "./components/pages/createAccountPage";
-import { RefCommunityPage } from "./components/pages/refCommunityPage";
 import { FindPasswordPage } from "./components/pages/findPasswordPage";
 import { ModifyUserInfoPage } from "./components/pages/modifyUserInfoPage";
 import { GoalPlanPage } from "./components/pages/goalPlanPage";
@@ -25,7 +24,6 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/*" element={<NavBar />}>
             <Route path="createAccount" element={<CreateAccountPage />} />
-            <Route path="refCommunity/:username" element={<RefCommunityPage />} />
             <Route path="findPassword" element={<FindPasswordPage />} />
             <Route path="test" element={<Layout />} />
             <Route path="main" element={<GoalPlanPage />} />

@@ -8,12 +8,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ReducerType } from "../../store/rootReducer";
 
-interface RefCommunityTemplateProps {
-  examDownloadLink: string;
-  goToCommunityLink: string;
-}
-
-export const RefCommunityTemplate = ({ examDownloadLink, goToCommunityLink }: RefCommunityTemplateProps) => {
+export const RefCommunityTemplate = () => {
   const goal = useSelector((state: ReducerType) => state.userInfo.goal);
   return (
     <Flex flexDirection="column" alignItems="center">
@@ -35,7 +30,7 @@ export const RefCommunityTemplate = ({ examDownloadLink, goToCommunityLink }: Re
         />
       </Flex>
       <MarginBox marginBottom="2rem" />
-      <Link to={examDownloadLink}>
+      <Link to={`/examDownload/${goal}`}>
         <Button
           innerText={`${goal} 공개문제 자료 다운로드`}
           width="80%"
@@ -72,7 +67,7 @@ export const RefCommunityTemplate = ({ examDownloadLink, goToCommunityLink }: Re
         />
       </Flex>
       <MarginBox marginBottom="2rem" />
-      <Link to={goToCommunityLink}>
+      <Link to={`/community/${goal}`}>
         <Button
           innerText="네이버 커뮤니티 바로가기"
           width="80%"
