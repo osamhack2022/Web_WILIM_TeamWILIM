@@ -5,7 +5,7 @@
 */
 import express from 'express';
 const passport = require("passport");
-import {getUsers,createNewUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, getUserInfoById, updateUserById, deleteUserById, renderRegisterNaver, createNewNaverUser} from "../controller/userSchemaAPI.js";
+import {getUsers,createNewUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, getUserInfoById, updateUserById, deleteUserById, renderRegisterNaver, createNewNaverUser, getSessionInfo} from "../controller/userSchemaAPI.js";
 import {isLoggedIn } from '../middleware';
 const router = express.Router();
 
@@ -34,7 +34,7 @@ router.route('/login/local')//local 로그인 라우터
                 return res.status(200).redirect(`/userSchemaAPI/id/${user._id}`);
             });
             }else{
-                res.json({msg : "로그인 실패"});
+                res.status(404).json({msg : "로그인 실패"});
             }
         })(req, res, next);
     });
@@ -105,6 +105,9 @@ router.get('/login/naver/callback', (req, res, next) => {//네이버 로그인 �
 
 router.route('/loginerror')//로그인실패시
     .post(loginerror)   
+
+router.route('/session') //세션에 로그인 정보 있으면 로그인한 유저 정보 반환
+    .get(getSessionInfo)
 
 router.route('/id/:id')
     .get(getUserInfoById) //id 일치하는 유저 가져옴
