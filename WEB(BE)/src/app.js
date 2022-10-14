@@ -12,6 +12,7 @@ import path from 'path';
 import methodOverride from 'method-override';
 import engine from 'ejs-mate';
 import cookieParser from 'cookie-parser';
+import morgan from 'morgan'
 import {Strategy as KakaoStrategy} from 'passport-kakao';
 import {Strategy as NaverStrategy} from 'passport-naver-v2';
 import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
@@ -36,6 +37,7 @@ app.engine("ejs", engine);
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(session_secret));
+app.use(morgan('dev'));
 app.use(session({
     secret: session_secret,
     resave: false,

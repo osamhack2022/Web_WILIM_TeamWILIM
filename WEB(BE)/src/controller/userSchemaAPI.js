@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import { PlanList } from "../models/personalPlan.js";
+import ExpressError from "../utils/error.js";
 
 //GET entire user
 module.exports.getUsers = async (req,res,next) =>{
@@ -83,7 +84,7 @@ module.exports.createNewKakaoUser = async(req,res,next)=>{
                 if (error) {
                     return next(error);
                 }
-                return res.status(200).redirect(`/userSchemaAPI/id/${user._id}`);
+                return res.status(200).redirect(`https://front.wilimbackend.tk/main`);
             });
         });
     } catch (error) {
@@ -113,7 +114,7 @@ module.exports.createNewNaverUser = async(req,res,next)=>{
                 if (error) {
                     return next(error);
                 }
-                return res.status(200).redirect(`/userSchemaAPI/id/${user._id}`);
+                return res.status(200).redirect(`https://front.wilimbackend.tk/main`);
             });
         });
     } catch (error) {
@@ -125,6 +126,15 @@ module.exports.createNewNaverUser = async(req,res,next)=>{
 //GET render login
 module.exports.renderLogin = (req,res,next)=>{
     res.render('userSchemaAPI/login');
+}
+
+module.exports.getSessionInfo = async (req,res,next)=>{
+    if(req.isAuthenticated()){
+        const user = req.user
+        res.status(200).send(user);
+    }else{
+        res.status(404).json({msg:'유저 정보를 찾을수 없습니다'});
+    }
 }
 
 //POST login 로그인 로직 변경으로 인한 모듈 미사용

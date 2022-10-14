@@ -2,7 +2,9 @@ import User from './models/user';
 
 //make session isLoggedIn true
 module.exports.isLoggedIn = (req,res)=>{
-    req.session.isLoggedIn = true;
+    if(!req.isAuthenticated()){
+        return res.status(404).json({msg : "유저정보를 찾을수 없습니다"});
+    }
     next();
 }
 
