@@ -7,12 +7,11 @@ import { fetchUserPlanByUsername } from "../../store/asyncThunks/fetchUserPlanBy
 import { useSelector } from "react-redux";
 import { ReducerType } from "../../store/rootReducer";
 import { fetchUserById } from "../../store/asyncThunks/fetchUserById";
-import { fetchUserPlanById } from "../../store/asyncThunks/fetchUserPlanById";
-
+// import { fetchUserPlanById } from "../../store/asyncThunks/fetchUserPlanById";
 
 export const GoalPlanPage = () => {
   const { username, _id } = useSelector((state: ReducerType) => state.userInfo);
-  const { list } = useSelector((state: ReducerType) => state.userPlan);
+  // const { list } = useSelector((state: ReducerType) => state.userPlan);
   const dispatch = useDispatch<AppThunkDispatch>(); //useDispatch를 이용해서 비동기 처리를 하기 위해서는 AppThunkDispatch를 제네릭으로 받아와야한다.
   useEffect(() => {
       dispatch(fetchUserById(_id!))

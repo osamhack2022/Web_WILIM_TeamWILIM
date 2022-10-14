@@ -1,10 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-interface LocalLoginProps {
-    email: string;
-    password: string;
-}
+import { LocalLoginProps } from "../../schema/fetch";
 
 export const localLogin = createAsyncThunk('user/localLogin',
 async ({ email, password }: LocalLoginProps) => {

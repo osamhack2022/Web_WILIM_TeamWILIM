@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import NoPlanError from "../../error/noPlanError";
 import { List } from "../../schema/plan";
 import { ReducerType } from "../../store/rootReducer";
 import { toggleCompleted } from "../../store/slices/userPlanSlice";
@@ -16,6 +17,7 @@ export const CheckList = () => {
     const handleToggle = (e: any) => {
         dispatch(toggleCompleted(e.target.id));
     }
+    if(planList.length <= 0) return <NoPlanError />; 
     return (
         <Flex flexDirection="column">
             <MarginBox marginBottom="2rem" />
@@ -25,7 +27,7 @@ export const CheckList = () => {
                     steadyPlan.map((item: List, index: number) => (
                         <div key={index}>
                             <MarginBox marginBottom="1rem" />
-                            <Plan completed={item.completed} detail={item.detail} onClick={(e: any) => handleToggle(e)} id={item.id} />
+                            <Plan completed={item.completed} detail={item.detail} onClick={(e: any) => handleToggle(e)} id={item._id} />
                         </div>
                     ))
                 }
@@ -37,7 +39,7 @@ export const CheckList = () => {
                     nonSteadyPlan.map((item: List, index: number) => (
                         <div key={index}>
                             <MarginBox marginBottom="1rem" />
-                            <Plan completed={item.completed} detail={item.detail} onClick={(e: any) => handleToggle(e)} id={item.id} />
+                            <Plan completed={item.completed} detail={item.detail} onClick={(e: any) => handleToggle(e)} id={item._id} />
                         </div>
                     ))
                 }
