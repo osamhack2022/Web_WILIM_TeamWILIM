@@ -12,7 +12,7 @@ import path from 'path';
 import methodOverride from 'method-override';
 import engine from 'ejs-mate';
 import cookieParser from 'cookie-parser';
-import morgan from 'morgan'
+import morgan from 'morgan';
 import {Strategy as KakaoStrategy} from 'passport-kakao';
 import {Strategy as NaverStrategy} from 'passport-naver-v2';
 import userSchemaAPIRoutes from './routes/userSchemaAPI.js';
