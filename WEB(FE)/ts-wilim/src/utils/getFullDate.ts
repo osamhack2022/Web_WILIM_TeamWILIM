@@ -1,8 +1,9 @@
 const getFullDate = () => {
-    const date = new Date().getDate.length === 1 ? `0${new Date().getDate}` : new Date().getDate;
-    const month = new Date().getMonth.length === 1 ? `0${new Date().getMonth}` : new Date().getMonth;
-    const year = new Date().getFullYear;
-    return `${year}${month}${date}`;
+    const date = new Date();
+    const day =  date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    const month = date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${year}${month}${day}`;
 }
 
 export default getFullDate;
