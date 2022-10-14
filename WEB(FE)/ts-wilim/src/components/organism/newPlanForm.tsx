@@ -39,7 +39,10 @@ export const NewPlanForm = () => {
                     fontSize={BaseStyles.Text.Heading3}
                     fontWeight={BaseStyles.Text.Border0} />
                 <MarginBox marginBottom="0.5rem" />
-                <Input type="text" width="calc(100% - 2rem)" name="detail" style={{ background: "none", border: "none", boxShadow: "none" }} />
+                <Input type="text" width="calc(100% - 2rem)" name="detail" value={newPlanForm.detail} style={{ background: "none", border: "none", boxShadow: "none" }} onChange={(e) => {
+                    e.preventDefault();
+                    setNewPlanForm(prev => ({ ...prev, detail: e.target.value }))
+                }} />
                 <Line width="100%" height="1px" color="#bbbbbb" />
                 <MarginBox marginBottom="2rem" />
                 <Plan detail="Steady?" completed={newPlanForm.steady} onClick={() => setNewPlanForm(prev => ({ ...prev, steady: !newPlanForm.steady }))} id="steady" />
