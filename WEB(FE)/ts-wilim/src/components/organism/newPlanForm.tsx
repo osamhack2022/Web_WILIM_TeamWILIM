@@ -1,4 +1,8 @@
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { addUserPlan } from "../../store/asyncThunks/addUserPlan"
+import { AppThunkDispatch } from "../../store/store"
+import getFullDate from "../../utils/getFullDate"
 import { Button } from "../atom/button"
 import { Flex } from "../atom/flex"
 import { Input } from "../atom/input"
@@ -9,6 +13,8 @@ import { Plan } from "../molecule/plan"
 import { BaseStyles } from "../theme"
 
 export const NewPlanForm = () => {
+    const dispatch = useDispatch<AppThunkDispatch>();
+    const date = getFullDate();
     const initialForm = {
         detail: "",
         steady: false,
@@ -43,7 +49,7 @@ export const NewPlanForm = () => {
                 <Flex justifyContent="center" alignItems="center" width="100%">
                     <Button
                         innerText="Add New Plan"
-                        onClick={(e) => { }}
+                        onClick={() => dispatch(addUserPlan({ date, ...newPlanForm }))}
                         color="white"
                         backgroundColor={BaseStyles.Color.Orange2}
                         hoverColor={BaseStyles.Color.Orange3}

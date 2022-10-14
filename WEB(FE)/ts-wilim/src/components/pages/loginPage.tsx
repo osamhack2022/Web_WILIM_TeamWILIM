@@ -4,12 +4,23 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../../store/store";
 import { fetchLoginInfo } from "../../store/asyncThunks/fetchLoginInfo";
+import { useNavigate } from "react-router-dom";
+import { MarginBox } from "../atom/marginBox";
 
 
 export const LoginPage = () => {
+  const dispatch = useDispatch<AppThunkDispatch>();
+  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(fetchLoginInfo())
+    .then(res => {
+      if(res.meta.requestStatus === 'fulfilled') navigate('/main');
+    })
+  }, [])
   return (
     <MediaDiv>
       <InnerMediaDiv>
+        <MarginBox marginBottom="2rem" />
         <LoginTemplate createAccountLink="/createAccount" findPasswordLink="/findPassword" />
       </InnerMediaDiv>
     </MediaDiv>
