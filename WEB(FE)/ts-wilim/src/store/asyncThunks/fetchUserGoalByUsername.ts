@@ -12,6 +12,7 @@ export const fetchUserGoalByUsername = createAsyncThunk(
           'Access-Control-Allow-Origin' : '*',
       }
     });
+    console.log(response.data);
     return response.data;
   }
 );

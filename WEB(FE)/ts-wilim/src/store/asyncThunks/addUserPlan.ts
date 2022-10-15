@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { List } from "../../schema/plan";
+import { FetchAddUserPlanProps } from "../../schema/fetch";
 
 export const addUserPlan = createAsyncThunk(
   "user/addUserPlan",
-  async ({ date, detail, steady, completed }: List) => {
+  async ({ username, date, detail, steady, completed }: FetchAddUserPlanProps) => {
     const response = await axios.post(
-      `https://wilimbackend.tk/userSchemaAPI/register/kakao`,
+      `https://wilimbackend.tk/userPersonalPlanAPI/${username}/plans`,
       { date, detail, steady, completed },
       {
         withCredentials: true,
