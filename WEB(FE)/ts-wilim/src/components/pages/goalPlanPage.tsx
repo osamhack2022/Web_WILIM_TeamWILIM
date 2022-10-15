@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { ReducerType } from "../../store/rootReducer";
 import { fetchUserById } from "../../store/asyncThunks/fetchUserById";
 import { fetchLoginInfo } from "../../store/asyncThunks/fetchLoginInfo";
+import { fetchUserGoalByUsername } from "../../store/asyncThunks/fetchUserGoalByUsername";
 // import { fetchUserPlanById } from "../../store/asyncThunks/fetchUserPlanById";
 
 export const GoalPlanPage = () => {
@@ -22,6 +23,7 @@ export const GoalPlanPage = () => {
             .then(res => {
               if (res.meta.requestStatus === "fulfilled") {
                 dispatch(fetchUserPlanByUsername(username!))
+                dispatch(fetchUserGoalByUsername(username!))
                 // .then(res => {
                 //   if(res.meta.requestStatus === "fulfilled") {
                 //     for(let i = 0; i < list.length; i++) {
@@ -33,6 +35,7 @@ export const GoalPlanPage = () => {
             })
         } else if (res.meta.requestStatus === "fulfilled") {
           dispatch(fetchUserPlanByUsername(username!))
+          dispatch(fetchUserGoalByUsername(username!))
         }
       })
     // username을 바탕으로 유저의 정보를 확인한다.
