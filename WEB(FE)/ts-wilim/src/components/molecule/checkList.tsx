@@ -10,7 +10,8 @@ import { Text } from "../atom/text";
 import { Plan } from "./plan";
 
 export const CheckList = () => {
-    const planList = useSelector((state: ReducerType) => state.userPlan.list);
+    const { date, list } = useSelector((state: ReducerType) => state.userPlan);
+    const planList = list.filter(plan => plan.date === date);
     const steadyPlan = planList.filter(item => item.steady === true);
     const nonSteadyPlan = planList.filter(item => item.steady === false);
     const dispatch = useDispatch();
