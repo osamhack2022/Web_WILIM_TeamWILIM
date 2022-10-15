@@ -73,12 +73,14 @@ module.exports.getUserGoal = async (req, res, next) => {
 
         const ctfInfoList = await GoalElement.find({});
 
+        /*
         return res.render("userGoalElementAPI/goalElement", { 
             ctfInfoList,
             goalElement,
             username,
         })
-        // return res.send(goalElement);
+        */
+        return res.status(200).send(goalElement);
     } catch(err) {
         return res.status(404).json({message: err});
     }
