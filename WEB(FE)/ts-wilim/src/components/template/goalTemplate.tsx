@@ -1,3 +1,6 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import ReactDropdown from "react-dropdown";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { ReducerType } from "../../store/rootReducer";
@@ -10,10 +13,23 @@ import { Text } from "../atom/text";
 import { ExamDate } from "../molecule/examDate";
 import { Title } from "../molecule/title";
 import { BaseStyles } from "../theme";
+import 'react-dropdown/style.css';
+import { AppThunkDispatch } from "../../store/store";
+import { updateUserGoal } from "../../store/asyncThunks/updateUserGoal";
 
 export const GoalTemplate = () => {
     const dispatch = useDispatch();
+    const appDispatch = useDispatch<AppThunkDispatch>();
     const isBoxOpen = useSelector((state: ReducerType) => state.toggle.examRound);
+    const [options, setOptions] = useState<string[]>([]);
+    const res = async () => await axios("https://wilimbackend.tk/userGoalElementAPI/ctfInfo").then(res => {
+        for(let i = 0; i < res.data.length; i++) {
+            setOptions(prev => prev.concat(res.data[i].name));
+        }
+    });
+    useEffect(() => {
+        res();
+    }, [])
     return (
         <Flex flexDirection="column">
             <Title innerText="Goal" />
@@ -21,6 +37,8 @@ export const GoalTemplate = () => {
             <Box width="calc(100% - 2rem)">
                 <Text innerText="조주기능사" fontSize={BaseStyles.Text.Heading2} />
             </Box>
+            <MarginBox marginBottom="2rem" />
+            <ReactDropdown options={options} value={options[0]} placeholder="Select your goal" />
             <MarginBox marginBottom="2rem" />
             <Box width="calc(100% - 2rem)" borderRadius="6px 6px 0 0">
                 <Flex justifyContent="space-between" alignItems="center">

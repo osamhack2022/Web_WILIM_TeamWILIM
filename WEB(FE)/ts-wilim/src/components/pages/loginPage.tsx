@@ -6,14 +6,11 @@ import { AppThunkDispatch } from "../../store/store";
 import { fetchLoginInfo } from "../../store/asyncThunks/fetchLoginInfo";
 import { useNavigate } from "react-router-dom";
 import { MarginBox } from "../atom/marginBox";
-import getFullDate from "../../utils/getFullDate";
 
 
 export const LoginPage = () => {
   const dispatch = useDispatch<AppThunkDispatch>();
   const navigate = useNavigate();
-  const date = getFullDate();
-  console.log(date);
   useEffect(() => {
     dispatch(fetchLoginInfo())
     .then(res => {
