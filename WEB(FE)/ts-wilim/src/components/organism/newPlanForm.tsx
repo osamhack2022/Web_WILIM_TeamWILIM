@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { addUserPlan } from "../../store/asyncThunks/addUserPlan"
+import { fetchUserPlanByUsername } from "../../store/asyncThunks/fetchUserPlanByUsername"
 import { ReducerType } from "../../store/rootReducer"
 import { AppThunkDispatch } from "../../store/store"
 import getFullDate from "../../utils/getFullDate"
@@ -55,7 +56,14 @@ export const NewPlanForm = () => {
                 <Flex justifyContent="center" alignItems="center" width="100%">
                     <Button
                         innerText="Add New Plan"
-                        onClick={() => dispatch(addUserPlan({ username, date, ...newPlanForm }))}
+                        onClick={() => {
+                            dispatch(addUserPlan({ username, date, ...newPlanForm }))
+                            .then(res => {
+                                if(res.meta.requestStatus === 'fulfilled') {
+                                    dispatch(fetchUserPlanByUsername(username))
+                                }
+                            })
+                        }}
                         color="white"
                         backgroundColor={BaseStyles.Color.Orange2}
                         hoverColor={BaseStyles.Color.Orange3}

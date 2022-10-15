@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { deleteUserPlan } from "../../store/asyncThunks/deleteUserPlan";
+import { fetchUserPlanByUsername } from "../../store/asyncThunks/fetchUserPlanByUsername";
 import { ReducerType } from "../../store/rootReducer";
 import { AppThunkDispatch } from "../../store/store";
 import { Flex } from "../atom/flex";
@@ -47,7 +48,8 @@ export const Plan = ({ detail, completed, onClick, id }: PlanProps) => {
       <div onClick={() => {
         if(id !== undefined){
           console.log(id);
-          dispatch(deleteUserPlan({ username, id }));
+          dispatch(deleteUserPlan({ username, id }))
+          .then(() => dispatch(fetchUserPlanByUsername(username)))
         }
       }}>
         <Text
