@@ -23,7 +23,7 @@ export const userPlanSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUserPlanByUsername.fulfilled, ((state: UserPlan, action: PayloadAction<FetchPlanResProps>) => ({ ...state, ...action.payload.list.filter(plan => plan.date === date) })));
+    builder.addCase(fetchUserPlanByUsername.fulfilled, ((state: UserPlan, action: PayloadAction<List[]>) => ({ ...state, ...action.payload.filter(plan => plan.date === date) })));
     builder.addCase(addUserPlan.fulfilled, ((state: UserPlan, action: PayloadAction<List>) => ({ date: state.date, list: state.list.concat(action.payload) })));
     builder.addCase(deleteUserPlan.fulfilled, ((state: UserPlan, action: PayloadAction<List>) => ({ date: state.date, list: state.list.filter(plan => plan._id !== action.payload._id) })));
     // builder.addCase(fetchUserPlanById.fulfilled, ((state: UserPlan, action: PayloadAction<FetchedPlan>) => {
