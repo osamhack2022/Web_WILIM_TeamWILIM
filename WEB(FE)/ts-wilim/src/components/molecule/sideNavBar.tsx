@@ -3,7 +3,7 @@ import { Flex } from "../atom/flex";
 import { MarginBox } from "../atom/marginBox";
 import { BaseStyles } from "../theme";
 import { Line } from "../atom/line";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Box } from "../atom/box";
 import axios from "axios";
 
@@ -15,6 +15,7 @@ interface SideNavBarProps {
 }
 
 export const SideNavBar = ({ mainLink, goalLink, planLink, profileLink }: SideNavBarProps) => {
+    const navigate = useNavigate();
     return (
         <div style={{ position: "fixed", top: "20vh", left: "calc(70vw + 2rem)" }}>
             <Box
@@ -25,7 +26,13 @@ export const SideNavBar = ({ mainLink, goalLink, planLink, profileLink }: SideNa
                 <Flex flexDirection="column" alignItems="center">
                     <MarginBox marginBottom="1rem" />
                     <div onClick={async () => {
-                        await axios("https://wilimbackend.tk/userSchemaAPI/logout");
+                        await axios("https://wilimbackend.tk/userSchemaAPI/logout")
+                        .then(res => {
+                            if(res.status < 400) {
+                                navigate("/");
+                                console.log("logout!");
+                            }
+                        }); 
                     }}>
                         <Text
                             innerText="WILIM"
