@@ -5,6 +5,7 @@ import { BaseStyles } from "../theme";
 import { Line } from "../atom/line";
 import { Link } from "react-router-dom";
 import { Box } from "../atom/box";
+import axios from "axios";
 
 interface SideNavBarProps {
     mainLink: string;
@@ -23,13 +24,17 @@ export const SideNavBar = ({ mainLink, goalLink, planLink, profileLink }: SideNa
             >
                 <Flex flexDirection="column" alignItems="center">
                     <MarginBox marginBottom="1rem" />
-                    <Text
-                        innerText="WILIM"
-                        fontSize={BaseStyles.Text.Heading2}
-                        fontWeight={BaseStyles.Text.Border1}
-                        textAlign="center"
-                        color={BaseStyles.Color.Orange2}
-                    />
+                    <div onClick={async () => {
+                        await axios("https://wilimbackend.tk/userSchemaAPI/logout");
+                    }}>
+                        <Text
+                            innerText="WILIM"
+                            fontSize={BaseStyles.Text.Heading2}
+                            fontWeight={BaseStyles.Text.Border1}
+                            textAlign="center"
+                            color={BaseStyles.Color.Orange2}
+                        />
+                    </div>
                     <MarginBox marginBottom="2rem" />
                     <Line width="40%" height="1px" color="#dddddd" />
                     <MarginBox marginBottom="3rem" />

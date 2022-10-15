@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { sideBarToggle } from "../../store/slices/toggleSlice";
+import axios from "axios";
 
 interface SideNavBarProps {
     mainLink: string;
@@ -22,6 +23,9 @@ export const SideNavBarMobile = ({ mainLink, goalLink, planLink, profileLink }: 
             <MobileBox>
                 <Flex flexDirection="column" alignItems="center" justifyContent="flex-start" height="100%">
                     <MarginBox marginBottom="6rem" />
+                    <div onClick={ async () => {
+                        await axios("https://wilimbackend.tk/userSchemaAPI/logout");
+                    }}>
                     <Text
                         innerText="WILIM"
                         fontSize={BaseStyles.Text.Heading2}
@@ -29,6 +33,7 @@ export const SideNavBarMobile = ({ mainLink, goalLink, planLink, profileLink }: 
                         textAlign="center"
                         color={BaseStyles.Color.Orange2}
                     />
+                    </div>
                     <MarginBox marginBottom="6rem" />
                     <Line width="40%" height="1px" color="#dddddd" />
                     <MarginBox marginBottom="7rem" />
