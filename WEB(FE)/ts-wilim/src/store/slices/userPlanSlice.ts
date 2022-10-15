@@ -6,8 +6,9 @@ import { addUserPlan } from "../asyncThunks/addUserPlan";
 import { deleteUserPlan } from "../asyncThunks/deleteUserPlan";
 import { fetchUserPlanByUsername } from "../asyncThunks/fetchUserPlanByUsername";
 
+const date = getFullDate();
 const userPlan: UserPlan = {
-  date: "",
+  date,
   list: []
 }
 
