@@ -10,6 +10,10 @@ export interface FetchPlanResProps {
   list: List[];
 }
 
+export interface FetchAddUserPlanProps extends List {
+  username: string;
+}
+
 export interface fetchUserPlanByIdProps {
   username: string;
   id: string;
