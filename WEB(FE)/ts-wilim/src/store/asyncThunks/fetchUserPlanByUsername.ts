@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { List } from "../../schema/plan";
+import { List, UserPlan } from "../../schema/plan";
 import getFullDate from "../../utils/getFullDate";
 
 export const fetchUserPlanByUsername = createAsyncThunk('user/fetchUserPlanByUsername',
@@ -14,6 +14,9 @@ async (username: string) => {
             'Access-Control-Allow-Origin' : '*',
         }
     });
-    const res: List[] = response.data.list.filter((plan: List) => plan.date === date);
+    const res: UserPlan = {
+        date,
+        list: response.data.list.filter((plan: List) => plan.date === date),
+    } 
     return res;
 })
