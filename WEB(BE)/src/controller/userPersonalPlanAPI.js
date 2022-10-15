@@ -62,11 +62,13 @@ export const addPlanElement = async (req, res, next) => {
     // 새로운 플랜을 저장할 때.
     // 기존에 존재하던 personalPlans가 있다면 불러오고, 새로운 플랜 내용을 넣은 다음 다시 저장한다.
     const { personalPlanId } = req.user;
-    const { detail, steady } = req.body;
+    const { date, detail, completed, steady } = req.body;
 
     try {    
         const newPlanElement = new PlanElement({ 
-            detail, 
+            date,
+            detail,
+            completed, 
             steady,
             planListId: personalPlanId
         });
