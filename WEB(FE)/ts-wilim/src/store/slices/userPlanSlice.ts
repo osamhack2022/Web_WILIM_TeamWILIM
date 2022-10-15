@@ -24,8 +24,8 @@ export const userPlanSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserPlanByUsername.fulfilled, ((state: UserPlan, action: PayloadAction<List[]>) => ({ ...state, list: action.payload })));
-    builder.addCase(addUserPlan.fulfilled, ((state: UserPlan, action: PayloadAction<List>) => ({ date: state.date, list: state.list.concat(action.payload) })));
-    builder.addCase(deleteUserPlan.fulfilled, ((state: UserPlan, action: PayloadAction<List>) => ({ date: state.date, list: state.list.filter(plan => plan._id !== action.payload._id) })));
+    builder.addCase(addUserPlan.fulfilled, ((state: UserPlan, action: PayloadAction<List>) => ({ ...state })));
+    builder.addCase(deleteUserPlan.fulfilled, ((state: UserPlan, action: PayloadAction<List>) => ({ ...state })));
     // builder.addCase(fetchUserPlanById.fulfilled, ((state: UserPlan, action: PayloadAction<FetchedPlan>) => {
     //   const index = state.list.findIndex(item => item.id === action.payload.id);
     //   const { id, detail, completed, steady } = action.payload;
