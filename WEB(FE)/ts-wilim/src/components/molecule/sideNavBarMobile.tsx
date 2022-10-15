@@ -28,7 +28,8 @@ export const SideNavBarMobile = ({ mainLink, goalLink, planLink, profileLink }: 
                         await axios("https://wilimbackend.tk/userSchemaAPI/logout")
                         .then(res => {
                             if(res.status < 400) {
-                                navigate("/");
+                                window.location.href = "https://front.wilimbackend.tk";
+                                // navigate("/");
                                 console.log("logout!");
                             }
                         }); 
