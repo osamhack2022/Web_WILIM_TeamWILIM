@@ -7,6 +7,7 @@ import express from 'express';
 const passport = require("passport");
 import {getUsers,createNewUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, getUserInfoById, updateUserById, deleteUserById, renderRegisterNaver, createNewNaverUser, getSessionInfo} from "../controller/userSchemaAPI.js";
 import {isLoggedIn } from '../middleware';
+import ExpressError from '../utils/error.js';
 const router = express.Router();
 
 router.route('/')
@@ -14,7 +15,10 @@ router.route('/')
 
 router.get('/logout', (req,res)=>{
     req.session.destroy((err) =>{
-        res.redirect('/'); 
+        if(err){
+            throw new ExpressError(404,"오류가 발생했습니다");
+        }
+        res.status(200).json({msg : "로그아웃되었습니다"}); 
     });
 })
 
