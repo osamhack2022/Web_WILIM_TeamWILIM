@@ -44,7 +44,12 @@ export const Plan = ({ detail, completed, onClick, id }: PlanProps) => {
         )}
       </svg>
       <MarginBox marginRight="1rem" />
-      <div onClick={() => dispatch(deleteUserPlan({ username, id: id! }))}>
+      <div onClick={() => {
+        if(id !== undefined){
+          console.log(id);
+          dispatch(deleteUserPlan({ username, id }));
+        }
+      }}>
         <Text
           innerText={detail}
           color="white"
