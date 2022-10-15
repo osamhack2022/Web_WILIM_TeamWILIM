@@ -12,5 +12,5 @@ async (username: string) => {
         }
     });
     console.log(response);
-    return response.data;
+    return response.data.list;
 })
