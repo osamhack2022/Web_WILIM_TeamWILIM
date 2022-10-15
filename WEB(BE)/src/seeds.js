@@ -191,13 +191,16 @@ const seedDB = async() => {
     }
 }
 
-seedDB();
+seedDB()
+    .then(()=>{
+        console.log("qnet done!");
+    })
 
-// const khistory = {
+// const gtelp = {
 //   name : "지텔프(G-TELP)",
 //   isQnet : false,
 //   description : "1985년 샌디에이고 주립대학교 산하 연구기관 국제 테스트 연구원(ITSC, International Testing Services Center)이 캘리포니아 주립대학교 로스앤젤레스, 조지타운 대학교 등의 교수진과 언어학자, 평가 전문가와 함께 개발한 외국인을 위한 영어 시험이다. 수준별 문법, 청취, 어휘 및 독해를 평가하기 위한 G-TELP Level Test (Level 1~5)), 말하기와 쓰기 능력을 측정하기 위한 G-TELP Speaking과 G-TELP Writing, 비즈니스 실무 영어 능력을 평가하기 위한 G-TELP Business, 초등학생 및 청소년의 어학 수준을 평가하는 G-TELP Jr. 등으로 구성되어 있다.",
-//   date : {
+//   isQnetFalseDate : {
 //     items : [
 //       {
 //         implYy : "2022",
@@ -275,6 +278,25 @@ seedDB();
 //   }
 // }
 
-// const response = new GoalElement(khistory);
+// const toeic = {isQnetFalseDate:{items:[{implYy:"2022",description:"제472회",docRegStartDt:"20220829",docRegEndDt:"20221003",docExamStartDt:"20221015",docExamEndDt:"20221015",docPassDt:"20221026"},{implYy:"2022",description:"제473회",docRegStartDt:"20220912",docRegEndDt:"20221017",docExamStartDt:"20221030",docExamEndDt:"20221030",docPassDt:"20221109"},{implYy:"2022",description:"제474회",docRegStartDt:"20220926",docRegEndDt:"20221031",docExamStartDt:"20221113",docExamEndDt:"20221113",docPassDt:"20221123"},{implYy:"2022",description:"제475회",docRegStartDt:"20221003",docRegEndDt:"20221107",docExamStartDt:"20221120",docExamEndDt:"20221120",docPassDt:"20221201"},{implYy:"2022",description:"제476회",docRegStartDt:"20221010",docRegEndDt:"20221114",docExamStartDt:"20221127",docExamEndDt:"20221127",docPassDt:"20221207"},{implYy:"2022",description:"제477회",docRegStartDt:"20221024",docRegEndDt:"20221128",docExamStartDt:"20221211",docExamEndDt:"20221211",docPassDt:"20221221"},{implYy:"2022",description:"제478회",docRegStartDt:"20221107",docRegEndDt:"20221212",docExamStartDt:"20221225",docExamEndDt:"20221225",docPassDt:"20230105"}]},name:"토익",description:"토익(TOEIC)은 국제 의사 소통을 위한 영어 시험(Test Of English for International Communication)의 약자로서, 영어가 모국어가 아닌 사람을 대상으로 일상 생활 및 비즈니스 현장에서 요구되는 실용적인 영어 구사 능력을 갖추었는지 평가하는 시험이다.",isQnet:false}
+
+// const khistory = {isQnetFalseDate : {items : [{implYy:"2022",description:"제61회",docRegStartDt:"20220926",docRegEndDt:"20221004",docExamStartDt:"20221022",docExamEndDt:"20221022",docPassDt:"20221104"},{implYy:"2022",description:"제62회",docRegStartDt:"20221107",docRegEndDt:"20221114",docExamStartDt:"20221203",docExamEndDt:"20221203",docPassDt:"20221216"}]},name:"한국사능력검정시험",description:"한국사 능력을 평가하고 검정하는 시험으로 교육부장관 소속의 국사편찬위원회가 주관한다.",isQnet:false}
+
+// const ksat = {isQnetFalseDate:{items:[{implYy:"2022",description:"6월모의평가",docRegStartDt:"20220404",docRegEndDt:"20220414",docExamStartDt:"20220609",docExamEndDt:"20220609",docPassDt:"20220706"},{implYy:"2022",description:"9월모의평가",docRegStartDt:"20220627",docRegEndDt:"20220707",docExamStartDt:"20220831",docExamEndDt:"20220831",docPassDt:"20220929"},{implYy:"2022",description:"대학수학능력시험",docRegStartDt:"20220818",docRegEndDt:"20220902",docExamStartDt:"20221117",docExamEndDt:"20221117",docPassDt:"20221209"}]},name:"대학수학능력시험",description:"대학 교육에 필요한 수학 능력 측정을 위한 시험이다.",isQnet:false}
+
+// const compCert = {isQnetFalseDate : {items:[{implyYy : "2022", description : "컴퓨터활용능력1급(상시)"},{implYy : "2022", description : "컴퓨터활용능력2급(상시)"}]},name : "컴퓨터활용능력", isQnet : false , description : "대한상공회의소에서 주관하는 스프레드시트와 데이터베이스 관련 국가기술자격. 1급과 2급으로 나뉘어져 있으며, 매일 시험을 실시하고있다."}
+
+// let response = new GoalElement(gtelp);
+// response.save();
+// response = new GoalElement(toeic);
+// response.save();
+// response = new GoalElement(ksat);
+// response.save();
+// response = new GoalElement(khistory);
+// response.save();
+// response = new GoalElement(compCert);
 // response.save()
-//   .then(()=>{mongoose.connection.close()})
+//     .then(()=>{
+//         mongoose.connection.close();
+//         console.log("isQnetFalse done!")
+//     })
