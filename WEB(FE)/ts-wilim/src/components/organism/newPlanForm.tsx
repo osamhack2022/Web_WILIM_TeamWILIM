@@ -1,6 +1,8 @@
 import { useState } from "react"
+import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { addUserPlan } from "../../store/asyncThunks/addUserPlan"
+import { ReducerType } from "../../store/rootReducer"
 import { AppThunkDispatch } from "../../store/store"
 import getFullDate from "../../utils/getFullDate"
 import { Button } from "../atom/button"
@@ -14,6 +16,7 @@ import { BaseStyles } from "../theme"
 
 export const NewPlanForm = () => {
     const dispatch = useDispatch<AppThunkDispatch>();
+    const { username } = useSelector((state: ReducerType) => state.userInfo);
     const date = getFullDate();
     const initialForm = {
         detail: "",
@@ -52,7 +55,7 @@ export const NewPlanForm = () => {
                 <Flex justifyContent="center" alignItems="center" width="100%">
                     <Button
                         innerText="Add New Plan"
-                        onClick={() => dispatch(addUserPlan({ date, ...newPlanForm }))}
+                        onClick={() => dispatch(addUserPlan({ username, date, ...newPlanForm }))}
                         color="white"
                         backgroundColor={BaseStyles.Color.Orange2}
                         hoverColor={BaseStyles.Color.Orange3}

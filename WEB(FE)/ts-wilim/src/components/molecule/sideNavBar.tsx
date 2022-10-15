@@ -6,6 +6,9 @@ import { Line } from "../atom/line";
 import { Link, useNavigate } from "react-router-dom";
 import { Box } from "../atom/box";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { AppThunkDispatch } from "../../store/store";
+import { fetchLoginInfo } from "../../store/asyncThunks/fetchLoginInfo";
 
 interface SideNavBarProps {
     mainLink: string;
@@ -16,6 +19,7 @@ interface SideNavBarProps {
 
 export const SideNavBar = ({ mainLink, goalLink, planLink, profileLink }: SideNavBarProps) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch<AppThunkDispatch>();
     return (
         <div style={{ position: "fixed", top: "20vh", left: "calc(70vw + 2rem)" }}>
             <Box
@@ -29,9 +33,8 @@ export const SideNavBar = ({ mainLink, goalLink, planLink, profileLink }: SideNa
                         await axios("https://wilimbackend.tk/userSchemaAPI/logout")
                         .then(res => {
                             if(res.status < 400) {
-                                window.location.href = "https://front.wilimbackend.tk";
-                                // navigate("/");
-                                console.log("logout!");
+                                dispatch(fetchLoginInfo());
+                                navigate("/");
                             }
                         }); 
                     }}>
