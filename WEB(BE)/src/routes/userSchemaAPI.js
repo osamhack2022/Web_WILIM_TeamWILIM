@@ -13,8 +13,7 @@ router.route('/')
     .get(getUsers) // 모든 유저 가져옴
 
 router.get('/logout', (req,res)=>{
-    req.logOut();
-    req.session.save(function(err){
+    req.session.destroy(function(err){
         if(err) throw err;
         res.redirect('/');
     })
