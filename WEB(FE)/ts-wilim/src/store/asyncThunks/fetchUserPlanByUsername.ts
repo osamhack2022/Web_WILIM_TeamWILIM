@@ -18,5 +18,6 @@ async (username: string) => {
         date,
         list: response.data.list.filter((plan: List) => plan.date === date),
     } 
+    console.log(response.data.list.filter((plan: List) => plan.date === date));
     return res;
 })
