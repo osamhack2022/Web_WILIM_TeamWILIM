@@ -3,7 +3,7 @@ import { Flex } from "../atom/flex";
 import { MarginBox } from "../atom/marginBox";
 import { BaseStyles } from "../theme";
 import { Line } from "../atom/line";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { sideBarToggle } from "../../store/slices/toggleSlice";
@@ -17,6 +17,7 @@ interface SideNavBarProps {
 }
 
 export const SideNavBarMobile = ({ mainLink, goalLink, planLink, profileLink }: SideNavBarProps) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     return (
         <div style={{ position: "fixed", top: 0, right: "-182px", transitionDuration: "0.5s" }} onClick={() => dispatch(sideBarToggle())}>
@@ -24,7 +25,13 @@ export const SideNavBarMobile = ({ mainLink, goalLink, planLink, profileLink }: 
                 <Flex flexDirection="column" alignItems="center" justifyContent="flex-start" height="100%">
                     <MarginBox marginBottom="6rem" />
                     <div onClick={ async () => {
-                        await axios("https://wilimbackend.tk/userSchemaAPI/logout");
+                        await axios("https://wilimbackend.tk/userSchemaAPI/logout")
+                        .then(res => {
+                            if(res.status < 400) {
+                                navigate("/");
+                                console.log("logout!");
+                            }
+                        }); 
                     }}>
                     <Text
                         innerText="WILIM"
