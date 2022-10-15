@@ -4,6 +4,7 @@ import axios from "axios";
 export const deleteUserPlan = createAsyncThunk(
   "user/deleteUserPlan",
   async ({ username, id }: { username: string, id: string }) => {
+    console.log(id);
     const response = await axios({
       url: `https://wilimbackend.tk/userPersonalPlanAPI/${username}/plans/${id}`,
       method: "DELETE",
