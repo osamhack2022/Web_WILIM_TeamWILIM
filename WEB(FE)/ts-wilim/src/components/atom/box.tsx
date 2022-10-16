@@ -39,4 +39,15 @@ const BoxDiv = styled.div<BoxProps>`
   padding: 1rem;
   overflow: hidden;
   border-radius: ${({ borderRadius }) => borderRadius || "6px"};
+  ::-webkit-scrollbar-track {
+    background-color: none;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;               /* width of the entire scrollbar */
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: lightgray;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: none;  /* creates padding around scroll thumb */
+  }
 `;

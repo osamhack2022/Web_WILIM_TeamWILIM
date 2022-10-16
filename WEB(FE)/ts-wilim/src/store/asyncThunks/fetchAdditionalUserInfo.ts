@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { FetchAdditionalUserInfoProps } from "../../schema/fetch";
+import originURL from "../../utils/originURL";
 
 export const fetchAdditionalUserInfo = createAsyncThunk(
   "user/FetchAdditionalUserInfo",
   async ({ username, serviceType }: FetchAdditionalUserInfoProps) => {
     const response = await axios.post(
-      `https://wilimbackend.tk/userSchemaAPI/register/kakao`,
+      `${originURL}/userSchemaAPI/register/kakao`,
       {
         username,
         serviceType,

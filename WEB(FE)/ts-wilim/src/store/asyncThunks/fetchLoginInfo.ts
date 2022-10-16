@@ -1,10 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import originURL from "../../utils/originURL";
 
 export const fetchLoginInfo = createAsyncThunk('user/fetchLoginInfo',
 async () => {
     const response = await axios({
-        url: "https://wilimbackend.tk/userSchemaAPI/session",
+        url: `${originURL}/userSchemaAPI/session`,
         method: "GET",
         withCredentials: true,
     })

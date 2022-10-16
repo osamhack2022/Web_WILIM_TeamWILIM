@@ -18,7 +18,7 @@ export const DailyPlan = () => {
             <div>
                 <Flex justifyContent="space-between" alignItems="center">
                     <AngleLeft />
-                    <Text innerText={`${date}`} color="white"
+                    <Text innerText={`${date.substring(4, 6)}.${date.substring(6, 8)}`} color="white"
                         fontSize={BaseStyles.Text.Heading2}
                         fontWeight={BaseStyles.Text.Border0} />
                     <AngleRight />

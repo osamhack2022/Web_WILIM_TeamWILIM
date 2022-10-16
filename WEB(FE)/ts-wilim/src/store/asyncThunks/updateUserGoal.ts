@@ -1,11 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios"
+import originURL from "../../utils/originURL";
 
 export const updateUserGoal = createAsyncThunk(
   "user/updateUserPlan",
   async ({ username, goalElement }: { username: string, goalElement: string }) => {
     const response = await axios.post(
-      `https://wilimbackend.tk/userGoalElementAPI/goal/${username}`,
+      `${originURL}/userGoalElementAPI/goal/${username}`,
       { goalElement },
       {
         withCredentials: true,
