@@ -12,12 +12,11 @@ import { CheckList } from "../molecule/checkList"
 import { BaseStyles } from "../theme"
 
 export const DailyPlan = () => {
-    let startPos = 0;
-    let curPos = 0;
     const { date, list } = useSelector((state: ReducerType) => state.userPlan);
+    const planList = list.filter(plan => plan.date === date);
     const dispatch = useDispatch();
-    const checks = list.filter((item) => item.completed === true).length;
-    const completeColor = checks === list.length ? BaseStyles.Color.Lime1 : BaseStyles.Color.Black1;
+    const checks = planList.filter((item) => item.completed === true).length;
+    const completeColor = checks === planList.length ? BaseStyles.Color.Lime1 : BaseStyles.Color.Black1;
     return (
         <Flex flexDirection="column" justifyContent="space-between" height="100%">
             <div>
@@ -34,24 +33,11 @@ export const DailyPlan = () => {
                 </Flex>
                 <MarginBox marginBottom="1.5rem" />
                 <Line width="100%" height="0.5px" color="#767676" />
-                <div onTouchStart={(e) => {
-                    startPos = e.touches[0].pageX;
-                }}
-                    onTouchEnd={(e) => {
-                        const sum = curPos + (e.changedTouches[0].pageX - startPos);
-                        console.log(sum);
-                        if (sum < -100) {
-                            dispatch(switchDate(-1))
-                        } else if (sum > 100) {
-                            dispatch(switchDate(+1))
-                        }
-                    }}>
-                    <CheckList />
-                </div>
+                <CheckList />
             </div>
             <Flex flexDirection="column" justifyContent="center" alignItems="center">
                 <Text
-                    innerText={`Got ${checks}/${list.length}`}
+                    innerText={`Got ${checks}/${planList.length}`}
                     color={completeColor}
                     fontWeight={BaseStyles.Text.Border2}
                     fontSize={BaseStyles.Text.Heading3}
