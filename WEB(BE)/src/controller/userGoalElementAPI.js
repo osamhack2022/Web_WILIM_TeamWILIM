@@ -87,12 +87,15 @@ module.exports.getUserGoal = async (req, res, next) => {
 }
 
 module.exports.postNewUserGoal = async (req, res, next) => {
-    const { goalElement } = req.body;
+    const { goalElement, selectedRound } = req.body;
     const { _id, username } = req.user;
 
     try {
         const newUserGoal = await GoalElement.findOne({ name: goalElement });
-        await User.findByIdAndUpdate(_id, { goal: newUserGoal._id }, { new: true });
+        await User.findByIdAndUpdate(_id, { 
+            goal: newUserGoal._id,
+            selectedRound,
+        }, { new: true });
         await GoalElement.findByIdAndUpdate(newUserGoal._id, { $push: { users: _id }});
         return res.status(200).send(newUserGoal);
     } catch(err) {
