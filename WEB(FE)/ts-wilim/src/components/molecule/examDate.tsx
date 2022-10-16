@@ -6,7 +6,7 @@ import { BaseStyles } from "../theme"
 interface ExamDateProps {
     examRound: string;
     startAt: string;
-    dDay: string;
+    dDay?: string;
 }
 
 export const ExamDate = ({ examRound, startAt, dDay }: ExamDateProps) => {

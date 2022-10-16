@@ -15,6 +15,7 @@ import { fetchUserById } from "../../store/asyncThunks/fetchUserById";
 
 export const GoalPlanTemplate = () => {
   const { username, _id } = useSelector((state: ReducerType) => state.userInfo);
+  const goal = useSelector((state: ReducerType) => state.userGoal.name);
   const dispatch = useDispatch<AppThunkDispatch>();
   useEffect(() => {
     dispatch(fetchUserById(_id!));
@@ -24,19 +25,6 @@ export const GoalPlanTemplate = () => {
       <MarginBox marginBottom="2rem" />
       <Title innerText={`${username}님`} />
       <MarginBox marginBottom="2rem" />
-      <Flex
-        flexDirection="column"
-        justifyContent="flex-start"
-        width="100%"
-      >
-        <Text
-          innerText="Goal"
-          color="white"
-          fontSize={BaseStyles.Text.Heading2}
-          fontWeight={BaseStyles.Text.Border0}
-        />
-      </Flex>
-      <MarginBox marginBottom="1rem" />
       <GoalCard />
       <MarginBox marginBottom="2rem" />
       <Line

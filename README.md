@@ -19,6 +19,7 @@
  - <img src="https://img.shields.io/badge/Styled&nbsp;Components-DB7093?style=flat-square&logo=Styled-components&logoColor=white"></a> 를 이용한 CSS-In-JS Styling
 
 ### DevOps
+ - <img src="https://img.shields.io/badge/AWS&nbsp;Elastic&nbsp;Beanstalk-FF9900?style=flat-square&logo=Amazon AWS&logoColor=white"></a> 를 이용한 Deploy
  - <img src="https://img.shields.io/badge/Github&nbsp;Actions-2088FF?style=flat-square&logo=Github-actions&logoColor=white"></a> 를 이용한 CI/CD 파이프라인 구축
  
 ### Communications

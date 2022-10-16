@@ -1,9 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   sideBar: false,
   newPlan: false,
   examRound: false,
+  goalSelect: false,
+  goalDate: "",
 };
 
 export const toggleSlice = createSlice({
@@ -13,8 +15,10 @@ export const toggleSlice = createSlice({
     sideBarToggle: (state: typeof initialState) => { state.sideBar = !state.sideBar },
     newPlanToggle: (state: typeof initialState) => { state.newPlan = !state.newPlan },
     examRoundToggle: (state: typeof initialState) => { state.examRound = !state.examRound },
+    goalSelectToggle: (state: typeof initialState) => { state.goalSelect = !state.goalSelect },
+    goalDateToggle: (state: typeof initialState, action: PayloadAction<string>) => { state.goalDate = action.payload },
   },
-});
+})
 
-export const { sideBarToggle, newPlanToggle, examRoundToggle } = toggleSlice.actions;
+export const { sideBarToggle, newPlanToggle, examRoundToggle, goalSelectToggle, goalDateToggle } = toggleSlice.actions;
 export default toggleSlice.reducer;

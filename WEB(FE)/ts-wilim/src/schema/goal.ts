@@ -5,7 +5,7 @@ interface fileInfo {
     _id: string;
 }
 
-interface RoundInfo {
+export interface RoundInfo {
     implYy: string;
     implSeq: number;
     qualgbCd: string;
@@ -24,20 +24,17 @@ interface RoundInfo {
 }
 
 export interface Goal {
-    ctf: {
-        _id: string;
-        name: string;
-        qualgbnm: string;
-        description: string;
-        seriesnm: string;
-        obligfldnm: string;
-        mdobligfldnm: string;
-        dateUrl: string;
-        mockLink: fileInfo[];
-        isQnet: boolean;
-        users: string[];
-    };
-    date: {
-        items: RoundInfo[];
-    }
+    dateUrl: string;
+    description: string;
+    isQnet: boolean;
+    isQnetFalseDate: Object;
+    mdobligfldnm: string;
+    mockLink: fileInfo[];
+    name: string;
+    obligfldnm: string;
+    qualgbnm: string;
+    seriesnm: string;
+    users: string[];
+    _id: string;
+    dates: RoundInfo[];
 }

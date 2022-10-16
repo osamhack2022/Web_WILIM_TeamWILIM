@@ -1,17 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { FetchAdditionalUserInfoProps } from "../../schema/fetch";
+import axios from "axios"
 import originURL from "../../utils/originURL";
 
-export const fetchAdditionalUserInfo = createAsyncThunk(
-  "user/FetchAdditionalUserInfo",
-  async ({ username, serviceType }: FetchAdditionalUserInfoProps) => {
+export const updateUserGoal = createAsyncThunk(
+  "user/updateUserPlan",
+  async ({ username, goalElement }: { username: string, goalElement: string }) => {
     const response = await axios.post(
-      `${originURL}/userSchemaAPI/register/kakao`,
-      {
-        username,
-        serviceType,
-      },
+      `${originURL}/userGoalElementAPI/goal/${username}`,
+      { goalElement },
       {
         withCredentials: true,
         headers: {

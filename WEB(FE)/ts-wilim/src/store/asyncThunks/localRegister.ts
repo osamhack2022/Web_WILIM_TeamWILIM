@@ -1,12 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { LocalRegisterProps } from "../../schema/fetch";
-
-
+import originURL from "../../utils/originURL";
 
 export const localRegister = createAsyncThunk('user/localRegister',
 async ({ email, password, username, serviceType }: LocalRegisterProps) => {
-    const response = await axios.post(`https://wilimbackend.tk/userSchemaAPI/register/local`, {
+    const response = await axios.post(`${originURL}/userSchemaAPI/register/local`, {
         email, password, username, serviceType
     },
     {

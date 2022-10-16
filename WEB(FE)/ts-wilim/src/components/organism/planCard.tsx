@@ -10,6 +10,7 @@ import { CheckList } from "../molecule/checkList";
 
 export const PlanCard = () => {
   const planList = useSelector((state: ReducerType) => state.userPlan.list);
+  const date = useSelector((state: ReducerType) => state.userPlan.date);
   const checks = planList.filter((item) => item.completed === true).length;
   const completeColor = checks === planList.length ? BaseStyles.Color.Lime1 : BaseStyles.Color.Black1;
   return (
@@ -21,7 +22,7 @@ export const PlanCard = () => {
       <Flex flexDirection="column" width="100%">
         <Flex justifyContent="space-between">
           <Text
-            innerText="8.24"
+            innerText={`${date.substring(4, 6)}.${date.substring(6, 8)}`}
             color="white"
             fontSize={BaseStyles.Text.Heading3}
             fontWeight={BaseStyles.Text.Border1}

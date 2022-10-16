@@ -6,8 +6,7 @@ import { fetchUserPlanByUsername } from "../../store/asyncThunks/fetchUserPlanBy
 import { ReducerType } from "../../store/rootReducer";
 import { useSelector } from "react-redux";
 
-
-export const PlanPage = () => {
+const PlanPage = () => {
   const { username } = useSelector((state: ReducerType) => state.userInfo);
   const dispatch = useDispatch<AppThunkDispatch>(); //useDispatch를 이용해서 비동기 처리를 하기 위해서는 AppThunkDispatch를 제네릭으로 받아와야한다.
   dispatch(fetchUserPlanByUsername(username!));
@@ -19,3 +18,5 @@ export const PlanPage = () => {
     </MediaDiv>
   )
 };
+
+export default PlanPage;

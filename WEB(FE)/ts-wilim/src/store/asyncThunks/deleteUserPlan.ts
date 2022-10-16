@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import originURL from "../../utils/originURL";
 
 export const deleteUserPlan = createAsyncThunk(
   "user/deleteUserPlan",
   async ({ username, id }: { username: string, id: string }) => {
     console.log(id);
     const response = await axios({
-      url: `https://wilimbackend.tk/userPersonalPlanAPI/${username}/plans/${id}`,
+      url: `${originURL}/userPersonalPlanAPI/${username}/plans/${id}`,
       method: "DELETE",
       withCredentials: true,
       headers: {

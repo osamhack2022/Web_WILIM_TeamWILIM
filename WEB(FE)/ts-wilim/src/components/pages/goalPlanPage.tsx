@@ -9,33 +9,38 @@ import { ReducerType } from "../../store/rootReducer";
 import { fetchUserById } from "../../store/asyncThunks/fetchUserById";
 import { fetchLoginInfo } from "../../store/asyncThunks/fetchLoginInfo";
 import { fetchUserGoalByUsername } from "../../store/asyncThunks/fetchUserGoalByUsername";
-// import { fetchUserPlanById } from "../../store/asyncThunks/fetchUserPlanById";
+import axios from "axios";
+import { updateGoalDateInfo } from "../../store/slices/userGoalSlice";
 
-export const GoalPlanPage = () => {
+const GoalPlanPage = () => {
   const { username, _id } = useSelector((state: ReducerType) => state.userInfo);
-  // const { list } = useSelector((state: ReducerType) => state.userPlan);
-  const dispatch = useDispatch<AppThunkDispatch>(); //useDispatch를 이용해서 비동기 처리를 하기 위해서는 AppThunkDispatch를 제네릭으로 받아와야한다.
+  const dispatch = useDispatch();
+  const getDates = async (url: string) => await axios.get(url).then(res => dispatch(updateGoalDateInfo(res.data.body.items)));
+  const AppDispatch = useDispatch<AppThunkDispatch>(); //useDispatch를 이용해서 비동기 처리를 하기 위해서는 AppThunkDispatch를 제네릭으로 받아와야한다.
   useEffect(() => {
-    dispatch(fetchLoginInfo())
+    AppDispatch(fetchLoginInfo())
       .then(res => {
         if (res.meta.requestStatus === 'rejected') {
-          dispatch(fetchUserById(_id!))
+          AppDispatch(fetchUserById(_id!))
             .then(res => {
               if (res.meta.requestStatus === "fulfilled") {
-                dispatch(fetchUserPlanByUsername(username!))
-                dispatch(fetchUserGoalByUsername(username!))
-                // .then(res => {
-                //   if(res.meta.requestStatus === "fulfilled") {
-                //     for(let i = 0; i < list.length; i++) {
-                //       dispatch(fetchUserPlanById({ username: username, id: list[i].id }));
-                //     }
-                //   }
-                // })
+                AppDispatch(fetchUserPlanByUsername(username!))
+                AppDispatch(fetchUserGoalByUsername(username!))
+                .then(res => {
+                  if (res.meta.requestStatus === "fulfilled") {
+                    getDates(res.payload.dateUrl);
+                  }
+                })
               }
             })
         } else if (res.meta.requestStatus === "fulfilled") {
-          dispatch(fetchUserPlanByUsername(username!))
-          dispatch(fetchUserGoalByUsername(username!))
+          AppDispatch(fetchUserPlanByUsername(username!))
+          AppDispatch(fetchUserGoalByUsername(username!))
+          .then(res => {
+            if (res.meta.requestStatus === "fulfilled") {
+              getDates(res.payload.dateUrl);
+            }
+          })
         }
       })
     // username을 바탕으로 유저의 정보를 확인한다.
@@ -49,3 +54,5 @@ export const GoalPlanPage = () => {
     </MediaDiv>
   )
 };
+
+export default GoalPlanPage;
