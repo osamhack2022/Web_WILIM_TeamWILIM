@@ -12,7 +12,7 @@ import { fetchUserGoalByUsername } from "../../store/asyncThunks/fetchUserGoalBy
 import axios from "axios";
 import { updateGoalDateInfo } from "../../store/slices/userGoalSlice";
 
-export const GoalPlanPage = () => {
+const GoalPlanPage = () => {
   const { username, _id } = useSelector((state: ReducerType) => state.userInfo);
   const dispatch = useDispatch();
   const getDates = async (url: string) => await axios.get(url).then(res => dispatch(updateGoalDateInfo(res.data.body.items)));
@@ -54,3 +54,5 @@ export const GoalPlanPage = () => {
     </MediaDiv>
   )
 };
+
+export default GoalPlanPage;

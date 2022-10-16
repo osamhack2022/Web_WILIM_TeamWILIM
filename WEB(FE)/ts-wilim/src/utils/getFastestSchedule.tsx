@@ -20,63 +20,63 @@ const GetFasetestSchedule = () => {
         if (Number(dates[i].docRegStartDt) >= Number(today)) {
             dDay = {
                 description: dates[i].description,
-                schedule: dates[i].docRegStartDt,
+                schedule: "필기시험 원서접수 시작",
                 dateDiff: getMinus(dates[i].docRegStartDt, today)
             }
             break;
         } else if (Number(dates[i].docRegEndDt) >= Number(today)) {
             dDay = {
                 description: dates[i].description,
-                schedule: dates[i].docRegEndDt,
+                schedule: "필기시험 원서접수 종료",
                 dateDiff: getMinus(dates[i].docRegEndDt, today)
             }
             break;
         } else if (Number(dates[i].docExamStartDt) >= Number(today)) {
             dDay = {
                 description: dates[i].description,
-                schedule: dates[i].docExamStartDt,
+                schedule: "필기시험 시작",
                 dateDiff: getMinus(dates[i].docExamStartDt, today)
             }
             break;
         } else if (Number(dates[i].docPassDt) >= Number(today)) {
             dDay = {
                 description: dates[i].description,
-                schedule: dates[i].docPassDt,
+                schedule: "필기시험 합격발표",
                 dateDiff: getMinus(dates[i].docPassDt, today)
             }
             break;
         } else if (Number(dates[i].pracRegStartDt) >= Number(today)) {
             dDay = {
                 description: dates[i].description,
-                schedule: dates[i].pracRegStartDt,
+                schedule: "실기(작업)/면접 원서접수 시작",
                 dateDiff: getMinus(dates[i].pracRegStartDt, today)
             }
             break;
         } else if (Number(dates[i].pracRegEndDt) >= Number(today)) {
             dDay = {
                 description: dates[i].description,
-                schedule: dates[i].pracRegEndDt,
+                schedule: "실기(작업)/면접 원서접수 종료",
                 dateDiff: getMinus(dates[i].pracRegEndDt, today)
             }
             break;
         } else if (Number(dates[i].pracExamStartDt) >= Number(today)) {
             dDay = {
                 description: dates[i].description,
-                schedule: dates[i].pracExamStartDt,
+                schedule: "실기(작업)/면접 시작",
                 dateDiff: getMinus(dates[i].pracExamStartDt, today)
             }
             break;
         } else if (Number(dates[i].pracExamEndDt) >= Number(today)) {
             dDay = {
                 description: dates[i].description,
-                schedule: dates[i].pracExamEndDt,
+                schedule: "실기(작업)/면접 종료",
                 dateDiff: getMinus(dates[i].pracExamEndDt, today)
             }
             break;
         } else if (Number(dates[i].pracPassDt) >= Number(today)) {
             dDay = {
                 description: dates[i].description,
-                schedule: dates[i].pracPassDt,
+                schedule: "실기(작업)/면접 결과발표",
                 dateDiff: getMinus(dates[i].pracPassDt, today)
             }
             break;
