@@ -6,9 +6,9 @@ import "./env.js";
 import {db_cstring, qnet_key} from "./db.js";
 import axios from 'axios';
 import express from 'express';
-import qnetInfo from './qnetInfo.json';
+import qnetInfo from './seeds/qnetInfo.json';
 import fs from 'fs';
-
+import description from './seeds/description.json';
 const app = express();
 
 
@@ -302,3 +302,19 @@ function fillZero(str){
 //         mongoose.connection.close();
 //         console.log("isQnetFalse done!")
 //     })
+
+const descriptions = description.response.body.items.item;
+
+const updateDB = async ()=>{
+    for (const d of descriptions){
+        const descriptionName = d.jmNm;
+        const changedDB = await GoalElement.findOneAndUpdate({name : descriptionName},{description : d},{new : true, runValidators : true})
+        console.log(changedDB);
+    }
+}
+
+updateDB()
+    .then(()=>
+        {mongoose.connection.close();
+        console.log("updateDB Done!");}
+    )
