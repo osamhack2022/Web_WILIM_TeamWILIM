@@ -3,7 +3,21 @@ import mongoose from 'mongoose';
 const goalElementSchema = new mongoose.Schema({
     name :{type: String , required : true, unique : true}, //시험명
     qualgbnm : {type : String ,default:null}, //자격구분명 ex 국가기술자격
-    descriptionStr : {type : String ,default:null}, // 시험 설명
+    description : {
+        career : String,
+        engJmNm : String,
+        hist : String,
+        implNm : String,
+        instiNm : String,
+        jmCd : Number,
+        jmNm : String,
+        job : String,
+        mdobligFldNm : String,
+        seriesCd : Number,
+        seriesNm : String,
+        summary : String,
+        trend : String,
+    }, // 시험 설명
     seriesnm : {type : String,default:null}, //계열명 ex 기술사
     obligfldnm : {type : String,default:null}, //대직무분야명
     mdobligfldnm: {type : String,default:null}, //중직무분야명
