@@ -138,63 +138,65 @@ function fillZero(str){
 
 // 실제 mongoDB에 다운로드 진행했을 때 사용한 코드
 // 국가기술자격(qualgbcd: T)까지는 잘 진행됐으나, 국가전문자격(qualgbcd: S)부터 에러 발생 .. 해결 필요
-const urlEndPoint_examSchd ='http://apis.data.go.kr/B490007/qualExamSchd/getQualExamSchdList';  // 시험일정 정보 url 엔드포인트
-const urlEndPoint_openQst = `http://apis.data.go.kr/B490007/openQst`;   // 공개문제 url 엔드포인트
-const items = qnetInfo.response.body.items.item;    // 시험종목 정보
-const serviceKey = qnet_key;    // 공공데이터포털에서 발급받은 인증키
-let numOfRows = 10;           // 한 페이지 결과 수
-let pageNo = 1;               // 페이지 번호
-const dataFormat = "json"       // 응답 데이터 표준 형식 - xml / json (대소문자 구분 없음)
-let implYy = 2022;
+// const urlEndPoint_examSchd ='http://apis.data.go.kr/B490007/qualExamSchd/getQualExamSchdList';  // 시험일정 정보 url 엔드포인트
+// const urlEndPoint_openQst = `http://apis.data.go.kr/B490007/openQst`;   // 공개문제 url 엔드포인트
+// const items = qnetInfo.response.body.items.item;    // 시험종목 정보
+// const serviceKey = qnet_key;    // 공공데이터포털에서 발급받은 인증키
+// let numOfRows = 10;           // 한 페이지 결과 수
+// let pageNo = 1;               // 페이지 번호
+// const dataFormat = "json"       // 응답 데이터 표준 형식 - xml / json (대소문자 구분 없음)
+// let implYy = 2022;
 
-const seedDB = async() => {
-    try {
-        await GoalElement.deleteMany({});
+// const seedDB = async() => {
+//     try {
+//         await GoalElement.deleteMany({});
 
-        for(const item of items) {
-            let fileList;
+//         for(const item of items) {
+//             let fileList;
 
-            // 1. 국가자격 공개문제 목록 조회
-            const urlOpenQstList = `${urlEndPoint_openQst}/getOpenQstList?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&qualgbCd=${item.qualgbcd}&seriesCd=${String(item.seriescd).padStart(2, '0')}&jmCd=${String(item.jmcd).padStart(4, '0')}&jmNm=${encodeURIComponent(item.jmfldnm)}`;
-            const resQstList = await axios.get(urlOpenQstList);
-            const resData = resQstList.data.body.items;
-            const listData = resData.length !== 0 ? resData[0] : null; 
-            if(listData) {   
-                // 2. 국가자격 공개문제 상세 조회
-                const urlOpenQst = `${urlEndPoint_openQst}/getOpenQst?serviceKey=${serviceKey}&dataFormat=${dataFormat}&qualgbCd=${listData.qualgbCd}&artlSeq=${listData.artlSeq}`;
-                const resQst = await axios.get(urlOpenQst);
-                fileList = resQst.data.body.fileList;
-            }
+//             // 1. 국가자격 공개문제 목록 조회
+//             const urlOpenQstList = `${urlEndPoint_openQst}/getOpenQstList?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&qualgbCd=${item.qualgbcd}&seriesCd=${String(item.seriescd).padStart(2, '0')}&jmCd=${String(item.jmcd).padStart(4, '0')}&jmNm=${encodeURIComponent(item.jmfldnm)}`;
+//             const resQstList = await axios.get(urlOpenQstList);
+//             const resData = resQstList.data.body.items;
+//             const listData = resData.length !== 0 ? resData[0] : null; 
+//             if(listData) {   
+//                 // 2. 국가자격 공개문제 상세 조회
+//                 const urlOpenQst = `${urlEndPoint_openQst}/getOpenQst?serviceKey=${serviceKey}&dataFormat=${dataFormat}&qualgbCd=${listData.qualgbCd}&artlSeq=${listData.artlSeq}`;
+//                 const resQst = await axios.get(urlOpenQst);
+//                 fileList = resQst.data.body.fileList;
+//             }
 
-            // 3. 종합해서 mongoDB에 저장
-            const dataJson = {
-                name : item.jmfldnm,
-                qualgbnm : item.qualgbnm,
-                description : item.description,
-                seriesnm : item.seriesnm,
-                obligfldnm : item.obligfldnm,
-                mdobligfldnm : item.mdobligfldnm,
-                dateUrl : `${urlEndPoint_examSchd}?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&implYy=${implYy}&qualgbCd=${item.qualgbcd}&jmCd=${fillZero((item.jmcd).toString())}`,
-                mockLink: fileList ? fileList : {
-                    fileNm: "공개문제 링크를 찾을 수 없습니다.",
-                    fileSn: null,
-                    fileUrl: "공개문제 링크를 찾을 수 없습니다."
-                },
-                isQnet : true
-            }
-            console.log(dataJson);
-            const newData = new GoalElement(dataJson);
-            await newData.save();
-        }
-    } catch(err) {
-        console.error(err);
-    }
-}
+//             // 3. 종합해서 mongoDB에 저장
+//             const dataJson = {
+//                 name : item.jmfldnm,
+//                 qualgbnm : item.qualgbnm,
+//                 description : item.description,
+//                 seriesnm : item.seriesnm,
+//                 obligfldnm : item.obligfldnm,
+//                 mdobligfldnm : item.mdobligfldnm,
+//                 dateUrl : `${urlEndPoint_examSchd}?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&dataFormat=${dataFormat}&implYy=${implYy}&qualgbCd=${item.qualgbcd}&jmCd=${fillZero((item.jmcd).toString())}`,
+//                 mockLink: fileList ? fileList : {
+//                     fileNm: "공개문제 링크를 찾을 수 없습니다.",
+//                     fileSn: null,
+//                     fileUrl: "공개문제 링크를 찾을 수 없습니다."
+//                 },
+//                 isQnet : true
+//             }
+//             console.log(dataJson);
+//             const newData = new GoalElement(dataJson);
+//             await newData.save();
+//         }
+//     } catch(err) {
+//         console.error(err);
+//     }
+// }
 
-seedDB()
-    .then(()=>{
-        console.log("qnet done!");
-    })
+// seedDB()
+//     .then(()=>{
+//         console.log("qnet done!");
+//     })
+
+//국가자격
 
 // const gtelp = {
 //   name : "지텔프(G-TELP)",
