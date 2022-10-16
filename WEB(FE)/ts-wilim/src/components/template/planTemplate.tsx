@@ -29,3 +29,16 @@ export const PlanTemplate = () => {
         </>
     );
 };
+
+//            <div onTouchStart={(e) => {
+//     startPos = e.touches[0].pageX;
+//     console.log(startPos);
+// }} onTouchEnd={(e) => {
+//     const sum = curPos + (e.changedTouches[0].pageX - startPos);
+//     console.log(sum);
+//     if (sum < -100) {
+//         dispatch(switchDate(-1))
+//     } else if (sum > 100) {
+//         dispatch(switchDate(+1))
+//     }
+// }}>
