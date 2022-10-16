@@ -6,9 +6,11 @@ import { BaseStyles } from "../theme";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ReducerType } from "../../store/rootReducer";
+import axios from "axios";
 
 export const RefCommunityTemplate = () => {
   const goal = useSelector((state: ReducerType) => state.userInfo.goal);
+  const { description, mockLink, isQnet } = useSelector((state: ReducerType) => state.userGoal);
   return (
     <Flex flexDirection="column" alignItems="center">
       <MarginBox marginBottom="3rem" />
@@ -19,6 +21,10 @@ export const RefCommunityTemplate = () => {
           fontSize={BaseStyles.Text.Heading2}
           fontWeight={BaseStyles.Text.Border0}
         />
+        <MarginBox marginBottom="1rem" />
+        {
+          typeof description === "string" ? <Text innerText={description} /> : <Text innerText={description.job} />
+        }
         <MarginBox marginBottom="1rem" />
         <Text
           innerText="자료실에서 지난 기출문제들을 확인해보세요!"
@@ -35,7 +41,7 @@ export const RefCommunityTemplate = () => {
           color={BaseStyles.Color.Orange3}
           backgroundColor={BaseStyles.Color.Black4}
           hoverColor={BaseStyles.Color.Black3}
-          onClick={() => console.log('공개문제 다운로드')}
+          onClick={async () => mockLink[0].fileSn !== null ? await axios(mockLink[0].fileUrl) : null}
         />
       </Link>
       <MarginBox marginBottom="2rem" />

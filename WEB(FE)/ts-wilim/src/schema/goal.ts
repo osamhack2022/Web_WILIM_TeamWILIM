@@ -25,7 +25,7 @@ export interface RoundInfo {
 
 export interface Goal {
     dateUrl: string;
-    description: string;
+    description: string | Description;
     isQnet: boolean;
     isQnetFalseDate: Object;
     mdobligfldnm: string;
@@ -37,4 +37,20 @@ export interface Goal {
     users: string[];
     _id: string;
     dates: RoundInfo[];
+}
+
+interface Description {
+    career: string;
+    engJmNm: string;
+    hist: string;
+    implNm: string;
+    instiNm: string;
+    jmCd: number;
+    jmNm: string;
+    job: string;
+    mdobligFldNm: string;
+    seriesCd: number;
+    seriesNm: string;
+    summary: string;
+    trend: string;
 }

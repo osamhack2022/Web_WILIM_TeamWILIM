@@ -11,7 +11,7 @@ import { MenuIcon } from "../atom/menuIcon";
 import { sideBarToggle } from "../../store/slices/toggleSlice";
 
 export const UserTitle = () => {
-  const username = useSelector((state: ReducerType) => state.userInfo.username);
+  const { username, email } = useSelector((state: ReducerType) => state.userInfo);
   const [width, setWidth] = useState<number>(window.innerWidth);
   window.addEventListener("resize", () => {
       setWidth(window.innerWidth);
@@ -22,7 +22,7 @@ export const UserTitle = () => {
     <Flex flexDirection="column" alignItems="center" width="100%">
       <Flex width="100%" justifyContent="space-between" alignItems="center">
         <Text
-          innerText={`${username} 님`}
+          innerText={`${username} | ${email}`}
           color="white"
           fontSize={BaseStyles.Text.Heading2}
           fontWeight={BaseStyles.Text.Border0}
