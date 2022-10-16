@@ -29,8 +29,8 @@ router.route("/post/:id")
     .delete(deletePost);    // owner 권한 확인 필요
 
 // username을 파라미터로 받아, 특정 User가 게시한 post만 받아 오거나, 새로운 post를 게시한다.
-router.get("/:username/posts", getPostsOfUser);
-router.post("/:username/posts", checkOwnerMiddleware, addNewPost);    
+router.get("user/:username/posts", getPostsOfUser);
+router.post("user/:username/posts", checkOwnerMiddleware, addNewPost);    
 
 // 검색어를 입력받아 해당 검색어에 부합하는 post를 찾는다(regexp 이용)
 router.route("/posts")
