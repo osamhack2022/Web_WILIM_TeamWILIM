@@ -15,6 +15,7 @@ import { ReducerType } from "./store/rootReducer";
 import { NavBar } from "./components/organism/navBar";
 import { lazy, Suspense } from "react";
 import { Text } from "./components/atom/text";
+import { DescriptionModal } from "./components/organism/descriptionModal";
 
 const GoalPlanPage = lazy(() => import("./components/pages/goalPlanPage"));
 const GoalPage = lazy(() => import("./components/pages/goalPage"));
@@ -40,6 +41,7 @@ function App() {
               <Route path="profile" element={<ProfiletPage />} />
               <Route path="snbt" element={<SideNavBarTestPage />} />
               <Route path="additionalUserInfo" element={<AdditionalUserInfoPage />} />
+              <Route path="modal" element={<DescriptionModal goal='조주기능사' />} />
             </Route>
           </Routes>
         </Suspense>
