@@ -24,9 +24,8 @@
     <div>
         <% if(user) { %>
             <a href="/userPersonalPlanAPI/<%=user.username %>/plans">PERSONALPLANS</a>
-        <% } %>
-        <% if(user) { %>
             <a href="/userGoalElementAPI/goal/<%=user.username %>">USERGOAL</a>
+            <a href="/communityAPI/post/root">POSTS</a>
         <% } %>
     </div>
 
