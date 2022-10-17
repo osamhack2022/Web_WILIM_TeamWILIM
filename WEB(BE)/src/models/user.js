@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema({
         ref: "goalElement",
         default: null
     },
+    posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post"
+    }],
     selectedRound: {type: String},  // 여러 시험 회차들 중 유저가 선택한 회차
     id: mongoose.Schema.Types.ObjectId,
 });
