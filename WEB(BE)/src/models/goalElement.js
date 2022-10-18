@@ -7,16 +7,16 @@ const goalElementSchema = new mongoose.Schema({
         career : String,
         engJmNm : String,
         hist : String,
-        implNm : String,
-        instiNm : String,
-        jmCd : Number,
-        jmNm : String,
-        job : String,
-        mdobligFldNm : String,
-        seriesCd : Number,
-        seriesNm : String,
-        summary : String,
-        trend : String,
+        implNm : String,//시행기관
+        instiNm : String, //검증기관
+        jmCd : Number, //검증 기관
+        jmNm : String, //자격증이름
+        job : String, //직업(하는일)
+        mdobligFldNm : String, //관련분야
+        seriesCd : Number, //기능사/기사/ 등등
+        seriesNm : String, 
+        summary : String, //요약
+        trend : String, //기출경향
     }, // 시험 설명
     seriesnm : {type : String,default:null}, //계열명 ex 기술사
     obligfldnm : {type : String,default:null}, //대직무분야명
