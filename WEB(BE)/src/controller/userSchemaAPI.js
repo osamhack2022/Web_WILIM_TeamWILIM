@@ -1,5 +1,6 @@
 import User from "../models/user.js";
-import { PlanList } from "../models/personalPlan.js";
+import GoalElement from "../models/goalElement.js";
+import { PlanList, PlanElement } from "../models/personalPlan.js";
 import ExpressError from "../utils/error.js";
 
 //GET entire user
@@ -31,15 +32,17 @@ module.exports.updateUserById = async (req,res,next) =>{
 
 //DELETE delete user by ID
 module.exports.deleteUserById = async(req,res,next)=>{
-    const {id} = req.params;
-    User.findByIdAndDelete(id, (err, deletedUser) => {
-        if (err){
-            return res.status(404).json({message: err.message});
-        }
-        else{
-            res.send(deletedUser);
-        }
-    });
+    try{
+        const {id} = req.params;
+        const user = await User.findById(id); //유저정보 반환
+        await GoalElement.findByIdAndUpdate(user.goal, {$pull:{users : id}})//ctfInfo 에서 이 자격증을 선택한 유저 뽑아내기
+        await PlanElement.deleteMany({ planListId: user.personalPlanId }) //planElement 정보 모두 삭제
+        await PlanList.findByIdAndDelete(user.personalPlanId);//planList 삭제
+        const deletedUser = await User.findByIdAndDelete(id);//user 정보 삭제
+        res.send(deletedUser);
+    }catch(err){
+        res.status(400).json({msg : err})
+    }
 }
 
 //GET render Register

@@ -9,7 +9,12 @@ import { db_cstring , session_secret , kakao_key , qnet_key} from "../db.js";
 //GET all certificate Info
 module.exports.getAllCtfInfo = async(req,res,next)=>{
     try{
+        let arr = [];
         const ctf = await GoalElement.find({});
+        // for (const c of ctf){ //ctfInfo 날짜까지 가지고올때
+        //     const date = c.isQnet === false ? c.date : await axios.get(c.dateUrl);
+        //     date===c.date? arr.push({c}) : arr.push({c,date : date.data.body});
+        // }
         res.send(ctf);
     }catch(e){console.log(e)};
 }

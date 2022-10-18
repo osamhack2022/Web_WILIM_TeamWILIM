@@ -15,11 +15,14 @@ import {
     getComment,
     updateComment,
     deleteComment,
-    addNewComment
+    addNewComment,
+    renderPostRootPage
 } from "../controller/communityAPI";
-import { checkOwnerMiddleware } from "../middleware";
+import { checkOwnerMiddleware, loggedInOnlyMiddleware } from "../middleware";
 
 const router = express.Router();
+
+router.get("/post/root", renderPostRootPage);
 
 // mongoose의 _id 값을 파라미터로 보내 crud를 진행한다.
 router.get("/post/:id", getPostById);
@@ -29,8 +32,8 @@ router.route("/post/:id")
     .delete(deletePost);    // owner 권한 확인 필요
 
 // username을 파라미터로 받아, 특정 User가 게시한 post만 받아 오거나, 새로운 post를 게시한다.
-router.get("/:username/posts", getPostsOfUser);
-router.post("/:username/posts", checkOwnerMiddleware, addNewPost);    
+router.get("/user/:username/posts", getPostsOfUser);
+router.post("/user/:username/posts", loggedInOnlyMiddleware, addNewPost);    
 
 // 검색어를 입력받아 해당 검색어에 부합하는 post를 찾는다(regexp 이용)
 router.route("/posts")
@@ -44,7 +47,7 @@ router.route("/comments/:id")
     .delete(deleteComment);     // owner 권한 확인 필요
 
 // 게시글을 불러온 상태에서, 새로운 댓글을 추가하는 기능을 수행한다.
-router.post("/post/:id/comments", checkOwnerMiddleware, addNewComment);  
+router.post("/post/:id/comments", loggedInOnlyMiddleware, addNewComment);  
     
 
 export default router;
