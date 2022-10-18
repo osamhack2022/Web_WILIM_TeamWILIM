@@ -28,7 +28,7 @@ export const BaseStyles = {
     Heading2: "32px",
     Heading3: "24px",
     Heading4: "16px",
-    Heading5: "8px",
+    Heading5: "12px",
     Border0: 700,
     Border1: 600,
     Border2: 500,

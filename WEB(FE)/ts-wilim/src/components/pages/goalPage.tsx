@@ -2,16 +2,20 @@ import { GoalTemplate } from "../template/goalTemplate";
 import { MediaDiv, InnerMediaDiv } from "../layout/Layout";
 import { RefCommunityTemplate } from "../template/refCommunityTemplate";
 import { MarginBox } from "../atom/marginBox";
+import { DescriptionModal } from "../organism/descriptionModal";
 
 const GoalPage = () => {
   return (
-    <MediaDiv>
-      <InnerMediaDiv>
-        <GoalTemplate />
-        <MarginBox marginBottom="4rem" />
-        <RefCommunityTemplate />
-      </InnerMediaDiv>
-    </MediaDiv>
+    <>
+      <DescriptionModal />
+      <MediaDiv>
+        <InnerMediaDiv>
+          <GoalTemplate />
+          <MarginBox marginBottom="4rem" />
+          <RefCommunityTemplate />
+        </InnerMediaDiv>
+      </MediaDiv>
+    </>
   )
 };
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { BaseStyles } from "../theme";
 
 interface BoxProps {
-  width: string;
+  width?: string;
   borderRadius?: string;
   backgroundColor?: string;
   children?: JSX.Element | JSX.Element[];

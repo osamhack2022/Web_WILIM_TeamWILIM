@@ -39,9 +39,9 @@ export interface Goal {
     dates: RoundInfo[];
 }
 
-interface Description {
+export interface Description {
     career: string;
-    engJmNm: string;
+    engJmNm?: string;
     hist: string;
     implNm: string;
     instiNm: string;
