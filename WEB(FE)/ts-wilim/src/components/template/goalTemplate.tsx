@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { ReducerType } from "../../store/rootReducer";
-import { examRoundToggle, goalDateToggle, goalSelectToggle } from "../../store/slices/toggleSlice";
+import { desModalToggle, examRoundToggle, goalDateToggle, goalSearchInfoToggle, goalSelectToggle } from "../../store/slices/toggleSlice";
 import { AngleRight } from "../atom/angleRight";
 import { Box } from "../atom/box";
 import { Flex } from "../atom/flex";
@@ -11,17 +11,12 @@ import { MarginBox } from "../atom/marginBox";
 import { Text } from "../atom/text";
 import { Title } from "../molecule/title";
 import { BaseStyles } from "../theme";
-import { AppThunkDispatch } from "../../store/store";
-import { updateUserGoal } from "../../store/asyncThunks/updateUserGoal";
-import { fetchUserGoalByUsername } from "../../store/asyncThunks/fetchUserGoalByUsername";
 
 export const GoalTemplate = () => {
     const dispatch = useDispatch();
-    const appDispatch = useDispatch<AppThunkDispatch>();
     const isBoxOpen = useSelector((state: ReducerType) => state.toggle.examRound);
     const isGoalSelectorOpen = useSelector((state: ReducerType) => state.toggle.goalSelect);
     const currentGoalDate = useSelector((state: ReducerType) => state.toggle.goalDate);
-    const { username } = useSelector((state: ReducerType) => state.userInfo);
     const goal = useSelector((state: ReducerType) => state.userGoal.name);
     const goalDates = useSelector((state: ReducerType) => state.userGoal.dates);
     const [options, setOptions] = useState<string[]>([]);
@@ -55,12 +50,8 @@ export const GoalTemplate = () => {
                                 <>
                                     <Flex width="100%" justifyContent="flex-start" alignItems="center" key={index}>
                                         <Text innerText={item} fontSize={BaseStyles.Text.Heading4} onClick={() => {
-                                            appDispatch(updateUserGoal({ username, goalElement: item }))
-                                                .then(res => {
-                                                    if (res.meta.requestStatus === 'fulfilled') {
-                                                        appDispatch(fetchUserGoalByUsername(username))
-                                                    }
-                                                })
+                                            dispatch(desModalToggle())
+                                            dispatch(goalSearchInfoToggle(item))
                                         }} />
                                     </Flex>
                                     <MarginBox marginBottom="1rem" />

@@ -8,20 +8,27 @@ import { ModalBackground } from "../atom/modalBackground"
 import { Text } from "../atom/text"
 import { BaseStyles } from "../theme"
 import descriptions from "../../utils/descriptions"
+import { useDispatch } from "react-redux"
+import { AppThunkDispatch } from "../../store/store"
+import { updateUserGoal } from "../../store/asyncThunks/updateUserGoal"
+import { useSelector } from "react-redux"
+import { ReducerType } from "../../store/rootReducer"
+import { fetchUserGoalByUsername } from "../../store/asyncThunks/fetchUserGoalByUsername"
 
-export const DescriptionModal = ({ goal }: { goal: string }) => {
+export const DescriptionModal = () => {
+    const appDispatch = useDispatch<AppThunkDispatch>();
+    const goal = useSelector((state: ReducerType) => state.toggle.goalSearchInfo);
+    const { username } = useSelector((state: ReducerType) => state.userInfo);
     const description = descriptions.find(item => item.jmNm === goal);
     const mdobligFldNm = description?.mdobligFldNm.split(".");
     return (
         <ModalBackground>
             <Flex justifyContent="center" alignItems="center">
                 <ModalWrapper>
-                    <Box width="calc(100% - 2rem)" height="100%" style={{ overflow: "auto" }}>
+                    <Box width="calc(100% - 2rem)" height="100%">
                         <Flex flexDirection="column" justifyContent="flex-start" alignItems="center" height="100%">
                             <MarginBox marginBottom="0.5rem" />
                             {
-                                // typeof description === "string" ? <Text innerText={name} />
-                                //     :
                                 <>
                                     <Flex flexDirection="column" width="80%">
                                         <Flex width="100%" alignItems="center">
@@ -39,7 +46,7 @@ export const DescriptionModal = ({ goal }: { goal: string }) => {
                                             color={BaseStyles.Color.Black0}
                                         />
                                         <MarginBox marginBottom="0.5rem" />
-                                        <Text innerText={`#${mdobligFldNm![0]} ${mdobligFldNm!.length > 2 ? `#${mdobligFldNm![1]}` : ""}`} textAlign="center" fontSize={BaseStyles.Text.Heading4} fontWeight={BaseStyles.Text.Border3} color={BaseStyles.Color.Black0} />
+                                        <Text innerText={`${mdobligFldNm && mdobligFldNm.length >= 1 ? `#${mdobligFldNm[0]}` : ""} ${mdobligFldNm && mdobligFldNm.length >= 2 ? `#${mdobligFldNm[1]}` : ""}`} textAlign="center" fontSize={BaseStyles.Text.Heading4} fontWeight={BaseStyles.Text.Border3} color={BaseStyles.Color.Black0} />
                                         <MarginBox marginBottom="2rem" />
                                         <Text
 
@@ -108,7 +115,14 @@ export const DescriptionModal = ({ goal }: { goal: string }) => {
                                         />
                                         <MarginBox marginBottom="2rem" />
                                         <Flex justifyContent="center" alignItems="center">
-                                            <Button onClick={() => { }} innerText="Select" width="100%" height="40px" backgroundColor={BaseStyles.Color.Orange2} color="white" />
+                                            <Button onClick={() => {
+                                                appDispatch(updateUserGoal({ username, goalElement: description!.jmNm }))
+                                                    .then(res => {
+                                                        if (res.meta.requestStatus === 'fulfilled') {
+                                                            appDispatch(fetchUserGoalByUsername(username))
+                                                        }
+                                                    })
+                                            }} innerText="Select" width="100%" height="40px" backgroundColor={BaseStyles.Color.Orange2} color="white" />
                                         </Flex>
                                         <MarginBox marginBottom="1rem" />
                                     </Flex>
@@ -123,9 +137,11 @@ export const DescriptionModal = ({ goal }: { goal: string }) => {
 }
 
 const ModalWrapper = styled.div`
-    width: 30vw;
+    width: 40vw;
     height: auto;
-    max-height: 1000px;
+    overflow: auto;
+    border-radius: 6px;
+    max-height: 600px;
     background: none;
     @media (max-width: 1080px) {
         width: 90vw;

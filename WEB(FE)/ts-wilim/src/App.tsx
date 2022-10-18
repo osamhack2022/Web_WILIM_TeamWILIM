@@ -41,7 +41,7 @@ function App() {
               <Route path="profile" element={<ProfiletPage />} />
               <Route path="snbt" element={<SideNavBarTestPage />} />
               <Route path="additionalUserInfo" element={<AdditionalUserInfoPage />} />
-              <Route path="modal" element={<DescriptionModal goal='조주기능사' />} />
+              <Route path="modal" element={<DescriptionModal />} />
             </Route>
           </Routes>
         </Suspense>
