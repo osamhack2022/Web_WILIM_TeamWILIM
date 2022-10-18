@@ -93,10 +93,13 @@ module.exports.getUserGoal = async (req, res, next) => {
 
 module.exports.postNewUserGoal = async (req, res, next) => {
     const { goalElement, selectedRound } = req.body;
-    const { _id, username } = req.user;
+    const { _id, username,goal } = req.user;
 
     try {
         const newUserGoal = await GoalElement.findOne({ name: goalElement });
+        if(goal){
+            await GoalElement.findByIdAndUpdate(goal,{$pull:{users:_id}});
+        }
         await User.findByIdAndUpdate(_id, { 
             goal: newUserGoal._id,
             selectedRound,
