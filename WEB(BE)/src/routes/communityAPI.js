@@ -16,13 +16,15 @@ import {
     updateComment,
     deleteComment,
     addNewComment,
-    renderPostRootPage
+    renderPostRootPage,
+    renderPostEditPage
 } from "../controller/communityAPI";
 import { checkOwnerMiddleware, loggedInOnlyMiddleware } from "../middleware";
 
 const router = express.Router();
 
-router.get("/post/root", renderPostRootPage);
+router.get("/post/renderRootPage", renderPostRootPage);
+router.get("/post/:id/renderEditPage", renderPostEditPage);
 
 // mongoose의 _id 값을 파라미터로 보내 crud를 진행한다.
 router.get("/post/:id", getPostById);
