@@ -223,6 +223,18 @@
         background-color: #ff8946;
         color: white;
       }
+      input[value="ARMY"]:checked + label {
+        background-color: #658a1b;
+      }
+      input[value="NAVY"]:checked + label {
+        background-color: #275af5;
+      }
+      input[value="AIR_FORCE"]:checked + label {
+        background-color: #3399FF;
+      }
+      input[value="MARINE"]:checked + label {
+        background-color: #ff2335;
+      }
       .SubmitDiv {
         color: white;
         width: 60%;
@@ -292,46 +304,39 @@
                   justify-content: center;
                 "
               >
-                <input
-                  type="radio"
-                  class="btn"
-                  id="id_btn_01"
-                  name="serviceType"
-                  value="ARMY"
-                  checked
-                /><label for="id_btn_01" style="font-size: 20px; color: #3d5114;"
-                  >육군</label
-                >
-                <div style="margin-left: 2rem"></div>
-                <input
-                  type="radio"
-                  class="btn"
-                  id="id_btn_02"
-                  name="serviceType"
-                  value="NAVY"
-                /><label for="id_btn_02" style="font-size: 20px; color: #001B69"
-                  >해군</label
-                >
-                <div style="margin-left: 2rem"></div>
-                <input
-                  type="radio"
-                  class="btn"
-                  id="id_btn_03"
-                  name="serviceType"
-                  value="AIR_FORCE"
-                /><label for="id_btn_03" style="font-size: 20px; color: #3399FF"
-                  >공군</label
-                >
-                <div style="margin-left: 2rem"></div>
-                <input
-                  type="radio"
-                  class="btn"
-                  id="id_btn_04"
-                  name="serviceType"
-                  value="MARINE"
-                /><label for="id_btn_04" style="font-size: 20px; color: #cc101f"
-                  >해병대</label
-                >
+              <label for="id_btn_01" style="font-size: 20px; color : white;"
+              >육군</label
+            >
+            <div style="margin-left: 2rem"></div>
+            <input
+              type="radio"
+              class="btn"
+              id="id_btn_02"
+              name="serviceType"
+              value="NAVY"
+            /><label for="id_btn_02" style="font-size: 20px; color : white;"
+              >해군</label
+            >
+            <div style="margin-left: 2rem"></div>
+            <input
+              type="radio"
+              class="btn"
+              id="id_btn_03"
+              name="serviceType"
+              value="AIR_FORCE"
+            /><label for="id_btn_03" style="font-size: 20px; color : white;"
+              >공군</label
+            >
+            <div style="margin-left: 2rem"></div>
+            <input
+              type="radio"
+              class="btn"
+              id="id_btn_04"
+              name="serviceType"
+              value="MARINE"
+            /><label for="id_btn_04" style="font-size: 20px; color : white;"
+              >해병대</label
+            >
               </div>
               <div style="margin-bottom: 4rem"></div>
               <div
