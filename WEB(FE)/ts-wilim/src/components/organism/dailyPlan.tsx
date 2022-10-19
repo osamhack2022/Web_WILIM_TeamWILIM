@@ -16,7 +16,7 @@ export const DailyPlan = () => {
     const planList = list.filter(plan => plan.date === date);
     const dispatch = useDispatch();
     const checks = planList.filter((item) => item.completed === true).length;
-    const completeColor = checks === planList.length ? BaseStyles.Color.Lime1 : BaseStyles.Color.Black1;
+    const completeColor = planList.length !== 0 && checks === planList.length ? BaseStyles.Color.Lime1 : BaseStyles.Color.Black1;
     return (
         <Flex flexDirection="column" justifyContent="space-between" height="100%">
             <div>

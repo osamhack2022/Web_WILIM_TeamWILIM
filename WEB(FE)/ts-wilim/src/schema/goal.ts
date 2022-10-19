@@ -1,6 +1,6 @@
 interface fileInfo {
     fileNm: "공개문제 링크를 찾을 수 없습니다." | string;
-    fileSn: string | null;
+    fileSn: number | string | null;
     fileUrl: "공개문제 링크를 찾을 수 없습니다." | string;
     _id: string;
 }
@@ -25,18 +25,22 @@ export interface RoundInfo {
 
 export interface Goal {
     dateUrl: string;
-    description: string | Description;
+    description: Description | null;
     isQnet: boolean;
     isQnetFalseDate: Object;
-    mdobligfldnm: string;
+    mdobligfldnm: string | null;
     mockLink: fileInfo[];
     name: string;
-    obligfldnm: string;
-    qualgbnm: string;
-    seriesnm: string;
+    obligfldnm: string | null;
+    qualgbnm: string | null;
+    seriesnm: string | null;
     users: string[];
     _id: string;
-    dates: RoundInfo[];
+    dates?: RoundInfo[];
+}
+
+export interface GoalDatas extends Goal {
+    __v: number;
 }
 
 export interface Description {
@@ -45,11 +49,11 @@ export interface Description {
     hist: string;
     implNm: string;
     instiNm: string;
-    jmCd: number;
+    jmCd: number | "";
     jmNm: string;
     job: string;
     mdobligFldNm: string;
-    seriesCd: number;
+    seriesCd: number | "";
     seriesNm: string;
     summary: string;
     trend: string;
