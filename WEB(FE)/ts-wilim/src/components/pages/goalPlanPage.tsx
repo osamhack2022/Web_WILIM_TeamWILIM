@@ -11,6 +11,7 @@ import { fetchLoginInfo } from "../../store/asyncThunks/fetchLoginInfo";
 import { fetchUserGoalByUsername } from "../../store/asyncThunks/fetchUserGoalByUsername";
 import axios from "axios";
 import { updateGoalDateInfo } from "../../store/slices/userGoalSlice";
+import { goalSearchInfoToggle } from "../../store/slices/toggleSlice";
 
 const GoalPlanPage = () => {
   const { username, _id } = useSelector((state: ReducerType) => state.userInfo);
@@ -29,6 +30,7 @@ const GoalPlanPage = () => {
                 .then(res => {
                   if (res.meta.requestStatus === "fulfilled") {
                     getDates(res.payload.dateUrl);
+                    dispatch(goalSearchInfoToggle(res.payload.name));
                   }
                 })
               }
@@ -39,6 +41,7 @@ const GoalPlanPage = () => {
           .then(res => {
             if (res.meta.requestStatus === "fulfilled") {
               getDates(res.payload.dateUrl);
+              dispatch(goalSearchInfoToggle(res.payload.name));
             }
           })
         }

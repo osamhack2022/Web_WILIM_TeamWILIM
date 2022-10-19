@@ -19,7 +19,7 @@ export const DescriptionModal = () => {
     const appDispatch = useDispatch<AppThunkDispatch>();
     const goal = useSelector((state: ReducerType) => state.toggle.goalSearchInfo);
     const { username } = useSelector((state: ReducerType) => state.userInfo);
-    const description = descriptions.find(item => item.jmNm === goal);
+    const description = descriptions.find(item => item.c.description?.jmNm === goal)?.c.description;
     const mdobligFldNm = description?.mdobligFldNm.split(".");
     return (
         <ModalBackground>

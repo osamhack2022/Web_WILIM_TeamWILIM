@@ -15,7 +15,6 @@ import { fetchUserById } from "../../store/asyncThunks/fetchUserById";
 
 export const GoalPlanTemplate = () => {
   const { username, _id } = useSelector((state: ReducerType) => state.userInfo);
-  const goal = useSelector((state: ReducerType) => state.userGoal.name);
   const dispatch = useDispatch<AppThunkDispatch>();
   useEffect(() => {
     dispatch(fetchUserById(_id!));

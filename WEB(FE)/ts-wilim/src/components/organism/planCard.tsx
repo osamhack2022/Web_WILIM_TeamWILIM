@@ -9,10 +9,10 @@ import { ReducerType } from "../../store/rootReducer";
 import { CheckList } from "../molecule/checkList";
 
 export const PlanCard = () => {
-  const planList = useSelector((state: ReducerType) => state.userPlan.list);
-  const date = useSelector((state: ReducerType) => state.userPlan.date);
+  const { date, list } = useSelector((state: ReducerType) => state.userPlan);
+  const planList = list.filter(plan => plan.date === date);
   const checks = planList.filter((item) => item.completed === true).length;
-  const completeColor = checks === planList.length ? BaseStyles.Color.Lime1 : BaseStyles.Color.Black1;
+  const completeColor = planList.length !== 0 && checks === planList.length ? BaseStyles.Color.Lime1 : BaseStyles.Color.Black1;
   return (
     <Box
       width="calc(100% - 2rem)"
@@ -28,7 +28,7 @@ export const PlanCard = () => {
             fontWeight={BaseStyles.Text.Border1}
           />
           <Text
-            innerText={`Got ${checks}/3`}
+            innerText={`Got ${checks}/${planList.length}`}
             color={completeColor}
             fontWeight={BaseStyles.Text.Border2}
             fontSize={BaseStyles.Text.Heading3}

@@ -5,7 +5,21 @@ import { fetchUserGoalByUsername } from "../asyncThunks/fetchUserGoalByUsername"
 
 const goal: Goal = {
   dateUrl: "",
-  description: "",
+  description: {
+    career: "",
+    engJmNm: "",
+    hist: "",
+    implNm: "",
+    instiNm: "",
+    jmCd: 0,
+    jmNm: "",
+    job: "",
+    mdobligFldNm: "",
+    seriesCd: 0,
+    seriesNm: "",
+    summary: "",
+    trend: ""
+  },
   isQnet: false,
   isQnetFalseDate: {},
   mdobligfldnm: "",
