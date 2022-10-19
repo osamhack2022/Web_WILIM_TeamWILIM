@@ -30,9 +30,12 @@ export const publicOnlyMiddleware = (req, res, next) => {
 export const checkOwnerMiddleware = async (req, res, next) => {
     const { id } = req.params;
     const loggedInUser = req.user;
-    const subject = await Post.findById(id) || Comment.findById(id);
+    let subject = await Post.findById(id);
+    if (!subject) {
+        subject = await Comment.findById(id);
+    }
 
-    if(loggedInUser._id === subject.owner) {
+    if(String(loggedInUser._id) === String(subject.owner)) {
         next();
     }  else {
         return res.status(404).json({ msg: "작성자만 수정 혹은 삭제할 수 있습니다."});

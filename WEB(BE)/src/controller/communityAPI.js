@@ -8,6 +8,14 @@ export const renderPostRootPage = (req, res, next) => {
     return res.render("communityAPI/postRoot", { user });
 }
 
+export const renderPostEditPage = async (req, res, next) => {
+    const user = req.user;
+    const { id } = req.params;
+    const post = await Post.findById(id);
+
+    return res.render("communityAPI/postEdit", { user, post });
+}
+
 export const getPostById = async (req, res, next) => {
     const { id } = req.params;
 
@@ -24,10 +32,11 @@ export const updatePost = async (req, res, next) => {
     // owner 권한 확인 필요
 
     const { id } = req.params;
-    const { content, hashtags } = req.body;
+    const { title, content, hashtags } = req.body;
 
     try {
         const updatedPost = await Post.findByIdAndUpdate(id, {
+            title: title,
             content: content,
             hashtags: hashtags
         }, { new: true });
@@ -41,7 +50,7 @@ export const deletePost = async (req, res, next) => {
     // owner 권한 확인 필요
 
     const { id } = req.params;
-    const { username } = req.user;
+    const { _id, username } = req.user;
 
     try {
         const post = await Post.findById(id);
@@ -49,8 +58,9 @@ export const deletePost = async (req, res, next) => {
         for (var comment of post.comments) {
             await Comment.findByIdAndDelete(comment);
         } // 먼저, delete하고자 하는 post에 달려 있는 comment들부터 지운다.
+        await User.findByIdAndUpdate(_id, { $pull: { posts: id }}, { new: true });
         await Post.findByIdAndDelete(id);  // 그 다음, post를 delete한다.
-        return res.status(200).redirect(`/communityAPI/${username}/posts`);
+        return res.status(200).redirect(`/communityAPI/user/${username}/posts`);
     } catch(error) {
         return res.status(404).json({message: error});
     }
@@ -129,12 +139,12 @@ export const deleteComment = async (req, res, next) => {
         const comment = await Comment.findById(id);
         const post = await Post.findById(comment.post);
 
-        await Post.findByIdAndUpdate(post._id, 
+        const updatedPost = await Post.findByIdAndUpdate(post._id, 
             { $pull: { comments: id }}, 
             { new: true }
         );
         await Comment.findByIdAndDelete(id);
-        return res.status(200).send(post);
+        return res.status(200).send(updatedPost);
     } catch(error) {
         return res.status(404).json({mesage: error});
     }
