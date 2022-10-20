@@ -14,9 +14,14 @@ import { updateUserGoal } from "../../store/asyncThunks/updateUserGoal"
 import { useSelector } from "react-redux"
 import { ReducerType } from "../../store/rootReducer"
 import { fetchUserGoalByUsername } from "../../store/asyncThunks/fetchUserGoalByUsername"
+import { updateGoalDateInfo } from "../../store/slices/userGoalSlice"
+import { goalSearchInfoToggle } from "../../store/slices/toggleSlice"
+import axios from "axios"
 
 export const DescriptionModal = () => {
     const appDispatch = useDispatch<AppThunkDispatch>();
+    const dispatch = useDispatch();
+    const getDates = async (url: string) => await axios.get(url).then(res => dispatch(updateGoalDateInfo(res.data.body.items)));
     const goal = useSelector((state: ReducerType) => state.toggle.goalSearchInfo);
     const { username } = useSelector((state: ReducerType) => state.userInfo);
     const description = descriptions.find(item => item.c.description?.jmNm === goal)?.c.description;
@@ -120,6 +125,12 @@ export const DescriptionModal = () => {
                                                     .then(res => {
                                                         if (res.meta.requestStatus === 'fulfilled') {
                                                             appDispatch(fetchUserGoalByUsername(username))
+                                                            .then(res => {
+                                                                if (res.meta.requestStatus === "fulfilled") {
+                                                                  getDates(res.payload.dateUrl);
+                                                                  dispatch(goalSearchInfoToggle(res.payload.name));
+                                                                }
+                                                              })
                                                         }
                                                     })
                                             }} innerText="Select" width="100%" height="40px" backgroundColor={BaseStyles.Color.Orange2} color="white" />

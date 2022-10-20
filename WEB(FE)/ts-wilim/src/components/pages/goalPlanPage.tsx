@@ -12,32 +12,35 @@ import { fetchUserGoalByUsername } from "../../store/asyncThunks/fetchUserGoalBy
 import axios from "axios";
 import { updateGoalDateInfo } from "../../store/slices/userGoalSlice";
 import { goalSearchInfoToggle } from "../../store/slices/toggleSlice";
+import { useNavigate } from "react-router-dom";
 
 const GoalPlanPage = () => {
-  const { username, _id } = useSelector((state: ReducerType) => state.userInfo);
+  // const { username, _id } = useSelector((state: ReducerType) => state.userInfo);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const getDates = async (url: string) => await axios.get(url).then(res => dispatch(updateGoalDateInfo(res.data.body.items)));
   const AppDispatch = useDispatch<AppThunkDispatch>(); //useDispatch를 이용해서 비동기 처리를 하기 위해서는 AppThunkDispatch를 제네릭으로 받아와야한다.
   useEffect(() => {
     AppDispatch(fetchLoginInfo())
       .then(res => {
         if (res.meta.requestStatus === 'rejected') {
-          AppDispatch(fetchUserById(_id!))
-            .then(res => {
-              if (res.meta.requestStatus === "fulfilled") {
-                AppDispatch(fetchUserPlanByUsername(username!))
-                AppDispatch(fetchUserGoalByUsername(username!))
-                .then(res => {
-                  if (res.meta.requestStatus === "fulfilled") {
-                    getDates(res.payload.dateUrl);
-                    dispatch(goalSearchInfoToggle(res.payload.name));
-                  }
-                })
-              }
-            })
+          // AppDispatch(fetchUserById(_id!))
+          //   .then(res => {
+          //     if (res.meta.requestStatus === "fulfilled") {
+          //       AppDispatch(fetchUserPlanByUsername(username!))
+          //       AppDispatch(fetchUserGoalByUsername(username!))
+          //       .then(res => {
+          //         if (res.meta.requestStatus === "fulfilled") {
+          //           getDates(res.payload.dateUrl);
+          //           dispatch(goalSearchInfoToggle(res.payload.name));
+          //         }
+          //       })
+          //     }
+          //   })
+          navigate('/');
         } else if (res.meta.requestStatus === "fulfilled") {
-          AppDispatch(fetchUserPlanByUsername(username!))
-          AppDispatch(fetchUserGoalByUsername(username!))
+          AppDispatch(fetchUserPlanByUsername(res.payload.username!))
+          AppDispatch(fetchUserGoalByUsername(res.payload.username!))
           .then(res => {
             if (res.meta.requestStatus === "fulfilled") {
               getDates(res.payload.dateUrl);

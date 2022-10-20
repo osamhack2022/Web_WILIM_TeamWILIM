@@ -3,13 +3,47 @@ import { MediaDiv, InnerMediaDiv } from "../layout/Layout";
 import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../../store/store";
 import { fetchUserPlanByUsername } from "../../store/asyncThunks/fetchUserPlanByUsername";
-import { ReducerType } from "../../store/rootReducer";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { updateGoalDateInfo } from "../../store/slices/userGoalSlice";
+import { fetchLoginInfo } from "../../store/asyncThunks/fetchLoginInfo";
+import axios from "axios";
+import { goalSearchInfoToggle } from "../../store/slices/toggleSlice";
 
 const PlanPage = () => {
-  const { username } = useSelector((state: ReducerType) => state.userInfo);
-  const dispatch = useDispatch<AppThunkDispatch>(); //useDispatch를 이용해서 비동기 처리를 하기 위해서는 AppThunkDispatch를 제네릭으로 받아와야한다.
-  dispatch(fetchUserPlanByUsername(username!));
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const AppDispatch = useDispatch<AppThunkDispatch>();
+  const getDates = async (url: string) => await axios.get(url).then(res => dispatch(updateGoalDateInfo(res.data.body.items)));
+  useEffect(() => {
+    AppDispatch(fetchLoginInfo())
+      .then(res => {
+        if (res.meta.requestStatus === 'rejected') {
+          // AppDispatch(fetchUserById(_id!))
+          //   .then(res => {
+          //     if (res.meta.requestStatus === "fulfilled") {
+          //       AppDispatch(fetchUserPlanByUsername(username!))
+          //       AppDispatch(fetchUserGoalByUsername(username!))
+          //       .then(res => {
+          //         if (res.meta.requestStatus === "fulfilled") {
+          //           getDates(res.payload.dateUrl);
+          //           dispatch(goalSearchInfoToggle(res.payload.name));
+          //         }
+          //       })
+          //     }
+          //   })
+          navigate('/');
+        } else if (res.meta.requestStatus === "fulfilled") {
+          AppDispatch(fetchUserPlanByUsername(res.payload.username!))
+            .then(res => {
+              if (res.meta.requestStatus === "fulfilled") {
+                getDates(res.payload.dateUrl);
+                dispatch(goalSearchInfoToggle(res.payload.name));
+              }
+            })
+        }
+      })
+  }, []);
   return (
     <MediaDiv>
       <InnerMediaDiv>

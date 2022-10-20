@@ -12,8 +12,8 @@ import { Line } from "../atom/line";
 
 export const RefCommunityTemplate = () => {
   const goal = useSelector((state: ReducerType) => state.toggle.goalSearchInfo);
-  const mockLink = useSelector((state: ReducerType) => state.userGoal.mockLink);
   const description = descriptions.find(item => item.c.description?.jmNm === goal)?.c;
+  const mockLink = description?.mockLink!;
   const mdobligFldNm = description?.description?.mdobligFldNm.split(".");
   console.log(description);
   return (
@@ -188,7 +188,7 @@ export const RefCommunityTemplate = () => {
           </>
       }
       <MarginBox marginBottom="3rem" />
-      <Flex flexDirection="column" justifyContent="flex-start" width="100%">
+      {/* <Flex flexDirection="column" justifyContent="flex-start" width="100%">
         <Text
           innerText="Community"
           color="white"
@@ -206,7 +206,7 @@ export const RefCommunityTemplate = () => {
           hoverColor={BaseStyles.Color.Lime1}
           onClick={() => { console.log('커뮤니티 바로가기') }}
         />
-      </Link>
+      </Link> */}
     </Flex>
   );
 };
