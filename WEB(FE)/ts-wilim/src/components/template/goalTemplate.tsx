@@ -74,7 +74,7 @@ export const GoalTemplate = () => {
             <Box width="calc(100% - 2rem)" borderRadius="0 0 6px 6px" backgroundColor="#767676" height={isBoxOpen ? "50vh" : "0"} style={{ paddingTop: isBoxOpen ? "1rem" : "0", paddingBottom: isBoxOpen ? "1rem" : "0", overflow: "auto" }}>
                 <Flex flexDirection="column" justifyContent="flex-start" height="100%">
                     {
-                        goalDates.map((item, index) => {
+                        goalDates!.map((item, index) => {
                             return (
                                 <Flex flexDirection="column" justifyContent="center" alignItems="center" key={index}>
                                     <Flex justifyContent="space-between" alignItems="center">
