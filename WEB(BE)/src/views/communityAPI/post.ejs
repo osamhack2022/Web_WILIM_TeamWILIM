@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post</title>
+    <title><%=post.title %></title>
 </head>
 <body>
     <h1>Post: <%=post._id %></h1>
@@ -12,11 +12,22 @@
     <h2><%=post.owner.username %>의 Post</h2>
 
     <p><%=post.content %></p>
+    <form action="/communityAPI/post/<%=post._id %>/renderEditPage" method="get">
+        <button>EDIT</button>
+    </form>
+    <form action="/communityAPI/post/<%=post._id %>?_method=DELETE" method="post">
+        <button>DELETE</button>
+    </form>
 
     <h3>댓글</h3>
     <ul>
         <% for (var comment of post.comments) { %>
-            <li><%=comment.content %></li>
+            <li>
+                <span><%=comment.content %></span>
+                <form action="/communityAPI/comments/<%=comment._id %>?_method=DELETE" method="post">
+                    <button>댓글 삭제</button>
+                </form>
+            </li>
         <% } %>
     </ul>
 
