@@ -1,6 +1,8 @@
 import User from "../models/user.js";
 import GoalElement from "../models/goalElement.js";
 import { PlanList, PlanElement } from "../models/personalPlan.js";
+import Comment from "../models/comment";
+import Post from  "../models/post";
 import ExpressError from "../utils/error.js";
 
 //GET entire user
@@ -35,6 +37,8 @@ module.exports.deleteUserById = async(req,res,next)=>{
     try{
         const {id} = req.params;
         const user = await User.findById(id); //유저정보 반환
+        await Comment.deleteMany({owner:id});//유저가 올린 댓글 삭제
+        await Post.deleteMany({owner:id});//유저가 올린 게시글 삭제
         await GoalElement.findByIdAndUpdate(user.goal, {$pull:{users : id}})//ctfInfo 에서 이 자격증을 선택한 유저 뽑아내기
         await PlanElement.deleteMany({ planListId: user.personalPlanId }) //planElement 정보 모두 삭제
         await PlanList.findByIdAndDelete(user.personalPlanId);//planList 삭제
