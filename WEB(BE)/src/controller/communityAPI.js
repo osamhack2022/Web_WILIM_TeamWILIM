@@ -16,6 +16,16 @@ export const renderPostEditPage = async (req, res, next) => {
     return res.render("communityAPI/postEdit", { user, post });
 }
 
+module.exports.getAllPosts = async(req,res,next)=>{//테스트용
+    const posts = await Post.find({});
+    res.status(200).json(posts);
+}
+
+module.exports.getAllComments = async(req,res,next)=>{//테스트용
+    const comments = await Comment.find({});
+    res.status(200).json(comments);
+}
+
 export const getPostById = async (req, res, next) => {
     const { id } = req.params;
 
@@ -54,10 +64,7 @@ export const deletePost = async (req, res, next) => {
 
     try {
         const post = await Post.findById(id);
-        
-        for (var comment of post.comments) {
-            await Comment.findByIdAndDelete(comment);
-        } // 먼저, delete하고자 하는 post에 달려 있는 comment들부터 지운다.
+        await Comment.deleteMany({post:id})// 먼저, delete하고자 하는 post에 달려 있는 comment들부터 지운다.
         await User.findByIdAndUpdate(_id, { $pull: { posts: id }}, { new: true });
         await Post.findByIdAndDelete(id);  // 그 다음, post를 delete한다.
         return res.status(200).redirect(`/communityAPI/user/${username}/posts`);
@@ -132,8 +139,7 @@ export const updateComment = async (req, res, next) => {
 };
 
 export const deleteComment = async (req, res, next) => {
-    // owner 권한 확인 필요
-
+    const {_id } = req.user;
     const { id } = req.params;
     try {
         const comment = await Comment.findById(id);
@@ -143,6 +149,7 @@ export const deleteComment = async (req, res, next) => {
             { $pull: { comments: id }}, 
             { new: true }
         );
+        await User.findByIdAndUpdate(_id,{$pull:{comments:id}})
         await Comment.findByIdAndDelete(id);
         return res.status(200).send(updatedPost);
     } catch(error) {
@@ -165,6 +172,7 @@ export const addNewComment = async (req, res, next) => {
         });
         await newComment.save();
         await Post.findByIdAndUpdate(id, { $push: { comments: newComment._id }});
+        await User.findByIdAndUpdate(_id,{ $push:{ comments:newComment._id }});
         return res.status(201).send(newComment);
     } catch(error) {
         return res.status(404).json({mesage: error});

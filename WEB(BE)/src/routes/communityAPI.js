@@ -6,6 +6,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import {
+    getAllPosts,//테스트용
+    getAllComments,//테스트용
     getPostById,
     updatePost,
     deletePost,
@@ -22,6 +24,10 @@ import {
 import { checkOwnerMiddleware, loggedInOnlyMiddleware } from "../middleware";
 
 const router = express.Router();
+
+//테스트용 임시 라우팅, 삭제 예정
+router.get("/getAllPosts",getAllPosts);
+router.get("/getAllComments",getAllComments);
 
 router.get("/post/renderRootPage", renderPostRootPage);
 router.get("/post/:id/renderEditPage", renderPostEditPage);
