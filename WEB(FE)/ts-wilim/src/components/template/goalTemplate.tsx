@@ -90,7 +90,7 @@ export const GoalTemplate = () => {
                                             <AngleRight />
                                         </div>
                                     </Flex>
-                                    <Box backgroundColor="#61616180" width="100%" borderRadius="0 0 6px 6px" height={currentGoalDate === item.description ? "10rem" : "0"} style={{ paddingTop: currentGoalDate === item.description ? "1rem" : "0", paddingBottom: currentGoalDate === item.description ? "1rem" : "0" }}>
+                                    <Box backgroundColor="#61616180" width="100%" borderRadius="0 0 6px 6px" height={currentGoalDate === item.description ? "30vh" : "0"} style={{ paddingTop: currentGoalDate === item.description ? "1rem" : "0", paddingBottom: currentGoalDate === item.description ? "1rem" : "0" }}>
                                         <MarginBox marginLeft="5vw" />
                                         <Flex flexDirection="column" justifyContent="space-evenly" alignItems="flex-start">
                                             <Text innerText={`필기 원서접수: ${item.docRegStartDt} ~ ${item.docRegEndDt}`} fontSize={BaseStyles.Text.Heading4} />
