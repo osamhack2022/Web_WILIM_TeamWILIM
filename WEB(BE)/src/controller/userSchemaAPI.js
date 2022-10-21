@@ -68,7 +68,7 @@ module.exports.createNewUser = async (req,res,next) => {
         req.login(user, err=>{
             if (err) return next(err);
             //res.status(201).send(newUser);
-            res.status(201).redirect(`https://front.wilimbackend.tk/main`);
+            res.status(201).redirect(`/userSchemaAPI/id/${newUser._id}`);
         })
     } catch (e) {
         res.status(400).json({message : e});

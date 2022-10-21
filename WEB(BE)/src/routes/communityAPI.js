@@ -23,9 +23,9 @@ import {
 } from "../controller/communityAPI";
 import { checkOwnerMiddleware, loggedInOnlyMiddleware } from "../middleware";
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
-//테스트용 임시 라우팅, 삭제 예정
+//테스트용 임시 라우팅
 router.get("/getAllPosts",getAllPosts);
 router.get("/getAllComments",getAllComments);
 

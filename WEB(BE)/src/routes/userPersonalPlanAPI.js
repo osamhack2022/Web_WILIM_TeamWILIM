@@ -17,7 +17,7 @@ import {
 } from "../controller/userPersonalPlanAPI";
 
 
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 
 router.route('/:username/plans')
     .get(getPlanList)          // 유저의 전체 플랜 리스트 가져오기
