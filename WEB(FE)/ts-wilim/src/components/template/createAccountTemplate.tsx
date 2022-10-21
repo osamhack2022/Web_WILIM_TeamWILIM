@@ -121,7 +121,7 @@ export const CreateAccountTemplate = () => {
               e.preventDefault();
               dispatch(localRegister(userInfoForm))
               .then(res => {
-                if(res.meta.requestStatus === "fulfilled") navigate(`/${res.payload.username}`);
+                if(res.meta.requestStatus === "fulfilled") navigate(`/main`);
               })
             }}
             color="white"
