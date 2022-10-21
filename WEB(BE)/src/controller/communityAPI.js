@@ -109,8 +109,23 @@ export const addNewPost = async (req, res, next) => {
     }
 };
 
-export const searchPosts = (req, res, next) => {
-    
+export const searchPosts = async (req, res, next) => {
+    const { keyword } = req.query;
+
+    try {
+        let posts = [];
+        if(keyword) {
+            posts = await Post.find({
+                title: {
+                    $regex: new RegExp(keyword, "i")
+                }
+            }).populate("comments").populate("owner");
+
+            return res.status(200).send(posts);
+        }
+    } catch(error) {
+        return res.status(404).json({ message: error });
+    }
 };
 
 export const getComment = async (req, res, next) => {
