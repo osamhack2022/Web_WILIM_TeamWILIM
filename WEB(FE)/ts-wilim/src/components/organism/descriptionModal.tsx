@@ -17,10 +17,12 @@ import { fetchUserGoalByUsername } from "../../store/asyncThunks/fetchUserGoalBy
 import { updateGoalDateInfo } from "../../store/slices/userGoalSlice"
 import { goalSearchInfoToggle } from "../../store/slices/toggleSlice"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 export const DescriptionModal = () => {
     const appDispatch = useDispatch<AppThunkDispatch>();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const getDates = async (url: string) => await axios.get(url).then(res => dispatch(updateGoalDateInfo(res.data.body.items)));
     const goal = useSelector((state: ReducerType) => state.toggle.goalSearchInfo);
     const { username } = useSelector((state: ReducerType) => state.userInfo);
@@ -129,6 +131,7 @@ export const DescriptionModal = () => {
                                                                 if (res.meta.requestStatus === "fulfilled") {
                                                                   getDates(res.payload.dateUrl);
                                                                   dispatch(goalSearchInfoToggle(res.payload.name));
+                                                                  navigate('/goal');
                                                                 }
                                                               })
                                                         }
@@ -156,6 +159,5 @@ const ModalWrapper = styled.div`
     background: none;
     @media (max-width: 1080px) {
         width: 90vw;
-        height: 80vh;
     }
 `

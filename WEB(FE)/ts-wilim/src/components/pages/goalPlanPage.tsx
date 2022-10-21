@@ -41,12 +41,16 @@ const GoalPlanPage = () => {
         } else if (res.meta.requestStatus === "fulfilled") {
           AppDispatch(fetchUserPlanByUsername(res.payload.username!))
           AppDispatch(fetchUserGoalByUsername(res.payload.username!))
-          .then(res => {
-            if (res.meta.requestStatus === "fulfilled") {
-              getDates(res.payload.dateUrl);
-              dispatch(goalSearchInfoToggle(res.payload.name));
-            }
-          })
+            .then(res => {
+              if (res.meta.requestStatus === "fulfilled") {
+                if (res.payload === "") {
+                  navigate("/getGoal");
+                } else {
+                  getDates(res.payload.dateUrl);
+                  dispatch(goalSearchInfoToggle(res.payload.name));
+                }
+              }
+            })
         }
       })
     // username을 바탕으로 유저의 정보를 확인한다.
