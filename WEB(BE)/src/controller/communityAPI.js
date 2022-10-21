@@ -92,11 +92,12 @@ export const addNewPost = async (req, res, next) => {
     // owner 권한 확인 필요
 
     const { title, content, hashtags } = req.body;
-    const { _id } = req.user;
+    const { _id, username } = req.user;
 
     try {
         const newPost = new Post({
             owner: _id,
+            username: username,
             title,
             content,
             hashtags
@@ -154,7 +155,7 @@ export const updateComment = async (req, res, next) => {
 };
 
 export const deleteComment = async (req, res, next) => {
-    const {_id } = req.user;
+    const { _id } = req.user;
     const { id } = req.params;
     try {
         const comment = await Comment.findById(id);
@@ -176,12 +177,13 @@ export const addNewComment = async (req, res, next) => {
     // owner 권한 확인 필요
 
     const { id } = req.params;      // post의 id이다.
-    const { _id } = req.user;
+    const { _id, username } = req.user;
     const { content } = req.body;
 
     try {
         const newComment = new Comment({
             owner: _id,
+            username: username,
             content: content,
             post: id
         });
