@@ -16,6 +16,7 @@ import { NavBar } from "./components/organism/navBar";
 import { lazy, Suspense } from "react";
 import { Text } from "./components/atom/text";
 import { DescriptionModal } from "./components/organism/descriptionModal";
+import { CommunityPage } from "./components/pages/communityPage";
 
 const GoalPlanPage = lazy(() => import("./components/pages/goalPlanPage"));
 const GoalPage = lazy(() => import("./components/pages/goalPage"));
@@ -42,6 +43,7 @@ function App() {
               <Route path="snbt" element={<SideNavBarTestPage />} />
               <Route path="additionalUserInfo" element={<AdditionalUserInfoPage />} />
               <Route path="modal" element={<DescriptionModal />} />
+              <Route path="community" element={<CommunityPage />} />
             </Route>
           </Routes>
         </Suspense>
