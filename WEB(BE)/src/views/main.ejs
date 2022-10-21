@@ -20,7 +20,6 @@
             </div>
         <% } %> 
     </div>
-
     <div>
         <% if(user) { %>
             <a href="/userPersonalPlanAPI/<%=user.username %>/plans">PERSONALPLANS</a>
@@ -28,15 +27,14 @@
             <a href="/communityAPI/post/renderRootPage">POSTS</a>
         <% } %>
     </div>
-
     <br /><br />
-
     <form action="/communityAPI/posts" method="get">
         <label for="keyword">POST 검색</label>
         <input type="text" name="keyword" id="keyword" placeholder="검색어로 post를 검색해 보세요!" />
         <button>검색</button>
     </form>
-
+    <br />
+    <div><a href="/upload">이미지 업로드</a></div>
     <h1>백엔드 입니다</h1>
     <h3><u>/userSchemaAPI 라우팅 리스트</u></h3>
         <ul>
