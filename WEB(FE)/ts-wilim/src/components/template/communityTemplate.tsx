@@ -1,5 +1,6 @@
 import { PostCardProps } from "../../schema/community"
 import { Flex } from "../atom/flex"
+import { MarginBox } from "../atom/marginBox"
 import { Title } from "../molecule/title"
 import { PostCard } from "../organism/postCard"
 
@@ -16,10 +17,14 @@ export const CommunityTemplate = () => {
     return (
         <Flex flexDirection="column" alignItems="center">
             <Title innerText="Community" />
+            <MarginBox marginBottom="2rem" />
             <>
                 {
                     postCardList && postCardList.map((item, index) => (
-                        <PostCard title={item.title} tag={item.tag} description={item.description} comments={item.comments} key={index} />
+                        <>
+                            <PostCard title={item.title} tag={item.tag} description={item.description} comments={item.comments} key={index} />
+                            <MarginBox marginBottom="1.5rem" />
+                        </>
                     ))
                 }
             </>

@@ -17,6 +17,7 @@ import { lazy, Suspense } from "react";
 import { Text } from "./components/atom/text";
 import { DescriptionModal } from "./components/organism/descriptionModal";
 import { CommunityPage } from "./components/pages/communityPage";
+import { GetGoalPage } from "./components/pages/getGoalPage";
 
 const GoalPlanPage = lazy(() => import("./components/pages/goalPlanPage"));
 const GoalPage = lazy(() => import("./components/pages/goalPage"));
@@ -44,6 +45,7 @@ function App() {
               <Route path="additionalUserInfo" element={<AdditionalUserInfoPage />} />
               <Route path="modal" element={<DescriptionModal />} />
               <Route path="community" element={<CommunityPage />} />
+              <Route path="getGoal" element={<GetGoalPage />} />
             </Route>
           </Routes>
         </Suspense>
