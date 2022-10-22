@@ -18,7 +18,10 @@ export const GoalTemplate = () => {
     const isGoalSelectorOpen = useSelector((state: ReducerType) => state.toggle.goalSelect);
     const currentGoalDate = useSelector((state: ReducerType) => state.toggle.goalDate);
     const goal = useSelector((state: ReducerType) => state.userGoal.name);
-    const goalDates = useSelector((state: ReducerType) => state.userGoal.dates);
+    const goalDates = useSelector((state: ReducerType) => {
+        if (state.userGoal.isQnet === false) return state.userGoal.isQnetFalseDate.items;
+        return state.userGoal.dates;
+    });
     const [options, setOptions] = useState<string[]>([]);
     const res = async () => await axios("https://wilimbackend.tk/userGoalElementAPI/ctfInfo").then(res => {
         for (let i = 0; i < res.data.length; i++) {
@@ -99,11 +102,29 @@ export const GoalTemplate = () => {
                                             <MarginBox marginBottom="0.5rem" />
                                             <Text innerText={`필기시험 합격자 발표: ${item.docPassDt}`} fontSize={BaseStyles.Text.Heading4} />
                                             <MarginBox marginBottom="0.5rem" />
-                                            <Text innerText={`실기(작업)/면접 시험 원서접수: ${item.pracRegStartDt} ~ ${item.pracRegEndDt}`} fontSize={BaseStyles.Text.Heading4} />
-                                            <MarginBox marginBottom="0.5rem" />
-                                            <Text innerText={`실기(작업)/면접 시험: ${item.pracExamStartDt} ~ ${item.pracExamEndDt}`} fontSize={BaseStyles.Text.Heading4} />
-                                            <MarginBox marginBottom="0.5rem" />
-                                            <Text innerText={`실기(작업)/면접 발표: ${item.pracPassDt}`} fontSize={BaseStyles.Text.Heading4} />
+                                            {
+                                                item.docRegStartDt !== undefined ? (
+                                                    <>
+                                                        <Text innerText={`실기(작업)/면접 시험 원서접수: ${item.pracRegStartDt} ~ ${item.pracRegEndDt}`} fontSize={BaseStyles.Text.Heading4} />
+                                                        <MarginBox marginBottom="0.5rem" />
+                                                    </>
+                                                ) : <></>
+                                            }
+                                            {
+                                                item.docRegStartDt !== undefined ? (
+                                                    <>
+                                                        <Text innerText={`실기(작업)/면접 시험: ${item.pracExamStartDt} ~ ${item.pracExamEndDt}`} fontSize={BaseStyles.Text.Heading4} />
+                                                        <MarginBox marginBottom="0.5rem" />
+                                                    </>
+                                                ) : <></>
+                                            }
+                                            {
+                                                item.docRegStartDt !== undefined ? (
+                                                    <>
+                                                        <Text innerText={`실기(작업)/면접 발표: ${item.pracPassDt}`} fontSize={BaseStyles.Text.Heading4} />
+                                                    </>
+                                                ) : <></>
+                                            }
                                         </Flex>
                                     </Box>
                                     <MarginBox marginBottom="2rem" />
