@@ -5,7 +5,7 @@
 */
 import express from 'express';
 const passport = require("passport");
-import {getUsers,createNewUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, getUserInfoById, updateUserById, deleteUserById, renderRegisterNaver, createNewNaverUser, getSessionInfo} from "../controller/userSchemaAPI.js";
+import {getUsers,createNewUser, loginerror, login, renderRegister, renderLogin, renderRegisterKakao, createNewKakaoUser, getUserInfoById, updateUserById, deleteUserById, renderRegisterNaver, createNewNaverUser, getSessionInfo,renderResetPassword, resetPassword} from "../controller/userSchemaAPI.js";
 import {isLoggedIn } from '../middleware';
 import ExpressError from '../utils/error.js';
 const router = express.Router();
@@ -60,7 +60,7 @@ router.get('/login/kakao/callback', (req, res, next) => {//kakao 로그인 콜�
             const { id } = info;
             req.session.joinUser = {
                 snsId: id,
-                email: info._json.kakao_account.email,
+                email: info._json.kakao_account.email, //info._json && info._json.kakao_account_email
                 username: info._json.properties.nickname,
             };
             return req.session.save(() => {
@@ -112,6 +112,10 @@ router.route('/loginerror')//로그인실패시
 
 router.route('/session') //세션에 로그인 정보 있으면 로그인한 유저 정보 반환
     .get(getSessionInfo)
+
+router.route('/resetPassword')
+    .get(renderResetPassword)
+    .put(resetPassword)//password 변경메일 보내는 라우터
 
 router.route('/id/:id')
     .get(getUserInfoById) //id 일치하는 유저 가져옴

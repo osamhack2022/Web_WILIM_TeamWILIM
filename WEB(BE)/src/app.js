@@ -24,7 +24,7 @@ import communityAPIRoutes from './routes/communityAPI';
 
 //env setting
 import "./env.js";
-import { db_cstring , session_secret , kakao_key , qnet_key , naver_client_id, naver_client_secret} from "./db.js";
+import { db_cstring , session_secret , kakao_key , qnet_key , naver_client_id, naver_client_secret, mail, mail_password} from "./db.js";
 
 //
 const PORT = process.env.PORT || 5000
