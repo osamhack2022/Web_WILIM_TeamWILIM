@@ -12,6 +12,7 @@ interface InputProps {
   focusColor?: string;
   onChange?: EventType;
   onClick?: EventType;
+  onBlur?: EventType;
   value?: string;
   name?: string;
   style?: Object;
@@ -25,6 +26,7 @@ export const Input = ({
   focusColor,
   onChange,
   onClick,
+  onBlur,
   value,
   name,
   style,
@@ -41,6 +43,7 @@ export const Input = ({
       name={name}
       placeholder={placeholder}
       style={style}
+      onBlur={onBlur}
     />
   );
 };

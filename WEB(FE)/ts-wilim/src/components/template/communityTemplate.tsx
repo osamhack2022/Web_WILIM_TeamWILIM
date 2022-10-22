@@ -4,6 +4,7 @@ import { ReducerType } from "../../store/rootReducer"
 import { Flex } from "../atom/flex"
 import { MarginBox } from "../atom/marginBox"
 import { Title } from "../molecule/title"
+import { NewPostCard } from "../organism/newPostCard"
 import { PostCard } from "../organism/postCard"
 
 // const postCardList: PostProps[] = [
@@ -26,11 +27,13 @@ export const CommunityTemplate = () => {
         <Flex flexDirection="column" alignItems="center">
             <Title innerText="Community" />
             <MarginBox marginBottom="2rem" />
+            <NewPostCard />
+            <MarginBox marginBottom="1.5rem" />
             <>
                 {
-                    postCardList && postCardList.map((item, index) => (
+                    postCardList && postCardList.postList.map((item, index) => (
                         <>
-                            <PostCard title={item.title} hashtags={item.hashtags} content={item.content} comments={item.comments} key={index} />
+                            <PostCard _id={item._id} title={item.title} hashtags={item.hashtags} content={item.content} comments={item.comments} key={index} />
                             <MarginBox marginBottom="1.5rem" />
                         </>
                     ))

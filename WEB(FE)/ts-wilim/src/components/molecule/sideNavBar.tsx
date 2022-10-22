@@ -27,8 +27,7 @@ export const SideNavBar = ({ mainLink, goalLink, planLink, profileLink }: SideNa
                 borderRadius="0.5rem"
                 backgroundColor={BaseStyles.Color.Black4}
             >
-                <Flex flexDirection="column" alignItems="center">
-                    <MarginBox marginBottom="1rem" />
+                <Flex flexDirection="column" alignItems="center" justifyContent="space-evenly" height="60vh">
                     <div onClick={async () => {
                         await axios("https://wilimbackend.tk/userSchemaAPI/logout")
                         .then(res => {
@@ -46,9 +45,7 @@ export const SideNavBar = ({ mainLink, goalLink, planLink, profileLink }: SideNa
                             color={BaseStyles.Color.Orange2}
                         />
                     </div>
-                    <MarginBox marginBottom="2rem" />
                     <Line width="40%" height="1px" color="#dddddd" />
-                    <MarginBox marginBottom="3rem" />
                     <Link to={mainLink} style={{ textDecoration: "none" }}>
                         <Text
                             innerText="Main"
@@ -59,7 +56,6 @@ export const SideNavBar = ({ mainLink, goalLink, planLink, profileLink }: SideNa
                             hoverColor="White"
                         />
                     </Link>
-                    <MarginBox marginBottom="4rem" />
                     <Link to={goalLink} style={{ textDecoration: "none" }}>
                         <Text
                             innerText="Goal"
@@ -70,7 +66,6 @@ export const SideNavBar = ({ mainLink, goalLink, planLink, profileLink }: SideNa
                             hoverColor="White"
                         />
                     </Link>
-                    <MarginBox marginBottom="4rem" />
                     <Link to={planLink} style={{ textDecoration: "none" }}>
                         <Text
                             innerText="Plan"
@@ -81,7 +76,6 @@ export const SideNavBar = ({ mainLink, goalLink, planLink, profileLink }: SideNa
                             hoverColor="White"
                         />
                     </Link>
-                    <MarginBox marginBottom="4rem" />
                     <Link to={profileLink} style={{ textDecoration: "none" }}>
                         <Text
                             innerText="Profile"
@@ -92,7 +86,16 @@ export const SideNavBar = ({ mainLink, goalLink, planLink, profileLink }: SideNa
                             hoverColor="White"
                         />
                     </Link>
-                    <MarginBox marginBottom="2rem" />
+                    <Link to="/community" style={{ textDecoration: "none" }}>
+                        <Text
+                            innerText="Community"
+                            color="Gray"
+                            fontSize="24px"
+                            fontWeight={BaseStyles.Text.Border2}
+                            textAlign="center"
+                            hoverColor="White"
+                        />
+                    </Link>
                 </Flex>
             </Box>
         </div>

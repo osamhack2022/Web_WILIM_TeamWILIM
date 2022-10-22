@@ -1,17 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { AddPostProps } from "../../schema/community";
+import { AddCommentProps } from "../../schema/community";
 import originURL from "../../utils/originURL";
 
-export const addPost = createAsyncThunk(
-  "community/addPost",
-  async ({ title, content, hashtags, username }: AddPostProps) => {
+export const addComment = createAsyncThunk(
+  "community/addComment",
+  async ({ content, _id }: AddCommentProps) => {
     const response = await axios.post(
-      `${originURL}/communityAPI/user/${username}/posts`,
+      `${originURL}/communityAPI/post/${_id}/comments`,
       {
-        title,
-        content,
-        hashtags,
+        content
       },
       {
         withCredentials: true,
