@@ -23,7 +23,6 @@ export const postSlice = createSlice({
         ...state.postList,
         action.payload,
       ]}));
-    builder.addCase(addComment.fulfilled, (state: InitialPostProps, action: PayloadAction<CommentProps>) => ({ ...state }));
     builder.addCase(getPostById.fulfilled, (state: InitialPostProps, action: PayloadAction<PostProps>) => {
       const index = state.postList.findIndex(x => x._id === action.payload._id);
       state.postList[index] = action.payload;

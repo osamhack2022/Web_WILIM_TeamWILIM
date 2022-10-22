@@ -17,16 +17,35 @@ import { MarginBox } from "../atom/marginBox";
 import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
 import { toast } from 'react-toastify';
+import { deletePost } from "../../store/asyncThunks/deletePost";
 
-export const PostCard = ({ _id, title, content, hashtags, comments }: PostCardProps) => {
+export const PostCard = ({ _id, title, content, hashtags, comments, owner }: PostCardProps) => {
     const { username } = useSelector((state: ReducerType) => state.userInfo);
+    const userId = useSelector((state: ReducerType) => state.userInfo._id);
     const AppDispatch = useDispatch<AppThunkDispatch>();
-    const dispatch = useDispatch();
     const [comment, setComment] = useState<string>("");
     return (
         <Box width="calc(100% - 2rem)">
             <Flex flexDirection="column" alignItems="flex-start">
+                <Flex alignItems="center" justifyContent="space-between">
                 <Text innerText={title} fontWeight={BaseStyles.Text.Border1} fontSize={BaseStyles.Text.Heading3} />
+                {
+                userId === owner._id ? 
+                (
+                    <div onClick={() => {
+                        AppDispatch(deletePost({ _id }))
+                        .then(res => {
+                            if(res.meta.requestStatus === "fulfilled") {
+                                AppDispatch(getAllPosts());
+                            }
+                        })
+                    }}>
+                        <Text innerText="DELETE" fontWeight={BaseStyles.Text.Border3} fontSize={BaseStyles.Text.Heading4} color="gray" />
+                    </div>
+                ) :
+                <></>
+                }
+                </Flex>
                 <MarginBox marginBottom="0.5rem" />
                 <Flex alignItems="center" justifyContent="flex-start">
                     {
@@ -73,8 +92,8 @@ export const PostCard = ({ _id, title, content, hashtags, comments }: PostCardPr
                 </>
                 <MarginBox marginBottom="1rem" />
                 <Flex alignItems="center" justifyContent="space-between">
-                <Input type="text" width="calc(80% - 2rem)" placeholder="댓글을 달아주세요" style={{ color: "white", background: "none", border: "none", boxShadow: "none" }} onChange={(e: any) => setComment(e.target.value)} name="content" value={comment} />
-                <Button innerText="Submit" width="20%" backgroundColor="#FF8946" color="white" onClick={() => {
+                <Input type="text" width="calc(70% - 2rem)" placeholder="댓글을 달아주세요" style={{ color: "white", background: "none", border: "none", boxShadow: "none" }} onChange={(e: any) => setComment(e.target.value)} name="content" value={comment} />
+                <Button innerText="Submit" width="30%" backgroundColor="#FF8946" color="white" onClick={() => {
                     AppDispatch(addComment({ content: comment!, _id }))
                     .then(res => {
                         if(res.meta.requestStatus === "fulfilled") {
