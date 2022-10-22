@@ -7,27 +7,30 @@ interface fileInfo {
 
 export interface RoundInfo {
     implYy: string;
-    implSeq: number;
-    qualgbCd: string;
-    qualgbNm: string;
+    implSeq?: number;
+    qualgbCd?: string;
+    qualgbNm?: string;
     description: string;
     docRegStartDt: string;
     docRegEndDt: string;
     docExamStartDt: string;
     docExamEndDt: string;
     docPassDt: string;
-    pracRegStartDt: string;
-    pracRegEndDt: string;
-    pracExamStartDt: string;
-    pracExamEndDt: string;
-    pracPassDt: string;
+    pracRegStartDt?: string;
+    pracRegEndDt?: string;
+    pracExamStartDt?: string;
+    pracExamEndDt?: string;
+    pracPassDt?: string;
+    _id?: string;
 }
 
 export interface Goal {
     dateUrl: string;
     description: Description | null;
     isQnet: boolean;
-    isQnetFalseDate: Object;
+    isQnetFalseDate: {
+        items: RoundInfo[];
+    };
     mdobligfldnm: string | null;
     mockLink: fileInfo[];
     name: string;

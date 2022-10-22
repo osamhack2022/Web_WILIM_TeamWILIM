@@ -21,7 +21,20 @@ const goal: Goal = {
     trend: ""
   },
   isQnet: false,
-  isQnetFalseDate: {},
+  isQnetFalseDate: {
+    items: [
+      {
+        implYy: "",
+        description: "",
+        docRegStartDt: "",
+        docExamEndDt: "",
+        docExamStartDt: "",
+        docRegEndDt: "",
+        docPassDt: "",
+        _id: "",
+      }
+    ]
+  },
   mdobligfldnm: "",
   mockLink: [],
   name: "",
