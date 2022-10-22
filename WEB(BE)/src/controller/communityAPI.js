@@ -17,7 +17,7 @@ export const renderPostEditPage = async (req, res, next) => {
 }
 
 module.exports.getAllPosts = async(req,res,next)=>{//테스트용
-    const posts = await Post.find({}).populate("owner");
+    const posts = await Post.find({}).populate("owner").populate("comments");
     res.status(200).json(posts);
 }
 
