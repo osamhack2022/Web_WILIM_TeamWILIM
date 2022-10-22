@@ -22,14 +22,13 @@ export const SideNavBarMobile = ({ mainLink, goalLink, planLink, profileLink }: 
     return (
         <div style={{ position: "fixed", top: 0, right: "-182px", transitionDuration: "0.5s" }} onClick={() => dispatch(sideBarToggle())}>
             <MobileBox>
-                <Flex flexDirection="column" alignItems="center" justifyContent="flex-start" height="100%">
-                    <MarginBox marginBottom="6rem" />
+                <Flex flexDirection="column" alignItems="center" justifyContent="space-evenly" height="100%">
                     <div onClick={ async () => {
                         await axios("https://wilimbackend.tk/userSchemaAPI/logout")
                         .then(res => {
                             if(res.status < 400) {
                                 window.location.href = "https://front.wilimbackend.tk";
-                                // navigate("/");
+                                navigate("/");
                                 console.log("logout!");
                             }
                         }); 
@@ -42,9 +41,7 @@ export const SideNavBarMobile = ({ mainLink, goalLink, planLink, profileLink }: 
                         color={BaseStyles.Color.Orange2}
                     />
                     </div>
-                    <MarginBox marginBottom="6rem" />
                     <Line width="40%" height="1px" color="#dddddd" />
-                    <MarginBox marginBottom="7rem" />
                     <Link to={mainLink} style={{ textDecoration: "none" }}>
                         <Text
                             innerText="Main"
@@ -55,7 +52,6 @@ export const SideNavBarMobile = ({ mainLink, goalLink, planLink, profileLink }: 
                             hoverColor="White"
                         />
                     </Link>
-                    <MarginBox marginBottom="6rem" />
                     <Link to={goalLink} style={{ textDecoration: "none" }}>
                         <Text
                             innerText="Goal"
@@ -66,7 +62,6 @@ export const SideNavBarMobile = ({ mainLink, goalLink, planLink, profileLink }: 
                             hoverColor="White"
                         />
                     </Link>
-                    <MarginBox marginBottom="6rem" />
                     <Link to={planLink} style={{ textDecoration: "none" }}>
                         <Text
                             innerText="Plan"
@@ -77,10 +72,19 @@ export const SideNavBarMobile = ({ mainLink, goalLink, planLink, profileLink }: 
                             hoverColor="White"
                         />
                     </Link>
-                    <MarginBox marginBottom="6rem" />
                     <Link to={profileLink} style={{ textDecoration: "none" }}>
                         <Text
                             innerText="Profile"
+                            color="Gray"
+                            fontSize="24px"
+                            fontWeight={BaseStyles.Text.Border2}
+                            textAlign="center"
+                            hoverColor="White"
+                        />
+                    </Link>
+                    <Link to="/community" style={{ textDecoration: "none" }}>
+                        <Text
+                            innerText="Community"
                             color="Gray"
                             fontSize="24px"
                             fontWeight={BaseStyles.Text.Border2}

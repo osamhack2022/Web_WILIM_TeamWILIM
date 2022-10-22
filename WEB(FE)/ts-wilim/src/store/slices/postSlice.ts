@@ -1,9 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PostProps } from "../../schema/community";
+import { CommentProps, InitialPostProps, PostProps } from "../../schema/community";
+import { addComment } from "../asyncThunks/addComment";
 import { addPost } from "../asyncThunks/addPost";
 import { getAllPosts } from "../asyncThunks/getAllPosts";
+import { getPostById } from "../asyncThunks/getPostById";
 
-const initialState: PostProps[] = [];
+const initialState: InitialPostProps = {
+  postList: [],
+};
 
 export const postSlice = createSlice({
   name: "post",
@@ -12,17 +16,19 @@ export const postSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       getAllPosts.fulfilled,
-      (state: PostProps[], action: PayloadAction<PostProps[]>) => [
-        ...action.payload,
-      ]
-    );
+      (state: InitialPostProps, action: PayloadAction<PostProps[]>) => ({ postList: [...action.payload] }));
     builder.addCase(
       addPost.fulfilled,
-      (state: PostProps[], action: PayloadAction<PostProps>) => [
-        ...state,
+      (state: InitialPostProps, action: PayloadAction<PostProps>) => ({ postList: [
+        ...state.postList,
         action.payload,
-      ]
-    );
+      ]}));
+    builder.addCase(addComment.fulfilled, (state: InitialPostProps, action: PayloadAction<CommentProps>) => ({ ...state }));
+    builder.addCase(getPostById.fulfilled, (state: InitialPostProps, action: PayloadAction<PostProps>) => {
+      const index = state.postList.findIndex(x => x._id === action.payload._id);
+      state.postList[index] = action.payload;
+      return;
+    });
   },
 });
 
