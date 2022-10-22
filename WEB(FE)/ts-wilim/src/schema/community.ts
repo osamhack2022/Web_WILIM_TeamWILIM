@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export interface InitialPostProps {
     postList: PostProps[];
 }
@@ -43,6 +45,7 @@ export interface PostCardProps {
     hashtags: string[];
     content: string;
     comments: CommentProps[];
+    owner: OwnerProps;
 }
 
 export interface AddPostProps {
@@ -58,5 +61,9 @@ export interface AddCommentProps {
 }
 
 export interface DeleteCommentProps {
+    _id: string;
+}
+
+export interface DeletePostProps {
     _id: string;
 }
