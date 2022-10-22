@@ -67,7 +67,7 @@ export const deletePost = async (req, res, next) => {
         await Comment.deleteMany({post:id})// 먼저, delete하고자 하는 post에 달려 있는 comment들부터 지운다.
         await User.findByIdAndUpdate(_id, { $pull: { posts: id }}, { new: true });
         await Post.findByIdAndDelete(id);  // 그 다음, post를 delete한다.
-        return res.status(200).redirect(`/communityAPI/user/${username}/posts`);
+        return res.status(200).json(post);
     } catch(error) {
         return res.status(404).json({message: error});
     }
