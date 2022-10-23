@@ -9,6 +9,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../../store/store";
 import { fetchLoginInfo } from "../../store/asyncThunks/fetchLoginInfo";
+import originURL from "../../utils/originURL";
 
 interface SideNavBarProps {
     mainLink: string;
@@ -28,17 +29,17 @@ export const SideNavBar = ({ mainLink, goalLink, planLink, profileLink }: SideNa
                 backgroundColor={BaseStyles.Color.Black4}
             >
                 <Flex flexDirection="column" alignItems="center" justifyContent="space-evenly" height="60vh">
-                    <div onClick={async () => {
-                        await axios("https://wilimbackend.tk/userSchemaAPI/logout")
-                        .then(res => {
-                            if(res.status < 400) {
-                                dispatch(fetchLoginInfo());
-                                navigate("/");
-                            }
-                        }); 
+                    <div onClick={() => {
+                        window.location.href = `${originURL}/userSchemaAPI/logout`;
+                        // await axios(`${originURL}/userSchemaAPI/logout`)
+                        // .then(res => {
+                        //     if(res.status < 400) {
+                        //         window.location.href = "/";
+                        //     }
+                        // }); 
                     }}>
                         <Text
-                            innerText="WILIM"
+                            innerText="Logout"
                             fontSize={BaseStyles.Text.Heading2}
                             fontWeight={BaseStyles.Text.Border1}
                             textAlign="center"
