@@ -14,6 +14,7 @@ import { modifyUserInfo } from "../../store/asyncThunks/modifyUserInfo";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserById } from "../../store/asyncThunks/fetchUserById";
 import { Title } from "../molecule/title";
+import { toast } from 'react-toastify';
 
 export const ModifyUserInfoTemplate = () => {
     const _id = useParams()._id!;
@@ -141,6 +142,9 @@ export const ModifyUserInfoTemplate = () => {
                                         dispatch(fetchUserById(_id))
                                             .then(res => {
                                                 if (res.meta.requestStatus === 'fulfilled') {
+                                                    // toast.success("다시 로그인 해주세요!", {
+                                                    //     autoClose: 2000,
+                                                    // })
                                                     navigate(`/main`);
                                                 }
                                             })
