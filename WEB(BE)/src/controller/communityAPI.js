@@ -109,7 +109,7 @@ export const getPostsOfUser = async (req, res, next) => {
 export const addNewPost = async (req, res, next) => {
     // owner 권한 확인 필요
 
-    const { title, content, hashtags } = req.body;
+    const { title, content, hashtags, date } = req.body;
     const { _id, username } = req.user;
 
     try {
@@ -118,7 +118,8 @@ export const addNewPost = async (req, res, next) => {
             username: username,
             title,
             content,
-            hashtags
+            hashtags,
+            date: Post.dateFormatting(date)
         });
         await newPost.save();
         await User.findByIdAndUpdate(_id, { $push: { posts: newPost._id }});
@@ -196,14 +197,15 @@ export const addNewComment = async (req, res, next) => {
 
     const { id } = req.params;      // post의 id이다.
     const { _id, username } = req.user;
-    const { content } = req.body;
+    const { content, date } = req.body;
 
     try {
         const newComment = new Comment({
             owner: _id,
             username: username,
             content: content,
-            post: id
+            post: id,
+            date: Comment.dateFormatting(date)
         });
         await newComment.save();
         await Post.findByIdAndUpdate(id, { $push: { comments: newComment._id }});
