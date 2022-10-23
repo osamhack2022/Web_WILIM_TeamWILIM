@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../../store/store";
 import { fetchLoginInfo } from "../../store/asyncThunks/fetchLoginInfo";
-import { fetchUserPlanByUsername } from "../../store/asyncThunks/fetchUserPlanByUsername";
 import { fetchUserGoalByUsername } from "../../store/asyncThunks/fetchUserGoalByUsername";
 import { goalSearchInfoToggle } from "../../store/slices/toggleSlice";
 import axios from "axios";

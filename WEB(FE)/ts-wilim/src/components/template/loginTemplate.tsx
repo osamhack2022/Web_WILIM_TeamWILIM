@@ -27,7 +27,7 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
   const handleChange = (event: any) => {
     const { name, value } = event.target;
     setLoginForm({ ...loginForm, [name]: value });
-};
+  };
   return (
     <>
       <Flex justifyContent="center">
@@ -39,11 +39,11 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
           textAlign="center"
         />
       </Flex>
-      <MarginBox marginBottom="6rem" />
+      <MarginBox marginBottom="4rem" />
       <Flex flexDirection="column" alignItems="left">
         <InputArea title="E-mail" inputType="text" placeholder='E-mail...' name="email" onChange={(e) => handleChange(e)} value={loginForm.email} />
         <MarginBox marginBottom="2rem" />
-        <InputArea title="Password" inputType="password" placeholder='password...' name="password" onChange={(e) => handleChange(e)} value={loginForm.password} />
+        <InputArea title="Password" inputType="password" placeholder='Password...' name="password" onChange={(e) => handleChange(e)} value={loginForm.password} />
       </Flex>
       <MarginBox marginBottom="1rem" />
       <Link to={findPasswordLink}>
@@ -64,9 +64,9 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
             e.preventDefault();
             console.log(loginForm);
             dispatch(localLogin(loginForm))
-            .then(res => {
-              if(res.meta.requestStatus === "fulfilled") navigate(`/main`);
-            });
+              .then(res => {
+                if (res.meta.requestStatus === "fulfilled") navigate(`/main`);
+              });
           }}
           color="white"
           backgroundColor={BaseStyles.Color.Orange2}
@@ -94,6 +94,7 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
         </div>
         <MarginBox marginBottom="1rem" />
         <KakaoTestButton />
+        <MarginBox marginBottom="4rem" />
       </Flex>
     </>
   );

@@ -50,19 +50,19 @@ export const Input = ({
 
 const InputDiv = styled.input<{width?: string, height?: string, focusColor?: string}>`
     width: ${({ width }) => width || "100%"};
-    height: ${({ height }) => height || "100%"};
-    background-color: 'white';
-    color: 'black';
+    height: ${({ height }) => height || "auto%"};
+    background: none;
+    color: white;
     box-shadow: ${BaseStyles.Shadow.BottomDefault};
     transition-duration: 0.5s;
     font-size: ${BaseStyles.Text.Heading4};
-    border: 0.3px solid ${BaseStyles.Color.Black0};
+    border: 0.3px solid white;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     padding: 1rem;
-    border-radius: 0.5rem;
+    border-radius: 6px;
     &:hover {
         border: 1px solid ${({ focusColor }) =>
     focusColor || BaseStyles.Color.Beige2};
@@ -71,7 +71,7 @@ const InputDiv = styled.input<{width?: string, height?: string, focusColor?: str
         border: 1px solid ${({ focusColor }) =>
     focusColor || BaseStyles.Color.Beige2};
     }
-    input::placeholder {
-        color: 'lightgray';
+    ::placeholder {
+        color: white;
     }
 `;
