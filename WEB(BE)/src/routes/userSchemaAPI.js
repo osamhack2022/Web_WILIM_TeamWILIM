@@ -115,7 +115,7 @@ router.route('/session') //세션에 로그인 정보 있으면 로그인한 유
 
 router.route('/resetPassword')
     .get(renderResetPassword)
-    .put(resetPassword)//password 변경메일 보내는 라우터
+    .post(resetPassword)//password 변경메일 보내는 라우터
 
 router.route('/id/:id')
     .get(getUserInfoById) //id 일치하는 유저 가져옴
