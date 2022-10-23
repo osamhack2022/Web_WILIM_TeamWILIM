@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { sideBarToggle } from "../../store/slices/toggleSlice";
 import axios from "axios";
+import originURL from "../../utils/originURL";
 
 interface SideNavBarProps {
     mainLink: string;
