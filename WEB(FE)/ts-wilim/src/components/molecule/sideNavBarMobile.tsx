@@ -24,17 +24,10 @@ export const SideNavBarMobile = ({ mainLink, goalLink, planLink, profileLink }: 
             <MobileBox>
                 <Flex flexDirection="column" alignItems="center" justifyContent="space-evenly" height="100%">
                     <div onClick={ async () => {
-                        await axios("https://wilimbackend.tk/userSchemaAPI/logout")
-                        .then(res => {
-                            if(res.status < 400) {
-                                window.location.href = "https://front.wilimbackend.tk";
-                                navigate("/");
-                                console.log("logout!");
-                            }
-                        }); 
+                        window.location.href = "https://wilimbackend.tk/userSchemaAPI/logout";
                     }}>
                     <Text
-                        innerText="WILIM"
+                        innerText="Logout"
                         fontSize={BaseStyles.Text.Heading2}
                         fontWeight={BaseStyles.Text.Border1}
                         textAlign="center"
