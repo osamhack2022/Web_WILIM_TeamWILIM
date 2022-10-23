@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import {
     getAllPosts,//테스트용
     getAllComments,//테스트용
+    getCommunityMain,
     getPostById,
     updatePost,
     deletePost,
@@ -28,6 +29,8 @@ const router = express.Router({ mergeParams: true });
 //테스트용 임시 라우팅
 router.get("/getAllPosts",getAllPosts);
 router.get("/getAllComments",getAllComments);
+
+router.get("/main", getCommunityMain);
 
 router.get("/post/renderRootPage", renderPostRootPage);
 router.get("/post/:id/renderEditPage", renderPostEditPage);
