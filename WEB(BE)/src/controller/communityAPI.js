@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import User from "../models/user";
 import Post from "../models/post";
 import Comment from "../models/comment";
+import GoalElement from "../models/goalElement";
 
 export const renderPostRootPage = (req, res, next) => {
     const user = req.user;
@@ -25,6 +26,23 @@ module.exports.getAllComments = async(req,res,next)=>{//테스트용
     const comments = await Comment.find({});
     res.status(200).json(comments);
 }
+
+export const getCommunityMain = async (req, res, next) => {
+    const { _id, goal } = req.user;
+    const goalElement = await GoalElement.findById(goal);
+
+    const selfPosts = await Post.find({owner: _id}).populate("comments");
+    const goalRelatedPosts = await Post.find({hashtags: `#${goalElement.name}`}).sort({"likes": 1});
+    const allPosts = await Post.find({}).sort({"likes": 1});
+
+    const queryResult = new Object();
+    queryResult.selfPosts = selfPosts;
+    queryResult.goalRelatedPosts = goalRelatedPosts;
+    queryResult.allPosts = allPosts;
+
+    console.log(queryResult);
+    return res.status(200).json(queryResult);
+};
 
 export const getPostById = async (req, res, next) => {
     const { id } = req.params;
