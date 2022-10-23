@@ -4,6 +4,7 @@ import NoPlanError from "../../error/noPlanError";
 import { List } from "../../schema/plan";
 import { ReducerType } from "../../store/rootReducer";
 import { toggleCompleted } from "../../store/slices/userPlanSlice";
+import { Box } from "../atom/box";
 import { Flex } from "../atom/flex";
 import { MarginBox } from "../atom/marginBox";
 import { Text } from "../atom/text";
@@ -20,31 +21,31 @@ export const CheckList = () => {
     }
     if(planList.length <= 0) return <NoPlanError />; 
     return (
-        <Flex flexDirection="column">
-            <MarginBox marginBottom="2rem" />
+        <Flex flexDirection="column" height="100%">
+            <MarginBox marginBottom="1rem" />
             <Text innerText="Steady Plans" />
-            {steadyPlan && <>
+            {steadyPlan && <div style={{ width: "100%", height: "8vh", overflow: "auto" }}>
                 {
                     steadyPlan.map((item: List, index: number) => (
                         <div key={index}>
-                            <MarginBox marginBottom="1rem" />
+                            <MarginBox marginBottom="0.5rem" />
                             <Plan completed={item.completed} detail={item.detail} onClick={(e: any) => handleToggle(e)} id={item._id} />
                         </div>
                     ))
                 }
-            </>}
-            <MarginBox marginBottom="4rem" />
+            </div>}
+            <MarginBox marginBottom="1rem" />
             <Text innerText="Non-Steady Plans" />
-            {nonSteadyPlan && <>
+            {nonSteadyPlan && <div style={{ width: "100%", height: "10vh", overflow: "auto" }}>
                 {
                     nonSteadyPlan.map((item: List, index: number) => (
                         <div key={index}>
-                            <MarginBox marginBottom="1rem" />
+                            <MarginBox marginBottom="0.5rem" />
                             <Plan completed={item.completed} detail={item.detail} onClick={(e: any) => handleToggle(e)} id={item._id} />
                         </div>
                     ))
                 }
-            </>}
+            </div>}
         </Flex>
     )
 }

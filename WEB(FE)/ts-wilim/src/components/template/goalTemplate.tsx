@@ -7,6 +7,7 @@ import { desModalToggle, examRoundToggle, goalDateToggle, goalSearchInfoToggle, 
 import { AngleRight } from "../atom/angleRight";
 import { Box } from "../atom/box";
 import { Flex } from "../atom/flex";
+import { Input } from "../atom/input";
 import { MarginBox } from "../atom/marginBox";
 import { Text } from "../atom/text";
 import { Title } from "../molecule/title";
@@ -23,6 +24,8 @@ export const GoalTemplate = () => {
         return state.userGoal.dates;
     });
     const [options, setOptions] = useState<string[]>([]);
+    const [searchWord, setSearchWord] = useState<string>("");
+    const goalList = searchWord === "" ? options : options.slice(0, options.length / 2).filter(item => item.startsWith(searchWord));
     const res = async () => await axios("https://wilimbackend.tk/userGoalElementAPI/ctfInfo").then(res => {
         for (let i = 0; i < res.data.length; i++) {
             setOptions(prev => prev.concat(res.data[i].name));
@@ -36,63 +39,64 @@ export const GoalTemplate = () => {
         <Flex flexDirection="column">
             <Title innerText="Goal" />
             <MarginBox marginBottom="2rem" />
-            <Box width="calc(100% - 2rem)" borderRadius="6px 6px 0 0">
-                <Flex justifyContent="space-between" alignItems="center">
-                    <MarginBox marginLeft="16px" />
-                    <Text innerText={goal} fontSize={BaseStyles.Text.Heading2} />
-                    <div onClick={() => dispatch(goalSelectToggle())} style={{ transform: isGoalSelectorOpen ? "rotate(90deg)" : undefined, transitionDuration: "0.5s" }}>
-                        <AngleRight />
-                    </div>
-                </Flex>
-            </Box>
+            <div onClick={() => dispatch(goalSelectToggle())}>
+                <Box width="calc(100% - 2rem)" borderRadius="6px 6px 0 0">
+                    <Flex justifyContent="center" alignItems="center">
+                        <MarginBox marginLeft="16px" />
+                        <Text innerText={goal} fontSize={BaseStyles.Text.Heading2} />
+                    </Flex>
+                </Box>
+            </div>
             <Box width="calc(100% - 2rem)" borderRadius="0 0 6px 6px" backgroundColor="#494949" height={isGoalSelectorOpen ? "50vh" : "0"} style={{ paddingTop: isGoalSelectorOpen ? "1rem" : "0", paddingBottom: isGoalSelectorOpen ? "1rem" : "0", overflow: 'auto' }}>
                 <Flex flexDirection="column" justifyContent="flex-start" height="100%">
-                    {
-                        options.map((item, index) => {
-                            return (
-                                <>
-                                    <Flex width="100%" justifyContent="flex-start" alignItems="center" key={index}>
-                                        <Text innerText={item} fontSize={BaseStyles.Text.Heading4} onClick={() => {
-                                            dispatch(desModalToggle())
-                                            dispatch(goalSearchInfoToggle(item))
-                                        }} />
-                                    </Flex>
-                                    <MarginBox marginBottom="1rem" />
-                                </>
-                            )
-                        })
-                    }
+                    <Input type="text" width="calc(100% - 2.5rem)" onChange={(e: any) => setSearchWord(e.target.value)} value={searchWord} placeholder="Input your keyword" />
+                    <MarginBox marginBottom="1rem" />
+                    <Flex flexDirection="column" justifyContent="flex-start" height="100%">
+                        {
+                            goalList.map((item, index) => {
+                                return (
+                                    <div key={index}>
+                                        <Flex width="100%" justifyContent="flex-start" alignItems="center">
+                                            <Text innerText={item} fontSize={BaseStyles.Text.Heading4} onClick={() => {
+                                                dispatch(desModalToggle())
+                                                dispatch(goalSearchInfoToggle(item))
+                                            }} />
+                                        </Flex>
+                                        <MarginBox marginBottom="1rem" />
+                                    </div>
+                                )
+                            })
+                        }
+                    </Flex>
                 </Flex>
             </Box>
             <MarginBox marginBottom="2rem" />
-            <Box width="calc(100% - 2rem)" borderRadius="6px 6px 0 0">
-                <Flex justifyContent="space-between" alignItems="center">
-                    <MarginBox marginLeft="16px" />
-                    <Text innerText="날짜 선택하기" fontSize={BaseStyles.Text.Heading2} />
-                    <div onClick={() => dispatch(examRoundToggle())} style={{ transform: isBoxOpen ? "rotate(90deg)" : undefined, transitionDuration: "0.5s" }}>
-                        <AngleRight />
-                    </div>
-                </Flex>
-            </Box>
+            <div onClick={() => dispatch(examRoundToggle())}>
+                <Box width="calc(100% - 2rem)" borderRadius="6px 6px 0 0">
+                    <Flex justifyContent="center" alignItems="center">
+                        <MarginBox marginLeft="16px" />
+                        <Text innerText="회차 선택하기" fontSize={BaseStyles.Text.Heading2} />
+                    </Flex>
+                </Box>
+            </div>
             <Box width="calc(100% - 2rem)" borderRadius="0 0 6px 6px" backgroundColor="#767676" height={isBoxOpen ? "50vh" : "0"} style={{ paddingTop: isBoxOpen ? "1rem" : "0", paddingBottom: isBoxOpen ? "1rem" : "0", overflow: "auto" }}>
                 <Flex flexDirection="column" justifyContent="flex-start" height="100%">
                     {
                         goalDates!.map((item, index) => {
                             return (
                                 <Flex flexDirection="column" justifyContent="center" alignItems="center" key={index}>
-                                    <Flex justifyContent="space-between" alignItems="center">
-                                        <MarginBox marginLeft="16px" />
-                                        <Text innerText={item.description} fontSize={BaseStyles.Text.Heading3} />
-                                        <div onClick={() => {
-                                            if (currentGoalDate === item.description) {
-                                                dispatch(goalDateToggle(""))
-                                            } else {
-                                                dispatch(goalDateToggle(item.description))
-                                            }
-                                        }} style={{ transform: currentGoalDate === item.description ? "rotate(90deg)" : undefined, transitionDuration: "0.5s" }}>
-                                            <AngleRight />
-                                        </div>
-                                    </Flex>
+                                    <div onClick={() => {
+                                        if (currentGoalDate === item.description) {
+                                            dispatch(goalDateToggle(""))
+                                        } else {
+                                            dispatch(goalDateToggle(item.description))
+                                        }
+                                    }}>
+                                        <Flex justifyContent="space-between" alignItems="center">
+                                            <MarginBox marginLeft="16px" />
+                                            <Text innerText={item.description} fontSize={BaseStyles.Text.Heading3} />
+                                        </Flex>
+                                    </div>
                                     <Box backgroundColor="#61616180" width="100%" borderRadius="0 0 6px 6px" height={currentGoalDate === item.description ? "30vh" : "0"} style={{ paddingTop: currentGoalDate === item.description ? "1rem" : "0", paddingBottom: currentGoalDate === item.description ? "1rem" : "0" }}>
                                         <MarginBox marginLeft="5vw" />
                                         <Flex flexDirection="column" justifyContent="space-evenly" alignItems="flex-start">

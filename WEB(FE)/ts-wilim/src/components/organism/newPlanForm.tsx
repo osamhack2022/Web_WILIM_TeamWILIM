@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 import { addUserPlan } from "../../store/asyncThunks/addUserPlan"
 import { fetchUserPlanByUsername } from "../../store/asyncThunks/fetchUserPlanByUsername"
 import { ReducerType } from "../../store/rootReducer"
+import { newPlanToggle } from "../../store/slices/toggleSlice"
 import { AppThunkDispatch } from "../../store/store"
 import getFullDate from "../../utils/getFullDate"
 import { Button } from "../atom/button"
@@ -16,7 +17,8 @@ import { Plan } from "../molecule/plan"
 import { BaseStyles } from "../theme"
 
 export const NewPlanForm = () => {
-    const dispatch = useDispatch<AppThunkDispatch>();
+    const AppDispatch = useDispatch<AppThunkDispatch>();
+    const dispatch = useDispatch();
     const { username } = useSelector((state: ReducerType) => state.userInfo);
     const date = getFullDate();
     const initialForm = {
@@ -57,10 +59,11 @@ export const NewPlanForm = () => {
                     <Button
                         innerText="Add New Plan"
                         onClick={() => {
-                            dispatch(addUserPlan({ username, date, ...newPlanForm }))
+                            AppDispatch(addUserPlan({ username, date, ...newPlanForm }))
                             .then(res => {
                                 if(res.meta.requestStatus === 'fulfilled') {
-                                    dispatch(fetchUserPlanByUsername(username))
+                                    AppDispatch(fetchUserPlanByUsername(username))
+                                    dispatch(newPlanToggle())
                                 }
                             })
                         }}

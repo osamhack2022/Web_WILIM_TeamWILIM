@@ -33,7 +33,9 @@ export const DailyPlan = () => {
                 </Flex>
                 <MarginBox marginBottom="1.5rem" />
                 <Line width="100%" height="0.5px" color="#767676" />
-                <CheckList />
+                <Flex flexDirection="column" height="100%">
+                    <CheckList />
+                </Flex>
             </div>
             <Flex flexDirection="column" justifyContent="center" alignItems="center">
                 <Text
@@ -42,7 +44,7 @@ export const DailyPlan = () => {
                     fontWeight={BaseStyles.Text.Border2}
                     fontSize={BaseStyles.Text.Heading3}
                 />
-                <MarginBox marginBottom="1.5rem" />
+                <MarginBox marginBottom="1rem" />
             </Flex>
         </Flex >
     )

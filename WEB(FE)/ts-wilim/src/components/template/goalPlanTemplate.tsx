@@ -46,6 +46,7 @@ export const GoalPlanTemplate = () => {
       </Flex>
       <MarginBox marginBottom="1rem" />
       <PlanCard />
+      <MarginBox marginBottom="2rem" />
     </Flex>
   );
 };
