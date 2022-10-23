@@ -6,25 +6,22 @@ import { FindPasswordPage } from "./components/pages/findPasswordPage";
 import { ProfiletPage } from "./components/pages/profilePage";
 import { SideNavBarTestPage } from "./components/pages/sideNavBarTestPage";
 import { AdditionalUserInfoPage } from "./components/pages/additionalUserInfoPage";
-import { useSelector } from "react-redux";
-import { ReducerType } from "./store/rootReducer";
 import { NavBar } from "./components/organism/navBar";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { DescriptionModal } from "./components/organism/descriptionModal";
 import { GetGoalPage } from "./components/pages/getGoalPage";
 import { ToastContainer } from 'react-toastify';
 import '../src/utils/ReactToastify.css';
 import { Shimmer } from "./utils/shimmer";
+import { retryLazy } from '../src/utils/lazyUtil';
 
-const GoalPlanPage = lazy(() => import("./components/pages/goalPlanPage"));
-const GoalPage = lazy(() => import("./components/pages/goalPage"));
-const PlanPage = lazy(() => import("./components/pages/planPage"));
-const CommunityPage = lazy(() => import("./components/pages/communityPage"));
-const ModifyUserInfoPage = lazy(() => import("./components/pages/modifyUserInfoPage"));
+const GoalPlanPage = retryLazy(() => import("./components/pages/goalPlanPage"));
+const GoalPage = retryLazy(() => import("./components/pages/goalPage"));
+const PlanPage = retryLazy(() => import("./components/pages/planPage"));
+const CommunityPage = retryLazy(() => import("./components/pages/communityPage"));
+const ModifyUserInfoPage = retryLazy(() => import("./components/pages/modifyUserInfoPage"));
 
 function App() {
-  const toggle = useSelector((state: ReducerType) => state.toggle.sideBar);
-  const pixel = toggle ? -182 : 0;
   return (
     <>
         <Suspense fallback={<Shimmer />}>
