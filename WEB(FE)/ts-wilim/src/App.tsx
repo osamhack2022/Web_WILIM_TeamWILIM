@@ -2,7 +2,6 @@ import { Layout } from "./components/layout/Layout";
 import { Route, Routes } from "react-router-dom";
 import { LoginPage } from "./components/pages/loginPage";
 import { CreateAccountPage } from "./components/pages/createAccountPage";
-import { FindPasswordPage } from "./components/pages/findPasswordPage";
 import { ProfiletPage } from "./components/pages/profilePage";
 import { SideNavBarTestPage } from "./components/pages/sideNavBarTestPage";
 import { AdditionalUserInfoPage } from "./components/pages/additionalUserInfoPage";
@@ -29,7 +28,6 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route path="/createAccount" element={<CreateAccountPage />} />
             <Route path="/*" element={<NavBar />}>
-              <Route path="findPassword" element={<FindPasswordPage />} />
               <Route path="test" element={<Layout />} />
               <Route path="main" element={<GoalPlanPage />} />
               <Route path="modifyUserInfo/:_id" element={<ModifyUserInfoPage />} />

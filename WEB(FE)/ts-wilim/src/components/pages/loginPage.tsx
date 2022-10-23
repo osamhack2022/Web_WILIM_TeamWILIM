@@ -20,7 +20,7 @@ export const LoginPage = () => {
   return (
     <MediaDiv>
       <InnerMediaDiv>
-        <LoginTemplate createAccountLink="/createAccount" findPasswordLink="/findPassword" />
+        <LoginTemplate createAccountLink="/createAccount" />
       </InnerMediaDiv>
     </MediaDiv>
   )

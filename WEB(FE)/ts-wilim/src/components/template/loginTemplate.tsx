@@ -12,11 +12,10 @@ import { localLogin } from "../../store/asyncThunks/localLogin";
 import { useState } from "react";
 
 interface LoginTemplateProps {
-  findPasswordLink: string;
   createAccountLink: string;
 }
 
-export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemplateProps) => {
+export const LoginTemplate = ({ createAccountLink }: LoginTemplateProps) => {
   const dispatch = useDispatch<AppThunkDispatch>();
   const navigate = useNavigate();
   const initialLoginForm = {
@@ -46,7 +45,7 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
         <InputArea title="Password" inputType="password" placeholder='Password...' name="password" onChange={(e) => handleChange(e)} value={loginForm.password} />
       </Flex>
       <MarginBox marginBottom="1rem" />
-      <Link to={findPasswordLink}>
+      <div onClick={() => window.location.href = "https://wilimbackend.tk/userSchemaAPI/resetPassword"}>
         <Text
           innerText="Forgot password?"
           color="lightgray"
@@ -55,7 +54,7 @@ export const LoginTemplate = ({ createAccountLink, findPasswordLink }: LoginTemp
           hoverColor="white"
           style={{ textDecoration: "underline" }}
         />
-      </Link>
+      </div>
       <MarginBox marginBottom="3rem" />
       <Flex flexDirection="column" alignItems="center">
         <Button
