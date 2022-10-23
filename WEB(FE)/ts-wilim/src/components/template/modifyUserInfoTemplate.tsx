@@ -30,10 +30,6 @@ export const ModifyUserInfoTemplate = () => {
         const { name, value } = event.target;
         setUserInfoForm({ ...userInfoForm, [name]: value });
     };
-    const buttonColor = (type: string) =>
-        type === userInfoForm.serviceType
-            ? BaseStyles.Color.Purple2
-            : BaseStyles.Color.Purple1;
 
     return (
         <>
@@ -45,7 +41,6 @@ export const ModifyUserInfoTemplate = () => {
                     name="username"
                     inputType="text"
                     placeholder="Name..."
-                    buttonText="Check"
                     onChange={(e) => handleChange(e)}
                     value={userInfoForm.username}
                 />
@@ -59,14 +54,18 @@ export const ModifyUserInfoTemplate = () => {
                     value={userInfoForm.password}
                 />
                 <MarginBox marginBottom="2rem" />
-                <Flex alignItems="center" justifyContent="center">
+                <Flex alignItems="center" justifyContent="center" flexWrap="wrap">
+                    <MarginBox marginLeft="0.5rem" />
                     <Input
                         style={{
                             display: "flex",
+                            width: "100px",
                             justifyContent: "center",
-                            backgroundColor: buttonColor("육군"),
+                            backgroundColor: "#658a1b",
                             border: "none",
                             color: "white",
+                            opacity: userInfoForm.serviceType === "ARMY" ? 1 : 0.7,
+                            marginTop: "1rem",
                         }}
                         type="button"
                         name="serviceType"
@@ -78,10 +77,13 @@ export const ModifyUserInfoTemplate = () => {
                     <Input
                         style={{
                             display: "flex",
+                            width: "100px",
                             justifyContent: "center",
-                            backgroundColor: buttonColor("해군"),
+                            backgroundColor: "#275af5",
                             border: "none",
                             color: "white",
+                            opacity: userInfoForm.serviceType === "NAVY" ? 1 : 0.7,
+                            marginTop: "1rem",
                         }}
                         type="button"
                         name="serviceType"
@@ -93,10 +95,13 @@ export const ModifyUserInfoTemplate = () => {
                     <Input
                         style={{
                             display: "flex",
+                            width: "100px",
                             justifyContent: "center",
-                            backgroundColor: buttonColor("공군"),
+                            backgroundColor: "#3399FF",
                             border: "none",
                             color: "white",
+                            opacity: userInfoForm.serviceType === "AIR_FORCE" ? 1 : 0.7,
+                            marginTop: "1rem",
                         }}
                         type="button"
                         name="serviceType"
@@ -104,6 +109,25 @@ export const ModifyUserInfoTemplate = () => {
                         value="AIR_FORCE"
                         onClick={(e) => handleChange(e)}
                     />
+                    <MarginBox marginLeft="1rem" />
+                    <Input
+                        style={{
+                            display: "flex",
+                            width: "100px",
+                            justifyContent: "center",
+                            backgroundColor: "#ff2335",
+                            border: "none",
+                            color: "white",
+                            opacity: userInfoForm.serviceType === "MARINE" ? 1 : 0.7,
+                            marginTop: "1rem",
+                        }}
+                        type="button"
+                        name="serviceType"
+                        placeholder="해병대"
+                        value="MARINE"
+                        onClick={(e) => handleChange(e)}
+                    />
+                    <MarginBox marginLeft="0.5rem" />
                 </Flex>
                 <MarginBox marginBottom="3rem" />
                 <Flex flexDirection="column" alignItems="center">

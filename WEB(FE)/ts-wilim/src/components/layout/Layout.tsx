@@ -69,12 +69,11 @@ export const MediaDiv = styled.div`
 `;
 
 export const InnerMediaDiv = styled.div`
-  margin-top: 10rem;
   width: 100%;
+  height: 100%;
+  margin-top: 20vh;
   @media (max-width: 1080px) {
+    margin-top: 10vh;
     width: 80%;
-  }
-  @media (max-height: 800px) {
-    margin-top: 2rem;
   }
 `;

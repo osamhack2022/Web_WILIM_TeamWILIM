@@ -20,7 +20,6 @@ export const LoginPage = () => {
   return (
     <MediaDiv>
       <InnerMediaDiv>
-        <MarginBox marginBottom="2rem" />
         <LoginTemplate createAccountLink="/createAccount" findPasswordLink="/findPassword" />
       </InnerMediaDiv>
     </MediaDiv>

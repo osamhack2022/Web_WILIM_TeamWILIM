@@ -7,12 +7,14 @@ interface FlexProps {
     alignItems?: flexType;
     width?: string;
     height?: string;
+    flexWrap?: "nowrap" | "wrap" | "wrap-reverse";
+    flex?: string;
     children: JSX.Element | JSX.Element[];
 }
 
-export const Flex = ({ flexDirection, justifyContent, alignItems, width, height, children }: FlexProps) => {
+export const Flex = ({ flexDirection, justifyContent, alignItems, width, height, flexWrap, children, flex }: FlexProps) => {
     return (
-        <div style={{ display: "flex", flexDirection, justifyContent, alignItems, width: width ?? "100%", height }}>
+        <div style={{ display: "flex", flexDirection, justifyContent, alignItems, width: width ?? "100%", height, flexWrap, flex }}>
             {children}
         </div>
     )

@@ -9,7 +9,7 @@ import { MediaDiv, InnerMediaDiv } from "../layout/Layout";
 import { CommunityTemplate } from "../template/communityTemplate";
 
 
-export const CommunityPage = () => {
+const CommunityPage = () => {
   const navigate = useNavigate();
   const AppDispatch = useDispatch<AppThunkDispatch>(); 
     useEffect(() => {
@@ -50,3 +50,5 @@ export const CommunityPage = () => {
     </MediaDiv>
   )
 };
+
+export default CommunityPage;

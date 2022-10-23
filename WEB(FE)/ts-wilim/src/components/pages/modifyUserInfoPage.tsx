@@ -1,7 +1,7 @@
 import { ModifyUserInfoTemplate } from "../template/modifyUserInfoTemplate";
 import { MediaDiv, InnerMediaDiv } from "../layout/Layout";
 
-export const ModifyUserInfoPage = () => {
+const ModifyUserInfoPage = () => {
   return (
     <MediaDiv>
       <InnerMediaDiv>
@@ -10,3 +10,5 @@ export const ModifyUserInfoPage = () => {
     </MediaDiv>
   )
 };
+
+export default ModifyUserInfoPage;

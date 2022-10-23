@@ -3,10 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import { LoginPage } from "./components/pages/loginPage";
 import { CreateAccountPage } from "./components/pages/createAccountPage";
 import { FindPasswordPage } from "./components/pages/findPasswordPage";
-import { ModifyUserInfoPage } from "./components/pages/modifyUserInfoPage";
-// import { GoalPlanPage } from "./components/pages/goalPlanPage";
-// import { GoalPage } from "./components/pages/goalPage";
-// import { PlanPage } from "./components/pages/planPage";
 import { ProfiletPage } from "./components/pages/profilePage";
 import { SideNavBarTestPage } from "./components/pages/sideNavBarTestPage";
 import { AdditionalUserInfoPage } from "./components/pages/additionalUserInfoPage";
@@ -14,28 +10,28 @@ import { useSelector } from "react-redux";
 import { ReducerType } from "./store/rootReducer";
 import { NavBar } from "./components/organism/navBar";
 import { lazy, Suspense } from "react";
-import { Text } from "./components/atom/text";
 import { DescriptionModal } from "./components/organism/descriptionModal";
-import { CommunityPage } from "./components/pages/communityPage";
 import { GetGoalPage } from "./components/pages/getGoalPage";
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import '../src/utils/toast.css';
+import { Shimmer } from "./utils/shimmer";
 
 const GoalPlanPage = lazy(() => import("./components/pages/goalPlanPage"));
 const GoalPage = lazy(() => import("./components/pages/goalPage"));
 const PlanPage = lazy(() => import("./components/pages/planPage"));
+const CommunityPage = lazy(() => import("./components/pages/communityPage"));
+const ModifyUserInfoPage = lazy(() => import("./components/pages/modifyUserInfoPage"));
 
 function App() {
   const toggle = useSelector((state: ReducerType) => state.toggle.sideBar);
   const pixel = toggle ? -182 : 0;
   return (
     <>
-      <div style={{ transform: `translateX(${pixel}px)`, transitionDuration: "0.5s" }}>
-        <Suspense fallback={<Text innerText={"wait..!"} />}>
+        <Suspense fallback={<Shimmer />}>
           <Routes>
             <Route path="/" element={<LoginPage />} />
+            <Route path="/createAccount" element={<CreateAccountPage />} />
             <Route path="/*" element={<NavBar />}>
-              <Route path="createAccount" element={<CreateAccountPage />} />
               <Route path="findPassword" element={<FindPasswordPage />} />
               <Route path="test" element={<Layout />} />
               <Route path="main" element={<GoalPlanPage />} />
@@ -51,7 +47,6 @@ function App() {
             </Route>
           </Routes>
         </Suspense>
-      </div>
       <ToastContainer
         position="top-right"
         autoClose={5000}
