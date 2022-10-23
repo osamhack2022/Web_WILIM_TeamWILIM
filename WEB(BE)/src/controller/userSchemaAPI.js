@@ -1,10 +1,10 @@
-import nodemailer from 'nodemailer';
 import User from "../models/user.js";
 import GoalElement from "../models/goalElement.js";
 import { PlanList, PlanElement } from "../models/personalPlan.js";
 import Comment from "../models/comment";
 import Post from  "../models/post";
 import ExpressError from "../utils/error.js";
+import nodemailer from 'nodemailer';
 import "../env.js";
 import { mail_id,mail_password, smtp_port} from "../db.js";
 
@@ -162,19 +162,35 @@ module.exports.resetPassword = async(req,res,next)=>{
     const user = await User.find({email : email});
     const tempPassword = 'test';
     // await User.findByIdAndUpdate(user._id,{password : tempPassword});
-    let info = await transport.sendMail({
-        from: `${mail_id}@naver.com`, //"WILIM ADMIN👻"
-        to: `${email}`,
-        subject: `${user.username}님, 임시비밀번호를 알려드립니다!`,
-        text: `안녕하세요 WILIM 관리자 입니다.
+//     const data = {email : email, title : `${user.username}님, 임시비밀번호를 알려드립니다!`, message : `안녕하세요 WILIM 관리자 입니다.
 
-${user.username}님의 바뀐 임시 비밀번호는 ${tempPassword}입니다.
-    
-로그인 후 꼭 유저정보에서 변경해주세요!`,
+// ${user.username}님의 바뀐 임시 비밀번호는 ${tempPassword}입니다.
+
+// 로그인 후 꼭 유저정보에서 변경해주세요!`};
+    let transporter = nodemailer.createTransport({
+        service: 'naver',
+        host: 'smtp.naver.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: "wilim_adm@naver.com",
+            pass: "wilimadmin1!",
+        },
     });
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    res.redirect('/');
+    let mailOptions = await transporter.sendMail({
+        from: `테스트`,
+        to: 'cerealmaster@naver.com',
+        subject: '윌림테스트',
+        html: '테스트',
+    });
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        }
+        console.log("Finish sending email : " + info.response);
+        res.send(info.response);
+        transporter.close()
+    });
 }
 
 //POST login 로그인 로직 변경으로 인한 모듈 미사용

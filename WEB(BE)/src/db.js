@@ -6,4 +6,4 @@ export const naver_client_id = process.env.NAVER_CLIENT_ID || "BzGElduCaHreHASzK
 export const naver_client_secret = process.env.NAVER_CLIENT_SECRET || "qgRyTV0dyK";
 export const mail_id = process.env.MAIL_ID || "wilim_adm";
 export const mail_password = process.env.MAIL_PASSWORD || "wilimadmin1!";
-export const smtp_port = process.env.SMTP_PORT || 465;
+export const smtp_port = process.env.SMTP_PORT || 587;
