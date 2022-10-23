@@ -13,7 +13,7 @@ import { lazy, Suspense } from "react";
 import { DescriptionModal } from "./components/organism/descriptionModal";
 import { GetGoalPage } from "./components/pages/getGoalPage";
 import { ToastContainer } from 'react-toastify';
-import '../src/utils/toast.css';
+import '../src/utils/ReactToastify.css';
 import { Shimmer } from "./utils/shimmer";
 
 const GoalPlanPage = lazy(() => import("./components/pages/goalPlanPage"));
