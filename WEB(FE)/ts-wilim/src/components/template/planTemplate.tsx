@@ -17,12 +17,14 @@ export const PlanTemplate = () => {
         <>
             <Title innerText="Plan" />
             <MarginBox marginBottom="2rem" />
-            <Box width="calc(100% - 2rem)" borderRadius="6px" height={isNewPlan ? "383.5px" : "50vh"}>
-                <Flex flexDirection="column" height="100%">
-                    <MarginBox marginBottom="0.5rem" />
-                    {isNewPlan ? <NewPlanForm /> : <DailyPlan />}
-                    <Flex flexDirection="column" justifyContent="center" alignItems="center">
-                        <div onClick={() => dispatch(newPlanToggle())} style={{ transform: isNewPlan ? "rotate(45deg)" : undefined, transitionDuration: "0.5s" }}><SquarePlus /></div>
+            <Box width="calc(100% - 2rem)" borderRadius="6px" height={isNewPlan ? "440px" : "50vh"}>
+                <Flex flexDirection="column" alignItems="flex-start" height="100%">
+                    <Flex flexDirection="column" height="100%">
+                        <MarginBox marginBottom="0.5rem" />
+                        {isNewPlan ? <NewPlanForm /> : <DailyPlan />}
+                        <Flex flexDirection="column" justifyContent="center" alignItems="center">
+                            <div onClick={() => dispatch(newPlanToggle())} style={{ marginTop: "0.5rem", transform: isNewPlan ? "rotate(45deg)" : undefined, transitionDuration: "0.5s" }}><SquarePlus /></div>
+                        </Flex>
                     </Flex>
                 </Flex>
             </Box>

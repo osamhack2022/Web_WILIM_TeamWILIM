@@ -10,11 +10,12 @@ interface FlexProps {
     flexWrap?: "nowrap" | "wrap" | "wrap-reverse";
     flex?: string;
     children: JSX.Element | JSX.Element[];
+    overflow?: string;
 }
 
-export const Flex = ({ flexDirection, justifyContent, alignItems, width, height, flexWrap, children, flex }: FlexProps) => {
+export const Flex = ({ flexDirection, justifyContent, alignItems, width, height, flexWrap, children, flex, overflow }: FlexProps) => {
     return (
-        <div style={{ display: "flex", flexDirection, justifyContent, alignItems, width: width ?? "100%", height, flexWrap, flex }}>
+        <div style={{ display: "flex", flexDirection, justifyContent, alignItems, width: width ?? "100%", height, flexWrap, flex, overflow: overflow ?? "hidden" }}>
             {children}
         </div>
     )
