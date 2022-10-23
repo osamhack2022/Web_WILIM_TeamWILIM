@@ -177,20 +177,13 @@ module.exports.resetPassword = async(req,res,next)=>{
             pass: "wilimadmin1!",
         },
     });
-    let mailOptions = await transporter.sendMail({
-        from: `테스트`,
+    let mailOptions = {
+        from: `wilim_adm@naver.com`,
         to: 'cerealmaster@naver.com',
         subject: '윌림테스트',
-        html: '테스트',
-    });
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-        }
-        console.log("Finish sending email : " + info.response);
-        res.send(info.response);
-        transporter.close()
-    });
+        text: '테스트',
+    };
+    await transporter.sendMail(mailOptions);
 }
 
 //POST login 로그인 로직 변경으로 인한 모듈 미사용
