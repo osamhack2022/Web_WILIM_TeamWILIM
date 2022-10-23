@@ -5,4 +5,4 @@ export const qnet_key = process.env.QNET_KEY;
 export const naver_client_id = process.env.NAVER_CLIENT_ID || "BzGElduCaHreHASzKelv";
 export const naver_client_secret = process.env.NAVER_CLIENT_SECRET || "qgRyTV0dyK";
 export const mail_id = process.env.MAIL_ID || "sandboxe201ae1fbd514dcf83193eee21e8e568.mailgun.org";
-export const mail_key = process.env.MAIL_KEY || "ef3ae75995c5d20af57dda82ee63de5c-d117dd33-b7d274bd";
+export const mail_key = process.env.MAIL_KEY || "key-a1a15d9d15fc2e73c9c25d469cb679a0";

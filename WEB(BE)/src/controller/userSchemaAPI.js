@@ -160,18 +160,8 @@ module.exports.renderResetPassword = async(req,res,next)=>{
 
 //PUT reset password 개발중....
 module.exports.resetPassword = async(req,res,next)=>{
-    const {email} = req.body;
-    const user = await User.find({email : email});
-    console.log(user);
-    const tempPassword = 'test';
-    // const transporter = nodemailer.createTransport({
-    //     host: "smtp.mailtrap.io",
-    //     port: 2525,
-    //     auth: {
-    //         user: "aa8dba1acd23e7",
-    //         pass: "ae8e604f2355f9"
-    //     }
-    // });
+    const {username ,email} = req.body;
+    const tempPassword = Math.round(Math.random() * 1e9);
     const mg = mailgun.client({
         username: 'api',
         key: `${mail_key}`,
@@ -180,15 +170,17 @@ module.exports.resetPassword = async(req,res,next)=>{
         .create(`${mail_id}`, {
             from: `WILIM_ADMIN👻 <postmaster@${mail_id}>`,
             to: [`${email}`],
-            subject: `${user.username}님, 비밀번호를 알려드릴게요!`,
-            text: `안녕하세요 ${user.username}님! WILIM 입니다
+            subject: `${username}님, 비밀번호를 알려드릴게요!`,
+            text: `안녕하세요 ${username}님! WILIM 입니다
             
 초기화된 비밀번호는 ${tempPassword}입니다.
 
 로그인 후 프로필 페이지에서 비밀번호를 변경해주세요.`,
         })
-        .then(msg => res.redirect('/')) // logs response data
-        .catch(err => console.log(err)); // logs any error`;
+        .then(msg => {
+            res.send(`<script type="text/javascript">alert("임시 비밀번호를 보냈습니다. 메일함/스팸메일함을 확인해주세요"); window.location.href = "https://front.wilimbackend.tk" </script>`);
+        })
+        .catch(err => console.log(err));
 }
 
 //POST login 로그인 로직 변경으로 인한 모듈 미사용
