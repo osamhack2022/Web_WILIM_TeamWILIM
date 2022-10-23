@@ -18,7 +18,7 @@ router.get('/logout', (req,res)=>{
         if(err){
             throw new ExpressError(404,"오류가 발생했습니다");
         }
-        res.status(200).json({ msg: "로그아웃되었습니다" }); 
+        res.send(`<script type="text/javascript">alert("로그아웃 되었습니다."); window.location.href = "https://3000-geunoh-webwilimteamwili-35mzi13263f.ws-us72.gitpod.io/" </script>`);
     });
 })
 
