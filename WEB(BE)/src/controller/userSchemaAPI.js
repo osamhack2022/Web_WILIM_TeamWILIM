@@ -6,7 +6,7 @@ import Comment from "../models/comment";
 import Post from  "../models/post";
 import ExpressError from "../utils/error.js";
 import "../env.js";
-import { mail,mail_password} from "../db.js";
+import { mail_id,mail_password, smtp_port} from "../db.js";
 
 //GET entire user
 module.exports.getUsers = async (req,res,next) =>{
@@ -160,18 +160,10 @@ module.exports.renderResetPassword = async(req,res,next)=>{
 module.exports.resetPassword = async(req,res,next)=>{
     const {email} = req.body;
     const user = await User.find({email : email});
-    const transport = nodemailer.createTransport({
-        host: "smtp.mailtrap.io",
-        port: 2525,
-        auth: {
-            user: "aa8dba1acd23e7",
-            pass: "ae8e604f2355f9"
-        }
-    });
     const tempPassword = 'test';
-    await User.findByIdAndUpdate(user._id,{password : tempPassword});
+    // await User.findByIdAndUpdate(user._id,{password : tempPassword});
     let info = await transport.sendMail({
-        from: `"WILIM ADMIN👻" <smtp.mailtrap.io>`,
+        from: `${mail_id}@naver.com`, //"WILIM ADMIN👻"
         to: `${email}`,
         subject: `${user.username}님, 임시비밀번호를 알려드립니다!`,
         text: `안녕하세요 WILIM 관리자 입니다.
