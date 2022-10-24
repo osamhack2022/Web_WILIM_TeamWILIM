@@ -18,7 +18,7 @@ export const CommunityTemplate = () => {
                 {
                     postCardList && postCardList.postList.map((item, index) => (
                         <>
-                            <PostCard _id={item._id} title={item.title} hashtags={item.hashtags} content={item.content} comments={item.comments} key={index} owner={item.owner} />
+                            <PostCard _id={item._id} title={item.title} hashtags={item.hashtags} content={item.content} comments={item.comments} key={index} owner={item.owner} likes={item.likes} />
                             <MarginBox marginBottom="1.5rem" />
                         </>
                     ))

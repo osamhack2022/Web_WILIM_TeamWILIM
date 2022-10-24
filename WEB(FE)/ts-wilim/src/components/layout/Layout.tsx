@@ -52,8 +52,8 @@ export const Layout = () => {
 
 export const MediaDiv = styled.div`
   position: absolute;
-  left: 30vw;
-  width: 40vw;
+  left: 35vw;
+  width: 30vw;
   height: 100vh;
   margin: 0;
   display: flex;

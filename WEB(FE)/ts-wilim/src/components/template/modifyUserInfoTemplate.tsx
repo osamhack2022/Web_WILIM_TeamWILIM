@@ -14,7 +14,6 @@ import { modifyUserInfo } from "../../store/asyncThunks/modifyUserInfo";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserById } from "../../store/asyncThunks/fetchUserById";
 import { Title } from "../molecule/title";
-import { toast } from 'react-toastify';
 
 export const ModifyUserInfoTemplate = () => {
     const _id = useParams()._id!;

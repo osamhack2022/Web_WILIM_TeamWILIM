@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CommentProps, InitialPostProps, PostProps } from "../../schema/community";
-import { addComment } from "../asyncThunks/addComment";
+import { InitialPostProps, PostProps } from "../../schema/community";
 import { addPost } from "../asyncThunks/addPost";
 import { getAllPosts } from "../asyncThunks/getAllPosts";
 import { getPostById } from "../asyncThunks/getPostById";

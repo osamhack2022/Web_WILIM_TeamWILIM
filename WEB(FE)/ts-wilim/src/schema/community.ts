@@ -1,5 +1,3 @@
-import { User } from "./user";
-
 export interface InitialPostProps {
     postList: PostProps[];
 }
@@ -12,6 +10,7 @@ export interface PostProps {
     image: [];
     date: string;
     hashtags: string[];
+    likes: number;
     comments: CommentProps[];
     __v: number;
 }
@@ -43,6 +42,7 @@ export interface PostCardProps {
     _id: string;
     title: string;
     hashtags: string[];
+    likes: number;
     content: string;
     comments: CommentProps[];
     owner: OwnerProps;

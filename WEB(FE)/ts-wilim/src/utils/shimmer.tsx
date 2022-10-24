@@ -7,7 +7,7 @@ export const Shimmer = () => {
     return (
         <MediaDiv>
             <InnerMediaDiv>
-                <Flex justifyContent="center" alignItems="center" height="100%">
+                <Flex justifyContent="center" alignItems="flex-start" height="100%">
                     <Text
                         innerText="WILIM"
                         fontWeight={BaseStyles.Text.Border1}
