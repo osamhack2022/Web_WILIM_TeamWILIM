@@ -15,6 +15,7 @@ import {
     getPostsOfUser,
     addNewPost,
     searchPosts,
+    tapLikeButton,
     getComment,
     updateComment,
     deleteComment,
@@ -41,6 +42,9 @@ router.route("/post/:id")
     .all(checkOwnerMiddleware)
     .put(updatePost)        // owner 권한 확인 필요
     .delete(deletePost);    // owner 권한 확인 필요
+
+// "좋아요" 버튼을 누르는 기능
+router.get("/post/:id/like").get(tapLikeButton);
 
 // username을 파라미터로 받아, 특정 User가 게시한 post만 받아 오거나, 새로운 post를 게시한다.
 router.get("/user/:username/posts", getPostsOfUser);

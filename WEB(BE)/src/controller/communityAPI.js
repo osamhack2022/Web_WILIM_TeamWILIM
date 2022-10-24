@@ -17,12 +17,12 @@ export const renderPostEditPage = async (req, res, next) => {
     return res.render("communityAPI/postEdit", { user, post });
 }
 
-module.exports.getAllPosts = async(req,res,next)=>{//테스트용
+export const getAllPosts = async(req, res, next) => {
     const posts = await Post.find({});
     res.status(200).json(posts);
 }
 
-module.exports.getAllComments = async(req,res,next)=>{//테스트용
+export const getAllComments = async(req, res, next) => {
     const comments = await Comment.find({});
     res.status(200).json(comments);
 }
@@ -119,7 +119,7 @@ export const addNewPost = async (req, res, next) => {
             title,
             content,
             hashtags,
-            date: Post.dateFormatting(date)
+            date: date
         });
         await newPost.save();
         await User.findByIdAndUpdate(_id, { $push: { posts: newPost._id }});
@@ -147,6 +147,41 @@ export const searchPosts = async (req, res, next) => {
         return res.status(404).json({ message: error });
     }
 };
+
+export const tapLikeButton = async (req, res, next) => {
+    // 좋아요를 안 누른 상태 : 좋아요 표시 하도록 !
+    // 좋아요를 이미 누른 상태 : 좋아요 취소
+    const { id } = req.params;
+    const { _id, likedPosts } = req.user;
+    const isUserAlreadyLikes = likedPosts.includes(id);
+
+    try {
+        const post = await Post.findById(id);
+
+        if(!isUserAlreadyLikes) {
+            post.likes += 1;
+            post.likedUsers.push(_id);
+            await post.save();
+
+            await User.findByIdAndUpdate(_id, { $push: {likedPosts: id}});
+        } else {
+            post.likes -= 1;
+            for(var i=0; i<post.likedUsers.length; i++) {
+                if(post.likedUsers[i] === id) {
+                    post.likedUsers.splice(i, 1);
+                    break;
+                }
+            }
+            await post.save();
+
+            await User.findByIdAndUpdate(_id, { $pull: {likedPosts: id}});
+        }
+
+        return res.status(200).send(post);
+    } catch(error) {
+        return res.status(404).json({ message: error });
+    }
+}
 
 export const getComment = async (req, res, next) => {
     const { id } = req.params;
@@ -205,7 +240,7 @@ export const addNewComment = async (req, res, next) => {
             username: username,
             content: content,
             post: id,
-            date: Comment.dateFormatting(date)
+            date: date
         });
         await newComment.save();
         await Post.findByIdAndUpdate(id, { $push: { comments: newComment._id }});
