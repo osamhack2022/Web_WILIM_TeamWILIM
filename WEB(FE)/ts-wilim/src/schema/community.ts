@@ -10,9 +10,9 @@ export interface PostProps {
     image: [];
     date: string;
     hashtags: string[];
-    likes: number;
     comments: CommentProps[];
     __v: number;
+    likedUsers: string[];
 }
 
 export interface OwnerProps {
@@ -42,7 +42,7 @@ export interface PostCardProps {
     _id: string;
     title: string;
     hashtags: string[];
-    likes: number;
+    likedUsers: string[];
     content: string;
     comments: CommentProps[];
     owner: OwnerProps;

@@ -14,6 +14,7 @@ import { modifyUserInfo } from "../../store/asyncThunks/modifyUserInfo";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserById } from "../../store/asyncThunks/fetchUserById";
 import { Title } from "../molecule/title";
+import { Text } from "../atom/text";
 
 export const ModifyUserInfoTemplate = () => {
     const _id = useParams()._id!;
@@ -33,8 +34,10 @@ export const ModifyUserInfoTemplate = () => {
 
     return (
         <>
-            <Title innerText="Update Account" />
-            <MarginBox marginBottom="3rem" />
+            <Title innerText="Profile" />
+            <MarginBox marginBottom="1rem" />
+            <Text innerText={`${data.username} | ${data.email}`} fontSize={BaseStyles.Text.Heading3} />
+            <MarginBox marginBottom="2rem" />
             <form>
                 <InputArea
                     title="User Name"
@@ -45,15 +48,21 @@ export const ModifyUserInfoTemplate = () => {
                     value={userInfoForm.username}
                 />
                 <MarginBox marginBottom="2rem" />
-                <InputArea
-                    title="Password"
-                    name="password"
-                    inputType="password"
-                    placeholder="password..."
-                    onChange={(e) => handleChange(e)}
-                    value={userInfoForm.password}
-                />
-                <MarginBox marginBottom="2rem" />
+                {
+                    data.provider === null ? (
+                        <>
+                            <InputArea
+                                title="Password"
+                                name="password"
+                                inputType="password"
+                                placeholder="password..."
+                                onChange={(e) => handleChange(e)}
+                                value={userInfoForm.password}
+                            />
+                            <MarginBox marginBottom="2rem" />
+                        </>
+                    ) : <></>
+                }
                 <Flex alignItems="center" justifyContent="center" flexWrap="wrap">
                     <MarginBox marginLeft="0.5rem" />
                     <Input
@@ -132,7 +141,7 @@ export const ModifyUserInfoTemplate = () => {
                 <MarginBox marginBottom="3rem" />
                 <Flex flexDirection="column" alignItems="center">
                     <Button
-                        innerText="Update Information"
+                        innerText="Update Profile"
                         onClick={(e) => {
                             e.preventDefault();
                             dispatch(modifyUserInfo({ ...userInfoForm }))

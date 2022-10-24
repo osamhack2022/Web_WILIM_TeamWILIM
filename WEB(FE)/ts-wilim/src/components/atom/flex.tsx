@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 type directionType = "column" | "row";
 type flexType = "flex-start" | "flex-end" | "center" | "left" | "right" | "space-between" | "space-evenly" | "space-around";
 
@@ -11,12 +13,19 @@ interface FlexProps {
     flex?: string;
     children: JSX.Element | JSX.Element[];
     overflow?: string;
+    overflowX?: "visible" | "hidden" | "auto" | "scroll" | "clip";
 }
 
-export const Flex = ({ flexDirection, justifyContent, alignItems, width, height, flexWrap, children, flex, overflow }: FlexProps) => {
+export const Flex = ({ flexDirection, justifyContent, alignItems, width, height, flexWrap, children, flex, overflow, overflowX }: FlexProps) => {
     return (
-        <div style={{ display: "flex", flexDirection, justifyContent, alignItems, width: width ?? "100%", height, flexWrap, flex, overflow: overflow ?? "hidden" }}>
+        <FlexDiv style={{ display: "flex", flexDirection, justifyContent, alignItems, width: width ?? "100%", height, flexWrap, flex, overflow: overflow ?? "hidden", overflowX }}>
             {children}
-        </div>
+        </FlexDiv>
     )
 }
+
+const FlexDiv = styled.div`
+::-webkit-scrollbar{
+    display: none; 
+}
+`

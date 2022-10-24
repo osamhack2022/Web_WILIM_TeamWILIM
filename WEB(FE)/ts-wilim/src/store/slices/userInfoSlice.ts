@@ -8,12 +8,16 @@ import { fetchAdditionalUserInfo } from "../asyncThunks/fetchAdditionalUserInfo"
 import { fetchLoginInfo } from "../asyncThunks/fetchLoginInfo";
 
 const user: User = {
+  comments: [],
+  posts: [],
+  snsId: "",
   _id: "",
   email: "",
   password: "",
   username: "",
+  provider: null,
   serviceType: "",
-  goal: ""
+  goal: "",
 }
 
 export const userInfoSlice = createSlice({

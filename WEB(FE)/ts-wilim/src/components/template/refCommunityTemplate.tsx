@@ -181,7 +181,7 @@ export const RefCommunityTemplate = () => {
                 />
                 <MarginBox marginBottom="1rem" />
                 <Text
-                  innerText="혼자 공부하고자 한다면 아래 커뮤니티를 활용해보는 것은 어떨까요?"
+                  innerText="혼자 공부하고자 한다면 커뮤니티를 활용해보는 것은 어떨까요?"
                   color="white"
                   fontSize={BaseStyles.Text.Heading4}
                   fontWeight={BaseStyles.Text.Border3}

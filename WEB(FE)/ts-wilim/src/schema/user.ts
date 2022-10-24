@@ -6,8 +6,10 @@ export interface User {
   email?: string;
   password: string;
   username: string;
+  provider?: null | "kakao" | "naver";
   serviceType: string;
   goal?: string;
+  likedPosts?: string[];
 }
 
 

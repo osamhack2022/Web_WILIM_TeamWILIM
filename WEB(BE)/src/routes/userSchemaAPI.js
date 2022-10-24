@@ -18,7 +18,7 @@ router.get('/logout', (req,res)=>{
         if(err){
             throw new ExpressError(404,"오류가 발생했습니다");
         }
-        res.status(200).redirect('https://front.wilimbackend.tk'); 
+        res.send(`<script type="text/javascript">alert("로그아웃 되었습니다."); window.location.href = "https://front.wilimbackend.tk" </script>`);
     });
 })
 

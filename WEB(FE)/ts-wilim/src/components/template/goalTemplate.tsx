@@ -51,7 +51,7 @@ export const GoalTemplate = () => {
                 <Flex flexDirection="column" justifyContent="flex-start" height="100%">
                     <Input type="text" width="calc(100% - 2.5rem)" onChange={(e: any) => setSearchWord(e.target.value)} value={searchWord} placeholder="Input your keyword" />
                     <MarginBox marginBottom="1rem" />
-                    <Flex flexDirection="column" justifyContent="flex-start" height="100%">
+                    <Flex flexDirection="column" justifyContent="flex-start" height="100%" overflow="auto">
                         {
                             goalList.map((item, index) => {
                                 return (
