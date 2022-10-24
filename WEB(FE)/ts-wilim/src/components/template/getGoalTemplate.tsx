@@ -28,7 +28,7 @@ export const GetGoalTemplate = () => {
             <Text innerText="Greeting!" fontSize={BaseStyles.Text.Heading2} fontWeight={BaseStyles.Text.Border1} />
             <MarginBox marginBottom="3rem" />
             <Box width="calc(100% - 2rem)" borderRadius="6px" backgroundColor="#494949" height="50vh" style={{ overflow: "auto" }}>
-                <Flex flexDirection="column" justifyContent="flex-start" height="100%">
+                <Flex flexDirection="column" justifyContent="flex-start" height="100%" overflow="auto">
                     <Input type="text" width="calc(100% - 2.5rem)" onChange={(e: any) => setSearchWord(e.target.value)} value={searchWord} placeholder="Input your keyword" />
                     <MarginBox marginBottom="1rem" />
                     <Flex flexDirection="column" justifyContent="flex-start" height="100%">

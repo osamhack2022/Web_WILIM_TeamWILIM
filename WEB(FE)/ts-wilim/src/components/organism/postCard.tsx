@@ -18,35 +18,36 @@ import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
 import { toast } from 'react-toastify';
 import { deletePost } from "../../store/asyncThunks/deletePost";
-import { Heart } from "../atom/heart";
+import { EmptyHeart } from "../atom/emptyHeart";
+import { FullHeart } from "../atom/fullHeart";
 import { updatePostLikes } from "../../store/asyncThunks/updatePostLikes";
 
-export const PostCard = ({ _id, title, content, hashtags, comments, owner, likes }: PostCardProps) => {
-    const { username } = useSelector((state: ReducerType) => state.userInfo);
+export const PostCard = ({ _id, title, content, hashtags, comments, owner, likedUsers }: PostCardProps) => {
+    const { username, likedPosts } = useSelector((state: ReducerType) => state.userInfo);
+    console.log(likedUsers, likedPosts);
     const userId = useSelector((state: ReducerType) => state.userInfo._id);
     const AppDispatch = useDispatch<AppThunkDispatch>();
     const [comment, setComment] = useState<string>("");
-    const [likeToggle, setLikeToggle] = useState<boolean>(false);
     return (
         <Box width="calc(100% - 2rem)">
             <Flex flexDirection="column" alignItems="flex-start">
                 <Flex alignItems="center" justifyContent="space-between">
                     <Flex alignItems="center" justifyContent="space-between">
                         <Text innerText={title} fontWeight={BaseStyles.Text.Border1} fontSize={BaseStyles.Text.Heading3} />
-                        {/* <Flex alignItems="center" justifyContent="space-between" width="auto">
-                            <Text innerText={String(likes)} fontSize={BaseStyles.Text.Heading4} color={BaseStyles.Color.Red1} />
+                        <Flex alignItems="center" justifyContent="space-between" width="auto">
+                            <Text innerText={"아직 구현 중"} fontSize={BaseStyles.Text.Heading4} color={BaseStyles.Color.Red1} />
                             <MarginBox marginLeft="0.3rem" />
                             <div onClick={() => {
-                                AppDispatch(updatePostLikes({ _id, likes }))
+                                AppDispatch(updatePostLikes({ _id }))
                                 .then(res => {
                                     if(res.meta.requestStatus === "fulfilled") {
                                         getPostById({ _id })
                                     }
                                 })
                             }}>
-                                <Heart />
+                                {likedPosts?.includes(_id) ? <FullHeart /> : <EmptyHeart />}
                             </div>
-                        </Flex> */}
+                        </Flex>
                     </Flex>
                     {
                         userId === owner._id ?
@@ -66,7 +67,7 @@ export const PostCard = ({ _id, title, content, hashtags, comments, owner, likes
                     }
                 </Flex>
                 <MarginBox marginBottom="0.5rem" />
-                <Flex alignItems="center" justifyContent="flex-start">
+                <Flex alignItems="center" justifyContent="flex-start" overflowX="scroll" flexWrap="nowrap">
                     {
                         hashtags && hashtags.map((tag, index) => (
                             <>
