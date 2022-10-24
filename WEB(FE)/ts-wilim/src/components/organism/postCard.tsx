@@ -18,40 +18,59 @@ import { Text } from "../atom/text";
 import { BaseStyles } from "../theme";
 import { toast } from 'react-toastify';
 import { deletePost } from "../../store/asyncThunks/deletePost";
+import { Heart } from "../atom/heart";
+import { updatePostLikes } from "../../store/asyncThunks/updatePostLikes";
 
-export const PostCard = ({ _id, title, content, hashtags, comments, owner }: PostCardProps) => {
+export const PostCard = ({ _id, title, content, hashtags, comments, owner, likes }: PostCardProps) => {
     const { username } = useSelector((state: ReducerType) => state.userInfo);
     const userId = useSelector((state: ReducerType) => state.userInfo._id);
     const AppDispatch = useDispatch<AppThunkDispatch>();
     const [comment, setComment] = useState<string>("");
+    const [likeToggle, setLikeToggle] = useState<boolean>(false);
     return (
         <Box width="calc(100% - 2rem)">
             <Flex flexDirection="column" alignItems="flex-start">
                 <Flex alignItems="center" justifyContent="space-between">
-                <Text innerText={title} fontWeight={BaseStyles.Text.Border1} fontSize={BaseStyles.Text.Heading3} />
-                {
-                userId === owner._id ? 
-                (
-                    <div onClick={() => {
-                        AppDispatch(deletePost({ _id }))
-                        .then(res => {
-                            if(res.meta.requestStatus === "fulfilled") {
-                                AppDispatch(getAllPosts());
-                            }
-                        })
-                    }}>
-                        <Text innerText="DELETE" fontWeight={BaseStyles.Text.Border3} fontSize={BaseStyles.Text.Heading4} color="gray" />
-                    </div>
-                ) :
-                <></>
-                }
+                    <Flex alignItems="center" justifyContent="space-between">
+                        <Text innerText={title} fontWeight={BaseStyles.Text.Border1} fontSize={BaseStyles.Text.Heading3} />
+                        {/* <Flex alignItems="center" justifyContent="space-between" width="auto">
+                            <Text innerText={String(likes)} fontSize={BaseStyles.Text.Heading4} color={BaseStyles.Color.Red1} />
+                            <MarginBox marginLeft="0.3rem" />
+                            <div onClick={() => {
+                                AppDispatch(updatePostLikes({ _id, likes }))
+                                .then(res => {
+                                    if(res.meta.requestStatus === "fulfilled") {
+                                        getPostById({ _id })
+                                    }
+                                })
+                            }}>
+                                <Heart />
+                            </div>
+                        </Flex> */}
+                    </Flex>
+                    {
+                        userId === owner._id ?
+                            (
+                                <div onClick={() => {
+                                    AppDispatch(deletePost({ _id }))
+                                        .then(res => {
+                                            if (res.meta.requestStatus === "fulfilled") {
+                                                AppDispatch(getAllPosts());
+                                            }
+                                        })
+                                }}>
+                                    <Text innerText="DELETE" fontWeight={BaseStyles.Text.Border3} fontSize={BaseStyles.Text.Heading4} color="gray" />
+                                </div>
+                            ) :
+                            <></>
+                    }
                 </Flex>
                 <MarginBox marginBottom="0.5rem" />
                 <Flex alignItems="center" justifyContent="flex-start">
                     {
                         hashtags && hashtags.map((tag, index) => (
                             <>
-                                <MarginBox marginLeft="1rem" key={index}/>
+                                <MarginBox marginLeft="1rem" key={index} />
                                 <Box height="2rem" borderRadius="1rem" backgroundColor="#FF894670" width="auto" style={{ padding: "0", paddingLeft: "1rem", paddingRight: "1rem" }}>
                                     <Text innerText={tag} fontWeight={BaseStyles.Text.Border1} fontSize={BaseStyles.Text.Heading5} />
                                 </Box>
@@ -68,22 +87,22 @@ export const PostCard = ({ _id, title, content, hashtags, comments, owner }: Pos
                     {
                         comments && comments.map((comment, index) => (
                             <div onClick={() => {
-                                if(comment.username !== username) {
+                                if (comment.username !== username) {
                                     toast.error("직접 작성한 댓글만 지울 수 있습니다.", {
                                         autoClose: 2000,
                                     })
                                 } else {
                                     AppDispatch(deleteComment({ _id: comment._id }))
-                                    .then(res => {
-                                        if(res.meta.requestStatus === "fulfilled") {
-                                            AppDispatch(getPostById({ _id }));
-                                        }
-                                    })
+                                        .then(res => {
+                                            if (res.meta.requestStatus === "fulfilled") {
+                                                AppDispatch(getPostById({ _id }));
+                                            }
+                                        })
                                 }
                             }} style={{ width: "100%" }}>
                                 <Box backgroundColor="#BBBBBB" key={index} style={{ justifyContent: "flex-start" }} borderRadius="1rem">
                                     <Text innerText={comment.content} color="black" fontWeight={BaseStyles.Text.Border3} fontSize={BaseStyles.Text.Heading4} />
-                                    <Text innerText={` -${comment.username}`} color="gray" fontSize={BaseStyles.Text.Heading5}/>
+                                    <Text innerText={` -${comment.username}`} color="gray" fontSize={BaseStyles.Text.Heading5} />
                                 </Box>
                                 <MarginBox marginBottom="1rem" />
                             </div>
@@ -92,16 +111,16 @@ export const PostCard = ({ _id, title, content, hashtags, comments, owner }: Pos
                 </>
                 <MarginBox marginBottom="1rem" />
                 <Flex alignItems="center" justifyContent="space-between">
-                <Input type="text" width="calc(70% - 2rem)" placeholder="댓글을 달아주세요" style={{ color: "white", background: "none", border: "none", boxShadow: "none" }} onChange={(e: any) => setComment(e.target.value)} name="content" value={comment} />
-                <Button innerText="Submit" width="30%" backgroundColor="#FF8946" color="white" onClick={() => {
-                    AppDispatch(addComment({ content: comment!, _id }))
-                    .then(res => {
-                        if(res.meta.requestStatus === "fulfilled") {
-                            AppDispatch(getPostById({ _id }));
-                            setComment("");
-                        }
-                    })
-                }} />
+                    <Input type="text" width="calc(70% - 2rem)" placeholder="댓글을 달아주세요" style={{ color: "white", background: "none", border: "none", boxShadow: "none" }} onChange={(e: any) => setComment(e.target.value)} name="content" value={comment} />
+                    <Button innerText="Submit" width="30%" backgroundColor="#FF8946" color="white" onClick={() => {
+                        AppDispatch(addComment({ content: comment!, _id }))
+                            .then(res => {
+                                if (res.meta.requestStatus === "fulfilled") {
+                                    AppDispatch(getPostById({ _id }));
+                                    setComment("");
+                                }
+                            })
+                    }} />
                 </Flex>
             </Flex>
         </Box>

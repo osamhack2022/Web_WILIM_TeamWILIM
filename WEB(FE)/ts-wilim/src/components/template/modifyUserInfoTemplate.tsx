@@ -141,6 +141,9 @@ export const ModifyUserInfoTemplate = () => {
                                         dispatch(fetchUserById(_id))
                                             .then(res => {
                                                 if (res.meta.requestStatus === 'fulfilled') {
+                                                    // toast.success("다시 로그인 해주세요!", {
+                                                    //     autoClose: 2000,
+                                                    // })
                                                     navigate(`/main`);
                                                 }
                                             })

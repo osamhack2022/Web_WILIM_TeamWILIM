@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../atom/button";
 import { Flex } from "../atom/flex";
 import { MarginBox } from "../atom/marginBox";
@@ -10,6 +10,9 @@ import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 import { Title } from "../molecule/title";
+import axios from "axios";
+import { Text } from "../atom/text";
+import { toast } from "react-toastify";
 
 export const CreateAccountTemplate = () => {
   const initialForm = {
@@ -21,15 +24,20 @@ export const CreateAccountTemplate = () => {
   const dispatch = useDispatch<AppThunkDispatch>();
   const navigate = useNavigate();
   const [userInfoForm, setUserInfoForm] = useState(initialForm);
-  const buttonColor = (type: string) =>
-    type === userInfoForm.serviceType
-      ? BaseStyles.Color.Purple2
-      : BaseStyles.Color.Purple1;
+  const [names, setNames] = useState<string[]>([]);
   const handleChange = (event: any) => {
     const { name, value } = event.target;
     setUserInfoForm({ ...userInfoForm, [name]: value });
     console.log(userInfoForm);
   };
+  const res = async () => await axios("https://wilimbackend.tk/userSchemaAPI").then(res => {
+    for (let i = 0; i < res.data.length; i++) {
+        setNames(prev => [ ...prev, res.data[i].username ])
+    }
+});
+useEffect(() => {
+  res();
+}, [])
 
   return (
     <>
@@ -52,10 +60,10 @@ export const CreateAccountTemplate = () => {
           essential={true}
           inputType="text"
           placeholder="Name..."
-          buttonText="Check"
           onChange={(e) => handleChange(e)}
           value={userInfoForm.username}
         />
+        {names.includes(userInfoForm.username) ? <Text innerText="This username is already exist!" color={BaseStyles.Color.Red2} fontSize={BaseStyles.Text.Heading4}/> : <></>}
         <MarginBox marginBottom="2rem" />
         <InputArea
           title="Password"
@@ -67,52 +75,81 @@ export const CreateAccountTemplate = () => {
           value={userInfoForm.password}
         />
         <MarginBox marginBottom="2rem" />
-        <Flex alignItems="center" justifyContent="center">
-          <Input
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: buttonColor("육군"),
-              border: "none",
-              color: "white",
-            }}
-            type="button"
-            name="serviceType"
-            placeholder="육군"
-            value="ARMY"
-            onClick={(e) => handleChange(e)}
-          />
-          <MarginBox marginLeft="1rem" />
-          <Input
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: buttonColor("해군"),
-              border: "none",
-              color: "white",
-            }}
-            type="button"
-            name="serviceType"
-            placeholder="해군"
-            value="NAVY"
-            onClick={(e) => handleChange(e)}
-          />
-          <MarginBox marginLeft="1rem" />
-          <Input
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: buttonColor("공군"),
-              border: "none",
-              color: "white",
-            }}
-            type="button"
-            name="serviceType"
-            placeholder="공군"
-            value="AIR_FORCE"
-            onClick={(e) => handleChange(e)}
-          />
-        </Flex>
+        <Flex alignItems="center" justifyContent="center" flexWrap="wrap">
+                    <MarginBox marginLeft="0.5rem" />
+                    <Input
+                        style={{
+                            display: "flex",
+                            width: "100px",
+                            justifyContent: "center",
+                            backgroundColor: "#658a1b",
+                            border: "none",
+                            color: "white",
+                            opacity: userInfoForm.serviceType === "ARMY" ? 1 : 0.7,
+                            marginTop: "1rem",
+                        }}
+                        type="button"
+                        name="serviceType"
+                        placeholder="육군"
+                        value="ARMY"
+                        onClick={(e) => handleChange(e)}
+                    />
+                    <MarginBox marginLeft="1rem" />
+                    <Input
+                        style={{
+                            display: "flex",
+                            width: "100px",
+                            justifyContent: "center",
+                            backgroundColor: "#275af5",
+                            border: "none",
+                            color: "white",
+                            opacity: userInfoForm.serviceType === "NAVY" ? 1 : 0.7,
+                            marginTop: "1rem",
+                        }}
+                        type="button"
+                        name="serviceType"
+                        placeholder="해군"
+                        value="NAVY"
+                        onClick={(e) => handleChange(e)}
+                    />
+                    <MarginBox marginLeft="1rem" />
+                    <Input
+                        style={{
+                            display: "flex",
+                            width: "100px",
+                            justifyContent: "center",
+                            backgroundColor: "#3399FF",
+                            border: "none",
+                            color: "white",
+                            opacity: userInfoForm.serviceType === "AIR_FORCE" ? 1 : 0.7,
+                            marginTop: "1rem",
+                        }}
+                        type="button"
+                        name="serviceType"
+                        placeholder="공군"
+                        value="AIR_FORCE"
+                        onClick={(e) => handleChange(e)}
+                    />
+                    <MarginBox marginLeft="1rem" />
+                    <Input
+                        style={{
+                            display: "flex",
+                            width: "100px",
+                            justifyContent: "center",
+                            backgroundColor: "#ff2335",
+                            border: "none",
+                            color: "white",
+                            opacity: userInfoForm.serviceType === "MARINE" ? 1 : 0.7,
+                            marginTop: "1rem",
+                        }}
+                        type="button"
+                        name="serviceType"
+                        placeholder="해병대"
+                        value="MARINE"
+                        onClick={(e) => handleChange(e)}
+                    />
+                    <MarginBox marginLeft="0.5rem" />
+                </Flex>
         <MarginBox marginBottom="3rem" />
         <Flex flexDirection="column" alignItems="center">
           <Button
@@ -122,6 +159,7 @@ export const CreateAccountTemplate = () => {
               dispatch(localRegister(userInfoForm))
               .then(res => {
                 if(res.meta.requestStatus === "fulfilled") navigate(`/main`);
+                if(res.meta.requestStatus === "rejected") toast.error("모든 사항을 기입해주세요!");
               })
             }}
             color="white"
