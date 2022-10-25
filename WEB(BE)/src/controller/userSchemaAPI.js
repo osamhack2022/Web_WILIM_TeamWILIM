@@ -171,11 +171,8 @@ module.exports.resetPassword = async(req,res,next)=>{
             from: `WILIM_ADMIN👻 <postmaster@${mail_id}>`,
             to: [`${email}`],
             subject: `${username}님, 비밀번호를 알려드릴게요!`,
-            text: `안녕하세요 ${username}님! WILIM 입니다
-            
-초기화된 비밀번호는 ${tempPassword}입니다.
-
-로그인 후 프로필 페이지에서 비밀번호를 변경해주세요.`,
+            text: `안녕하세요 ${username}님! WILIM 입니다.초기화된 비밀번호는 ${tempPassword}입니다.로그인 후 프로필 페이지에서 비밀번호를 변경해주세요.`,
+            html : `<h1>안녕하세요 ${username}님! WILIM 입니다.</h1><div>초기화된 비밀번호는 ${tempPassword}입니다.</div><div>로그인 후 프로필 페이지에서 비밀번호를 변경해주세요.</div>`
         })
         .then(msg => {
             res.send(`<script type="text/javascript">alert("임시 비밀번호를 보냈습니다. 메일함/스팸메일함을 확인해주세요"); window.location.href = "https://front.wilimbackend.tk" </script>`);
