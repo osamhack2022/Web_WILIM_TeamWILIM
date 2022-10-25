@@ -8,6 +8,7 @@ const initialState = {
   goalDate: "",
   goalSearchInfo: "",
   desModal: false,
+  myPost: false,
 };
 
 export const toggleSlice = createSlice({
@@ -21,8 +22,9 @@ export const toggleSlice = createSlice({
     goalSearchInfoToggle: (state: typeof initialState, action: PayloadAction<string>) => { state.goalSearchInfo = action.payload },
     goalDateToggle: (state: typeof initialState, action: PayloadAction<string>) => { state.goalDate = action.payload },
     desModalToggle: (state: typeof initialState) => { state.desModal = !state.desModal },
+    myPostToggle: (state: typeof initialState) => { state.myPost = !state.myPost },
   },
 })
 
-export const { sideBarToggle, newPlanToggle, examRoundToggle, goalSelectToggle, goalSearchInfoToggle, goalDateToggle, desModalToggle } = toggleSlice.actions;
+export const { sideBarToggle, newPlanToggle, examRoundToggle, goalSelectToggle, goalSearchInfoToggle, goalDateToggle, desModalToggle, myPostToggle } = toggleSlice.actions;
 export default toggleSlice.reducer;
