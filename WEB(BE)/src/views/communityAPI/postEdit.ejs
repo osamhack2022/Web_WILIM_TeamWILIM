@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit - <%=post.title %></title>
+</head>
+<body>
+    <h1>Post: <%=post._id %></h1>
+    <h1>Title: <%=post.title %></h1>
+    <h2><%=post.owner.username %>의 Post</h2>
+
+    <form action="/communityAPI/post/<%=post._id %>?_method=PUT" method="post">
+        <label for="title">제목</label>
+        <input id="title" name="title" type="text" value="<%=post.title %>" />
+        <label for="content">내용</label>
+        <input id="content" name="content" type="text" value="<%=post.content %> "> 
+        <button>SAVE</button>
+    </form>
+    <form action="/communityAPI/post/<%=post._id %>?_method=DELETE" method="post">
+        <button>DELETE</button>
+    </form>
+</body>
+</html>

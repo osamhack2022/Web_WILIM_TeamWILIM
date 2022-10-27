@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BACKEND</title>
+</head>
+<body>
+    <div>
+        <% if (!user) {%> 
+            <a href="/userSchemaAPI/login/local">LOGIN</a>
+            <a href="/userSchemaAPI/register/local">REGISTER</a>
+            <a href="/userSchemaAPI/login/kakao">KAKAOLOGIN</a>
+            <a href="/userSchemaAPI/login/naver">NAVERLOGIN</a>
+        <% } else{ %> 
+            <a href="/userSchemaAPI/logout">LOGOUT</a>
+            <div>
+                <H3>CURRENT USER : <%= user.username%></H3>
+            </div>
+        <% } %> 
+    </div>
+    <div>
+        <% if(user) { %>
+            <a href="/userPersonalPlanAPI/<%=user.username %>/plans">PERSONALPLANS</a>
+            <a href="/userGoalElementAPI/goal/<%=user.username %>">USERGOAL</a>
+            <a href="/communityAPI/post/renderRootPage">POSTS</a>
+        <% } %>
+    </div>
+    <br /><br />
+    <form action="/communityAPI/posts" method="get">
+        <label for="keyword">POST 검색</label>
+        <input type="text" name="keyword" id="keyword" placeholder="검색어로 post를 검색해 보세요!" />
+        <button>검색</button>
+    </form>
+    <br />
+    <div><a href="/upload">이미지 업로드</a></div>
+    <h1>백엔드 입니다</h1>
+    <h3>/upload - 이미지 업로드</h3>
+    <h3><u>/userSchemaAPI 라우팅 리스트</u></h3>
+        <ul>
+            <li><b>/</b> - DB 에 있는 모든 유저 GET</li>
+            <li><b>/register/local</b> - local 회원가입</li>
+            <li><b>/login/local</b> - local 로그인</li>
+            <li><b>/register/kakao</b> - kakao 로그인 후 db에 없는 유저일때 회원가입</li>
+            <li><b>/login/kakao</b> - kakao 로그인</li>
+            <li><b>/login/kakao/callback</b> - kakao 로그인 시 자동으로 넘어가는곳</li>
+            <li><b>/register/naver</b> - naver 로그인 후 db에 없는 유저일때 회원가입</li>
+            <li><b>/login/naver</b> - naver 로그인</li>
+            <li><b>/login/naver/callback</b> - naver 로그인 시 자동으로 넘어가는곳</li>
+            <li><b>/loginerror</b> - 로그인 에러 발생시</li>
+            <li><b>/id/:id</b> - 
+                <div>GET - id 을 파라매터로 받아 db에서 찾아 해당 유저 정보 return</div> 
+                <div>PUT - 해당 유저 수정</div>
+                <div>DELETE - 해당 유저 삭제</div>
+            </li>
+            <li><b>/session</b> - 로그인 유저 있을시 유저정보 반환</li>
+            <li><b>/resetPassword</b> - 임시 패스워드 생성 라우터</li>
+        </ul>
+    <h3><u>/userPersonalPlanAPI 라우팅 리스트</u></h3>
+        <ul>
+            <li><b>/:username/plans</b> - 
+                <div>GET - 유저의 전체 Plan List 가져오기</div>
+                <div>POST - 새로운 Plan Element 추가</div>
+            </li>
+            <li><b>/:username/plans/:id</b> -
+                <div>GET - :id에 해당하는 Plan Element 가져오기</div>
+                <div>PUT - :id에 해당하는 Plan Element의 내용 수정</div>
+                <div>DELETE - 해당 Plan Element 삭제</div>
+            </li>
+        </ul>
+    <h3><u>/userGoalElementAPI 라우팅 리스트</u></h3>
+        <ul>
+            <li><b>/ctfInfo</b> - 
+                <div>GET - 모든 자격증 정보 가져오기</div>
+                <div>POST - 새로운 자격증 정보 생성하기</div>
+            </li>
+            <li><b>/ctfInfo/:id</b> -
+                <div>GET - :id에 해당하는 GoalElemnt 가져오기</div>
+                <div>PUT - :id에 해당하는 GoalElement의 내용 수정</div>
+                <div>DELETE - 해당 GoalElement 삭제</div>
+            </li>
+            <li><b>/goal/:username</b> -
+                <div>GET - 유저의 목표 가져오기</div>
+                <div>POST - 기존 GOAL 있으면 삭제하고 새로운 GOAL 생성</div>
+                <div>DELETE - 해당 GOAL 삭제</div>
+            </li>
+        </ul>
+    <h3><u>/communityAPI라우팅 리스트</u></h3>
+        <ul>
+            <li><b>/post/:id</b> - 
+                <div>GET - 해당 id의 포스트 가져오기</div>
+                <div>PUT - 해당 id의 포스트 내용 업데이트(단, 작성자가 로그인한 경우만 허용)</div>
+                <div>DELETE - 해당 id의 포스트 삭제(단, 작성자가 로그인한 경우만 허용)</div>
+            </li>
+            <li><b>/user/:username/posts</b> -
+                <div>GET - 해당하는 user의 포스트 가져오기</div>
+                <div>POST - 새로운 포스트 생성</div>
+            </li>
+            <li><b>/comments/:id</b> -
+                <div>GET - 해당 id의 댓글 가져오기</div>
+                <div>PUT - 해당 id의 댓글 수정하기(단, 작성자가 로그인한 경우만 허용)</div>
+                <div>DELETE - 해당 id의 댓글 삭제(단, 작성자가 로그인한 경우만 허용)</div>
+            </li>
+            <li><b>/post/:id/comments</b> -
+                <div>POST - 해당 id의 포스트에 댓글 추가</div>
+                <div>(GET 방식은 따로 만들지 않고,</div> 
+                <div>포스트를 불러올 때 populate 기능으로 댓글도 같이 불러오는 것으로 대체합니다.)</div> 
+            </li>
+        </ul>
+</body>
+</html>

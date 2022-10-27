@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=user.username %>의 Posts</title>
+</head>
+<body>
+    <h1><%=user.username %>의 Posts</h1>
+    <ul>
+        <% for (var post of user.posts) { %>
+            <li><a href="/communityAPI/post/<%=post %>"><%=post %></a></li>
+        <% } %>
+    </ul>
+
+    <div>
+        <form action="/communityAPI/user/<%=user.username %>/posts" method="post">
+            <label for="title">Title</label>
+            <input id="title" name="title" placeholder="제목을 작성해 주세요." required />
+            <label for="content">Content</label>
+            <input id="content" name="content" placeholder="내용을 작성해 주세요." required />
+            <button>Submit</button>
+        </form>
+    </div>
+</body>
+</html>

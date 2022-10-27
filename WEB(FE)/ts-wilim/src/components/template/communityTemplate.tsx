@@ -12,13 +12,12 @@ import { BaseStyles } from "../theme"
 
 export const CommunityTemplate = () => {
     const { name } = useSelector((state: ReducerType) => state.userGoal);
-    const { _id } = useSelector((state: ReducerType) => state.userInfo);
     const myPost = useSelector((state: ReducerType) => state.toggle.myPost);
-    const postList = useSelector((state: ReducerType) => state.post);
+    const { postList } = useSelector((state: ReducerType) => state.post);
     const dispatch = useDispatch();
-    const postCardList = myPost ? [ ...postList.postList.filter(x => x.hashtags[0] === `#${name}`), ...postList.postList.filter(x => x.hashtags[0] !== `#${name}`) ] : [ ...postList.postList.filter(x => x.owner._id === _id) ];
+    const postCardList = myPost ? postList.filter(x => x.hashtags[0] === `#${name}`).concat(postList.filter(x => x.hashtags[0] !== `#${name}`)) : postList;
     return (
-        <Flex flexDirection="column" alignItems="center">
+        <Flex flexDirection="column" alignItems="flex-start">
             <Title innerText="Community" />
             <Text innerText="My Posts" fontSize={BaseStyles.Text.Heading4} color={myPost ? "#FF8946" : "#BBBBBB"} onClick={() => dispatch(myPostToggle())} />
             <MarginBox marginBottom="2rem" />

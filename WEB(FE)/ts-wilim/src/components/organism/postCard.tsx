@@ -35,15 +35,15 @@ export const PostCard = ({ _id, title, content, hashtags, comments, owner, liked
                     <Flex alignItems="center" justifyContent="space-between">
                         <Text innerText={title} fontWeight={BaseStyles.Text.Border1} fontSize={BaseStyles.Text.Heading3} />
                         <Flex alignItems="center" justifyContent="space-between" width="auto">
-                            <Text innerText={"아직 구현 중"} fontSize={BaseStyles.Text.Heading4} color={BaseStyles.Color.Red1} />
+                            <Text innerText={String(likedUsers.length)} fontSize={BaseStyles.Text.Heading4} color={BaseStyles.Color.Red1} />
                             <MarginBox marginLeft="0.3rem" />
                             <div onClick={() => {
                                 AppDispatch(updatePostLikes({ _id }))
-                                .then(res => {
-                                    if(res.meta.requestStatus === "fulfilled") {
-                                        getPostById({ _id })
-                                    }
-                                })
+                                    .then(res => {
+                                        if (res.meta.requestStatus === "fulfilled") {
+                                            AppDispatch(getAllPosts())
+                                        }
+                                    })
                             }}>
                                 {likedPosts?.includes(_id) ? <FullHeart /> : <EmptyHeart />}
                             </div>
@@ -52,16 +52,19 @@ export const PostCard = ({ _id, title, content, hashtags, comments, owner, liked
                     {
                         userId === owner._id ?
                             (
-                                <div onClick={() => {
-                                    AppDispatch(deletePost({ _id }))
-                                        .then(res => {
-                                            if (res.meta.requestStatus === "fulfilled") {
-                                                AppDispatch(getAllPosts());
-                                            }
-                                        })
-                                }}>
-                                    <Text innerText="DELETE" fontWeight={BaseStyles.Text.Border3} fontSize={BaseStyles.Text.Heading4} color="gray" />
-                                </div>
+                                <>
+                                    <MarginBox marginLeft="0.5rem" />
+                                    <div onClick={() => {
+                                        AppDispatch(deletePost({ _id }))
+                                            .then(res => {
+                                                if (res.meta.requestStatus === "fulfilled") {
+                                                    AppDispatch(getAllPosts());
+                                                }
+                                            })
+                                    }}>
+                                        <Text innerText="X" fontWeight={BaseStyles.Text.Border3} fontSize={BaseStyles.Text.Heading4} color="gray" />
+                                    </div>
+                                </>
                             ) :
                             <></>
                     }
