@@ -42,7 +42,16 @@ export const LoginTemplate = ({ createAccountLink }: LoginTemplateProps) => {
       <Flex flexDirection="column" alignItems="left">
         <InputArea title="E-mail" inputType="text" placeholder='E-mail...' name="email" onChange={(e) => handleChange(e)} value={loginForm.email} />
         <MarginBox marginBottom="2rem" />
-        <InputArea title="Password" inputType="password" placeholder='Password...' name="password" onChange={(e) => handleChange(e)} value={loginForm.password} />
+        <InputArea title="Password" inputType="password" placeholder='Password...' name="password" onChange={(e) => handleChange(e)} onKeyUp={(e) => {
+          if(e.key === "Enter") {
+            e.preventDefault();
+            console.log(loginForm);
+            dispatch(localLogin(loginForm))
+              .then(res => {
+                if (res.meta.requestStatus === "fulfilled") navigate(`/main`);
+              });
+          }
+        }} value={loginForm.password} />
       </Flex>
       <MarginBox marginBottom="1rem" />
       <div onClick={() => window.location.href = "https://wilimbackend.tk/userSchemaAPI/resetPassword"}>
