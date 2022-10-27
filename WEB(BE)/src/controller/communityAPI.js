@@ -50,7 +50,7 @@ export const getPostById = async (req, res, next) => {
     try {
         const post = await Post.findById(id).populate("comments").populate("owner");
         // return res.status(200).send(post);
-        return res.render("communityAPI/post", { post });
+        return res.status(200).json(post);
     } catch(error) {
         return res.status(404).json({message: error});
     }
