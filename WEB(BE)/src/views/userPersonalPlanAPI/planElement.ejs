@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Element</title>
+</head>
+<body>
+    <h1>Plan Element: ID [<%=id %>]</h1>
+
+    <form action="/userPersonalPlanAPI/<%=username %>/plans/<%=id %>?_method=PUT" method="post" >
+        <div>
+            <label for="detail">detail</label>
+            <input type="text" name="detail" id="detail" value="<%=detail %>" placeholder="당신의 계획은 무엇인가요?" />
+        </div>
+        <div>
+            <span>Completed</span>
+            <label><input type="radio" name="completed" value="true" /> True</label>
+            <label><input type="radio" name="completed" value="false" /> False</label>
+        </div>
+        <div>
+            <span>Steady</span>
+            <label><input type="radio" name="steady" value="true" /> True</label>
+            <label><input type="radio" name="steady" value="false" /> False</label>
+        </div>
+        <button>Submit</button>
+    </form>
+    <form action="/userPersonalPlanAPI/<%=username%>/plans/<%=id%>?_method=DELETE" method="POST">
+        <button>DELETE</button>
+    </form>
+</body>
+</html>

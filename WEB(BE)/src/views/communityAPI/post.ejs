@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=post.title %></title>
+</head>
+<body>
+    <h1>Post: <%=post._id %></h1>
+    <h1>Title: <%=post.title %></h1>
+    <h2><%=post.owner.username %>의 Post</h2>
+
+    <p><%=post.content %></p>
+    <form action="/communityAPI/post/<%=post._id %>/renderEditPage" method="get">
+        <button>EDIT</button>
+    </form>
+    <form action="/communityAPI/post/<%=post._id %>?_method=DELETE" method="post">
+        <button>DELETE</button>
+    </form>
+
+    <h3>댓글</h3>
+    <ul>
+        <% for (var comment of post.comments) { %>
+            <li>
+                <span><%=comment.content %></span>
+                <form action="/communityAPI/comments/<%=comment._id %>?_method=DELETE" method="post">
+                    <button>댓글 삭제</button>
+                </form>
+            </li>
+        <% } %>
+    </ul>
+
+    <div>
+        <form action="/communityAPI/post/<%=post._id %>/comments" method="post">
+            <label for="content">댓글 작성</label>
+            <input id="content" name="content" placeholder="댓글을 작성해 주세요." required />
+            <button>Submit</button>
+        </form>
+    </div>
+</body>
+</html>
