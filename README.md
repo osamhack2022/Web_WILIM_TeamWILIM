@@ -37,12 +37,6 @@
 
 This project is licensed under the terms of the MIT license.
 
-※ [라이선스 비교표(클릭)](https://olis.or.kr/license/compareGuide.do)
+## Git Branch Strategy
 
-※ [Github 내 라이선스 키워드(클릭)](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/licensing-a-repository)
-
-※ [\[참조\] Github license의 종류와 나에게 맞는 라이선스 선택하기(클릭)](https://flyingsquirrel.medium.com/github-license%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EB%82%98%EC%97%90%EA%B2%8C-%EB%A7%9E%EB%8A%94-%EB%9D%BC%EC%9D%B4%EC%84%A0%EC%8A%A4-%EC%84%A0%ED%83%9D%ED%95%98%EA%B8%B0-ae29925e8ff4)
-
-## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
-* ECMAScript 6 지원 브라우저 사용
-* 권장: Google Chrome 버젼 77 이상
+- git flow의 원칙들을 차용하되, 기본적인 배포를 위한 release(main) 브랜치 외에 FE, BE 별 기능 개발 용 브랜치를 두었습니다.(feature/Frontend, feature/Backend). 각자 fork 한 로컬 레포지토리에서 개발을 마치면 각각 분야 별 upstream feature 브랜치로 PR을 보내고 적절한 리뷰를 마친 뒤 merge 하는 방식을 도입했습니다.
