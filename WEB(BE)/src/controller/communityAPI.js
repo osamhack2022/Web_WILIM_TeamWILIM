@@ -153,7 +153,7 @@ export const tapLikeButton = async (req, res, next) => {
     // 좋아요를 이미 누른 상태 : 좋아요 취소
     const { id } = req.params;
     const { _id, likedPosts } = req.user;
-    let isUserAlreadyLikes;
+    const isUserAlreadyLikes = likedPosts.includes
     
     for(var i = 0; i<likedPosts.length; i++) {
         if(String(likedPosts[i]) === String(id)) {

@@ -16,9 +16,10 @@ interface InputAreaProps {
   value?: string;
   buttonText?: string;
   onClick?: EventType;
+  onKeyUp?: EventType;
 }
 
-export const InputArea = ({ name, title, essential, inputType, placeholder, onChange, value, buttonText, onClick }: InputAreaProps) => {
+export const InputArea = ({ name, title, essential, inputType, placeholder, onChange, value, buttonText, onClick, onKeyUp }: InputAreaProps) => {
   return (
     <div style={{ width: "100%" }}>
       <Flex flexDirection="column" alignItems="left">
@@ -38,7 +39,7 @@ export const InputArea = ({ name, title, essential, inputType, placeholder, onCh
           ) : null}
         </div>
         <Flex justifyContent="center" alignItems="center">
-          <Input type={inputType} placeholder={placeholder} onChange={onChange} value={value} name={name} />
+          <Input type={inputType} placeholder={placeholder} onChange={onChange} onKeyUp={onKeyUp} value={value} name={name} />
           {buttonText !== undefined ?
                       <Button
                       innerText={buttonText!}
