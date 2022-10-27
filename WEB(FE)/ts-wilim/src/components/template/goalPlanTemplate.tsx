@@ -12,10 +12,12 @@ import { Title } from "../molecule/title";
 import { useSelector } from "react-redux";
 import { ReducerType } from "../../store/rootReducer";
 import { fetchUserById } from "../../store/asyncThunks/fetchUserById";
+import { useNavigate } from "react-router-dom";
 
 export const GoalPlanTemplate = () => {
   const { username, _id } = useSelector((state: ReducerType) => state.userInfo);
   const dispatch = useDispatch<AppThunkDispatch>();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchUserById(_id!));
   }, [])
@@ -24,7 +26,9 @@ export const GoalPlanTemplate = () => {
       <MarginBox marginBottom="2rem" />
       <Title innerText={`${username}님`} />
       <MarginBox marginBottom="2rem" />
-      <GoalCard />
+      <div onClick={() => navigate('/goal')} style={{ width: "100%", cursor: "pointer" }}>
+        <GoalCard />
+      </div>
       <MarginBox marginBottom="2rem" />
       <Line
         width="30%"
@@ -45,7 +49,9 @@ export const GoalPlanTemplate = () => {
         />
       </Flex>
       <MarginBox marginBottom="1rem" />
-      <PlanCard />
+      <div onClick={() => navigate('/plan')} style={{ width: "100%", cursor: "pointer" }}>
+        <PlanCard />
+      </div>
       <MarginBox marginBottom="2rem" />
     </Flex>
   );

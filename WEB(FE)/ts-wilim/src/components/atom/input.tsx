@@ -13,6 +13,7 @@ interface InputProps {
   onChange?: EventType;
   onClick?: EventType;
   onBlur?: EventType;
+  onKeyUp?: EventType;
   value?: string;
   name?: string;
   style?: Object;
@@ -30,6 +31,7 @@ export const Input = ({
   value,
   name,
   style,
+  onKeyUp,
 }: InputProps) => {
   return (
     <InputDiv
@@ -44,6 +46,7 @@ export const Input = ({
       placeholder={placeholder}
       style={style}
       onBlur={onBlur}
+      onKeyUp={onKeyUp}
     />
   );
 };

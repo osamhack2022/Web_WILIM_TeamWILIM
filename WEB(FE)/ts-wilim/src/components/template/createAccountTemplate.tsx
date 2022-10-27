@@ -13,9 +13,18 @@ import { Title } from "../molecule/title";
 import axios from "axios";
 import { Text } from "../atom/text";
 import { toast } from "react-toastify";
+import { userInfo } from "os";
+
+type InitialFormType = {
+  [key: string]: string;
+  email: string;
+  password: string;
+  username: string;
+  serviceType: string;
+}
 
 export const CreateAccountTemplate = () => {
-  const initialForm = {
+  const initialForm: InitialFormType = {
     email: "",
     password: "",
     username: "",
@@ -23,7 +32,7 @@ export const CreateAccountTemplate = () => {
   };
   const dispatch = useDispatch<AppThunkDispatch>();
   const navigate = useNavigate();
-  const [userInfoForm, setUserInfoForm] = useState(initialForm);
+  const [userInfoForm, setUserInfoForm] = useState<InitialFormType>(initialForm);
   const [names, setNames] = useState<string[]>([]);
   const handleChange = (event: any) => {
     const { name, value } = event.target;
@@ -156,11 +165,15 @@ useEffect(() => {
             innerText="Create New Account"
             onClick={(e) => {
               e.preventDefault();
-              dispatch(localRegister(userInfoForm))
-              .then(res => {
-                if(res.meta.requestStatus === "fulfilled") navigate(`/main`);
-                if(res.meta.requestStatus === "rejected") toast.error("모든 사항을 기입해주세요!");
-              })
+              if(Object.keys(userInfoForm).filter((key => userInfoForm[key] === "")).length === 0) {
+                dispatch(localRegister(userInfoForm))
+                .then(res => {
+                  if(res.meta.requestStatus === "fulfilled") navigate(`/main`);
+                  if(res.meta.requestStatus === "rejected") toast.error("API 요청이 거부되었어요.");
+                })
+              } else {
+                toast.error("모든 칸을 입력해주세요!")
+              }
             }}
             color="white"
             backgroundColor={BaseStyles.Color.Orange2}
