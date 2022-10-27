@@ -156,7 +156,7 @@ export const tapLikeButton = async (req, res, next) => {
     let isUserAlreadyLikes;
     
     for(var i = 0; i<likedPosts.length; i++) {
-        if(likedPosts[i] === id) {
+        if(String(likedPosts[i]) === String(id)) {
             isUserAlreadyLikes = true;
             break;
         }
