@@ -39,4 +39,10 @@ This project is licensed under the terms of the MIT license.
 
 ## Git Branch Strategy
 
+> upstream repo fork -> 각자 브랜치에서 기능 개발 (Frontend, Backend) -> 개발 후 upstream으로 pull request -> merge -> Deploy 
 - git flow의 원칙들을 차용하되, 기본적인 배포를 위한 release(main) 브랜치 외에 FE, BE 별 기능 개발 용 브랜치를 두었습니다.(feature/Frontend, feature/Backend). 각자 fork 한 로컬 레포지토리에서 개발을 마치면 각각 분야 별 upstream feature 브랜치로 PR을 보내고 적절한 리뷰를 마친 뒤 merge 하는 방식을 도입했습니다.
+
+## Links
+
+### [Notion Calender](https://patch-strand-bb8.notion.site/170a8b39be1847b7b839ac809c416358)
+### [Github Project](https://github.com/orgs/osamhack2022/projects/5)
