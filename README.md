@@ -191,7 +191,7 @@ UI와 직접적으로 연결되는 부분. 위의 Atomic Pattern에서 Template�
  ┣ 📜multer.js  
  ┗ 📜seeds.js
 
-### API 명세
+### 📙API 명세
 > WILIM의 백엔드 API 는 크게 총 4가지로,
 > 로그인/회원가입 및 유저에 관한 전반적인 정보를 다루는 /userSchemaAPI,
 > 유저의 플랜 수립과 관련된 정보를 다루는 /userPersonalPlanAPI,
@@ -282,7 +282,7 @@ UI와 직접적으로 연결되는 부분. 위의 Atomic Pattern에서 Template�
     
 	    - (GET 방식은 따로 만들지 않고,포스트를 불러올 때 populate 기능으로 댓글도 같이 불러오는 것으로 대체합니다.)
 
-### 데이터베이스
+### 🎒데이터베이스
 ![WILIM ERD](https://github.com/Cerealmaster0621/Web_WILIM_TeamWILIM/blob/feature/Backend/WEB(BE)/src/WILIMERD.drawio.png?raw=true)
 
 ## Git Branch Strategy
