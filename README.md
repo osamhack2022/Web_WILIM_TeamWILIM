@@ -93,8 +93,8 @@ or...
   
 ...이외에도 다양한 툴 및 모듈을 사용했습니다.
 
-
-## WILIM 프론트엔드 코드 아키텍쳐  
+## WILIM 프론트엔드
+### WILIM 프론트엔드 코드 아키텍쳐  
 
 Atomic design을 참고하여 설계하되, 대규모 서비스를 개발하는 것이 아니므로 구조는
 
@@ -191,6 +191,99 @@ UI와 직접적으로 연결되는 부분. 위의 Atomic Pattern에서 Template�
  ┣ 📜multer.js  
  ┗ 📜seeds.js
 
+### API 명세
+> WILIM의 백엔드 API 는 크게 총 4가지로,
+> 로그인/회원가입 및 유저에 관한 전반적인 정보를 다루는 /userSchemaAPI,
+> 유저의 플랜 수립과 관련된 정보를 다루는 /userPersonalPlanAPI,
+> 유저의 목표 및 자격증정보를 다루는 /userGoalElementAPI,
+> 커뮤니티 CRUD와 관련된 /communityAPI 로 나누어져 있습니다.
+
+- <ins>/**userSchemaAPI** 라우팅 리스트</ins>
+	- **/** -  DB 에 있는 모든 유저를 Return.
+	- **/register/local**  - local 회원가입
+	-   **/login/local**  - local 로그인
+	-   **/register/kakao**  - kakao 로그인 후 db에 없는 유저일때 회원가입
+	-   **/login/kakao**  - kakao 로그인 라우터
+	-   **/login/kakao/callback**  - kakao 로그인 콜백 라우터
+	-   **/register/naver**  - naver 로그인 후 db에 없는 유저일때 회원가입
+	-   **/login/naver**  - naver 로그인 라우터
+	-   **/login/naver/callback**  - naver 로그인 콜백 라우터
+	-   **/loginerror**  - 로그인 에러 발생시 넘어가는 페이지
+	-   **/id/:id**
+		-     GET - id 을 파라매터로 받아 db에서 찾아 해당 유저 정보 return
+		-     PUT - 해당 유저 수정
+		-     DELETE - 해당 유저 삭제
+    
+	-   **/session**  - 로그인된 세션이 있을시 그 유저정보를 보여주는 페이지
+	-   **/resetPassword**  - 임시 패스워드 생성 라우터
+- <ins>**/userPersonalPlanAPI** 세부 라우팅 리스트</ins>
+
+	-  	 **/:username/plans**  -
+    
+			-     GET - 유저의 전체 Plan List 가져오기
+    
+		    -	  POST - 새로운 Plan Element 추가
+    
+	-   **/:username/plans/:id**  -
+    
+	    -     GET - :id에 해당하는 Plan Element 가져오기
+    
+	    -     PUT - :id에 해당하는 Plan Element의 내용 수정
+    
+		 -     DELETE - 해당 Plan Element 삭제
+- <ins>**/userGoalElementAPI** 세부 라우팅 리스트</ins>
+
+	-   **/ctfInfo**  -
+    
+		   -     GET - 모든 자격증 정보 가져오기
+    
+		    -     POST - 새로운 자격증 정보 생성하기
+    
+	-   **/ctfInfo/:id**  -
+    
+	    -     GET - :id에 해당하는 GoalElemnt 가져오기
+    
+	    -     PUT - :id에 해당하는 GoalElement의 내용 수정
+    
+		-     DELETE - 해당 GoalElement 삭제
+    
+	-   **/goal/:username**  -
+    
+	    -     GET - 유저의 목표 가져오기
+    
+	    -     POST - 기존 GOAL 있으면 삭제하고 새로운 GOAL 생성
+    
+	    -     DELETE - 해당 GOAL 삭제
+- <ins>**/communityAPI** 세부라우팅 리스트</ins>
+
+	-   **/post/:id**  -
+    
+	    -     GET - 해당 id의 포스트 가져오기
+    
+	    -     PUT - 해당 id의 포스트 내용 업데이트(단, 작성자가 로그인한 경우만 허용)
+    
+	    -     DELETE - 해당 id의 포스트 삭제(단, 작성자가 로그인한 경우만 허용)
+    
+	-   **/user/:username/posts**  -
+    
+		-     GET - 해당하는 user의 포스트 가져오기
+    
+	    -     POST - 새로운 포스트 생성
+    
+	-   **/comments/:id**  -
+    
+	    -     GET - 해당 id의 댓글 가져오기
+		-     PUT - 해당 id의 댓글 수정하기(단, 작성자가 로그인한 경우만 허용)
+		-     DELETE - 해당 id의 댓글 삭제(단, 작성자가 로그인한 경우만 허용)
+    
+	-   **/post/:id/comments**  -
+    
+	    -     POST - 해당 id의 포스트에 댓글 추가
+    
+	    - (GET 방식은 따로 만들지 않고,포스트를 불러올 때 populate 기능으로 댓글도 같이 불러오는 것으로 대체합니다.)
+
+### 데이터베이스
+![WILIM ERD](https://github.com/Cerealmaster0621/Web_WILIM_TeamWILIM/blob/feature/Backend/WEB(BE)/src/WILIMERD.drawio.png?raw=true)
 
 ## Git Branch Strategy
 
