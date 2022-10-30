@@ -1,7 +1,7 @@
 ## BACKEND 실행법
 
 ```
-$ git clone 백엔드 주소
+$ git clone https://github.com/osamhack2022/Web_WILIM_TeamWILIM
 $ cd WEB\(BE\)/
 $ npm install
 $ npm start
