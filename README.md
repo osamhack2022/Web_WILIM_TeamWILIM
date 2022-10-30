@@ -22,6 +22,16 @@ or...
 
 [배포된 페이지](https://front.wilimbackend.tk) 로 가기
 
+## Table of Contents
+- [프로젝트 소개](#프로젝트-소개)
+- [기능](#기능)
+- [기술 스택 (Technique Used)](#기술-스택-(technique-used))
+- [WILIM 프론트엔드](#wilim-프론트엔드)
+- [WILIM 백엔드](#wilim-백엔드)
+- [Git Branch Strategy](#git-branch-strategy)
+- [Links](#links)
+- [TEAM INFO](#team-info)
+- [Copyleft / End User License](#copyleft---end-user-license)
   
 
 ## 💡 WILIM (What I Learned In Military)
@@ -45,7 +55,7 @@ or...
 
 - 가장 빠른 시험 일정 및 디데이 알림, 체계적인 공부를 위한 내장 플래너, 목표를 성취하였을 때 주어지는 부가적인 보상 알림, 다양한 군 자기계발 지원사업 등의 소개를 통해 장병이 공부에 전념할 수 있도록 돕습니다.
 
-##  기술 스택 (Technique Used)
+## 기술 스택 (Technique Used)
 
 ### Back-end
  - <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/></a> 16.17.0 LTS version
@@ -198,7 +208,7 @@ UI와 직접적으로 연결되는 부분. 위의 Atomic Pattern에서 Template�
 > 유저의 목표 및 자격증정보를 다루는 /userGoalElementAPI,
 > 커뮤니티 CRUD와 관련된 /communityAPI 로 나누어져 있습니다.
 
-- <ins>/**userSchemaAPI** 라우팅 세부 라우팅 리스트</ins>
+- <ins>/**userSchemaAPI** 세부 라우팅 리스트</ins>
 	- **/** -  DB 에 있는 모든 유저를 Return.
 	- **/register/local**  - local 회원가입
 	-   **/login/local**  - local 로그인
@@ -268,7 +278,7 @@ UI와 직접적으로 연결되는 부분. 위의 Atomic Pattern에서 Template�
     
 		-     GET - 해당하는 user의 포스트 가져오기
     
-	    	-     POST - 새로운 포스트 생성
+	    -     POST - 새로운 포스트 생성
     
 	-   **/comments/:id**  -
     
