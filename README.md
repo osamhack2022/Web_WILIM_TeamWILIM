@@ -198,7 +198,7 @@ UI와 직접적으로 연결되는 부분. 위의 Atomic Pattern에서 Template�
 > 유저의 목표 및 자격증정보를 다루는 /userGoalElementAPI,
 > 커뮤니티 CRUD와 관련된 /communityAPI 로 나누어져 있습니다.
 
-- <ins>/**userSchemaAPI** 라우팅 리스트</ins>
+- <ins>/**userSchemaAPI** 라우팅 세부 라우팅 리스트</ins>
 	- **/** -  DB 에 있는 모든 유저를 Return.
 	- **/register/local**  - local 회원가입
 	-   **/login/local**  - local 로그인
@@ -254,7 +254,7 @@ UI와 직접적으로 연결되는 부분. 위의 Atomic Pattern에서 Template�
 	    -     POST - 기존 GOAL 있으면 삭제하고 새로운 GOAL 생성
     
 	    -     DELETE - 해당 GOAL 삭제
-- <ins>**/communityAPI** 세부라우팅 리스트</ins>
+- <ins>**/communityAPI** 세부 라우팅 리스트</ins>
 
 	-   **/post/:id**  -
     
@@ -268,7 +268,7 @@ UI와 직접적으로 연결되는 부분. 위의 Atomic Pattern에서 Template�
     
 		-     GET - 해당하는 user의 포스트 가져오기
     
-	    -     POST - 새로운 포스트 생성
+	    	-     POST - 새로운 포스트 생성
     
 	-   **/comments/:id**  -
     
@@ -280,7 +280,7 @@ UI와 직접적으로 연결되는 부분. 위의 Atomic Pattern에서 Template�
     
 	    -     POST - 해당 id의 포스트에 댓글 추가
     
-	    - (GET 방식은 따로 만들지 않고,포스트를 불러올 때 populate 기능으로 댓글도 같이 불러오는 것으로 대체합니다.)
+	    -     (GET 방식은 따로 만들지 않고,포스트를 불러올 때 populate 기능으로 댓글도 같이 불러오는 것으로 대체합니다.)
 
 ### 🎒데이터베이스
 ![WILIM ERD](https://github.com/Cerealmaster0621/Web_WILIM_TeamWILIM/blob/feature/Backend/WEB(BE)/src/WILIMERD.drawio.png?raw=true)
