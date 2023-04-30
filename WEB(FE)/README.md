@@ -69,7 +69,7 @@ UI와 직접적으로 연결되는 부분. 위의 Atomic Pattern에서 Template�
 [Flux | 사용자 인터페이스를 만들기 위한 어플리케이션 아키텍쳐](https://haruair.github.io/flux/docs/overview.html)
 
 ## 📜TEAM INFO
- 
 
- - 이정인 ([leeji7682@gmail.com](mailto:leeji7682@gmail.com)), Github Id: leeji7682
+ 
  - 오형근 [kandy1002@naver.com](mailto:kandy1002@naver.com)], Github Id: Geun-Oh
+ - 이정인 ([leeji7682@gmail.com](mailto:leeji7682@gmail.com)), Github Id: leeji7682
